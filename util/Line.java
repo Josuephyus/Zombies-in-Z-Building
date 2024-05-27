@@ -43,9 +43,8 @@ public class Line {
         double x = ((tanOther * other.s.x) + (tan * s.x) - other.s.y + s.y) / (tanOther + tan);
         double y = tan * (x - s.x) + s.y;
         Point i = new Point((int)Math.round(x),(int)Math.round(y));
-        if (Math.min(s.distance(i), e.distance(i)) <= distance &&
-    Math.min(other.s.distance(i), other.e.distance(i)) <= distance){
-                return true;
+        if (this.distance(i) <= distance && other.distance(i) <= distance){
+            return true;
         }
         return true;
     }
