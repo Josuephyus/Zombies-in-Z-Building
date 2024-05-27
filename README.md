@@ -6,3 +6,10 @@
 - scrH : Half of the height of the resolution (or the entire window height)
 - uKL : Universal Key Listener
 - uML : Universal Mouse Listener
+# ANSWER MY QUESTIONS
+- Top down or angled?
+- How much of Zombies should we copy?
+- Should you drop guns or?
+- How much wood would a wood chuck chuck if a wood chuck could chuck wood?
+- New Map?
+- Can we use the mouse to aim and shoot with a controls overhaul?
