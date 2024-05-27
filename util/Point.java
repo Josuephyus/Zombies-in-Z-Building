@@ -10,6 +10,10 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+    public Point (int y){
+        this.y = y;
+        x = Integer.MAX_VALUE;
+    }
     public double distance(Point other){
         Integer xD = this.x - other.x;
         Integer yD = this.y - other.y;
