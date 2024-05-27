@@ -24,5 +24,6 @@ Created Structure of the game.
 - util/Point.java is a more accurate java.util.Point
 - util/Line.java uses util/Point.java to create proper area detections
 - util/Shape.java uses util/Line.java to create greater areas of detection
+<br>
  Created Initialize.startMenu() which makes it easier to create the starting menu for the game
 Finished Documentation 05/27/24 . 3:02 AM
