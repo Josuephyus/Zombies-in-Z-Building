@@ -1,10 +1,14 @@
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
 import java.awt.Toolkit;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Component;
+
+import behavior.Player;
 
 public class Initialize {
     public static void main(String[] args){Initialize i = new Initialize(); i.start();}
@@ -23,26 +27,23 @@ public class Initialize {
         scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
         uKL = new Listener.Key();
         uML = new Listener.Mouse();
-
-        // Game Setup
-
         // Window Setup
         win = new JFrame();
         win.setDefaultCloseOperation(3);
         win.setResizable(false);
         win.setTitle("Zombies in Z Building");
-        for (Component i : startMenu()){
-            win.add(i);
-        }
+        //startMenu();
         setupGame();
         win.add(game);
         win.pack();
         win.setLocationRelativeTo(null);
         win.setVisible(true);
+
+        game.start();
     }
 
     public Component[] startMenu(){
-        Component[] returnthis = new Component[3];
+        Component[] returnthis = new Component[0];
         return returnthis;
     }
 
@@ -62,8 +63,15 @@ public class Initialize {
 
     public static class RunnablePanel extends JPanel implements Runnable{
         Thread thread;
-        public RunnablePanel(){thread = new Thread(this);}
-        public void start(){thread.start();}
+        public Player p;
+
+        public RunnablePanel(){
+            p = new Player();
+            thread = new Thread(this);
+        }
+        public void start(){
+            thread.start();
+        }
 
         public void run(){
             while (thread != null){
