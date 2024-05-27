@@ -13,18 +13,10 @@ public class Logic {
         Double speed = Initialize.game.p.speed / 100;
         Point pm = new Point(p.x, p.y);
 
-        if (Listener.Key.keyActive[0]){
-            pm.y++;
-        }
-        if (Listener.Key.keyActive[1]){
-            pm.x--;
-        }
-        if (Listener.Key.keyActive[2]){
-            pm.y--;
-        }
-        if (Listener.Key.keyActive[3]){
-            pm.x++;
-        }
+        if (Listener.Key.keyActive[0])pm.y++;
+        if (Listener.Key.keyActive[1])pm.x--;
+        if (Listener.Key.keyActive[2])pm.y--;
+        if (Listener.Key.keyActive[3])pm.x++;
 
         if (p.distance(pm) != 0){
             Double theta = p.directionTo(pm);
