@@ -64,6 +64,7 @@ public class Initialize {
         public Player p;
 
         public RunnablePanel(){
+            Artist.loadImages();
             p = new Player();
             thread = new Thread(this);
         }

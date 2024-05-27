@@ -7,6 +7,7 @@ import java.awt.Color;
 import util.Point;
 
 public class Player extends Entity{
+
     public Player(){ //Assign Default Values
         mHP = cHP = 100;
         damage = 1.0; speed = 5.0;
@@ -22,5 +23,4 @@ public class Player extends Entity{
         g2.fillOval(0,0,size,size);
         g2.translate(size/2, size/2);
     }
-
 }
