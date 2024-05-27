@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -35,16 +36,19 @@ public class Artist{
         // Draw Player
         Initialize.game.p.drawMethod(g);
 
-        // Draw Cursor
-        g.translate(Listener.Mouse.x, Listener.Mouse.y);
-        g.drawOval(-5,-5,10,10);
-        g.translate(-Listener.Mouse.x, -Listener.Mouse.y);
-        Graphics2D g2 = (Graphics2D) g;
-
         // Draw Gun
+        Graphics2D g2 = (Graphics2D) g;
         Double theta = Initialize.game.p.position.directionTo(new Point(Listener.Mouse.x, Listener.Mouse.y));
         g2.rotate(theta);
         Boolean isLeft = theta > Math.PI / 2 || theta < Math.PI / -2;
         g2.drawImage(gun[0], 100, 20 * (isLeft?1:-1), -100, 40 * (isLeft?-1:1), null);
+        g2.rotate(-theta);
+
+        // Draw Cursor
+        g2.setColor(Color.RED);
+        g.translate(-x, y);
+        g.translate(Listener.Mouse.x, Listener.Mouse.y);
+        g.drawOval(-5,-5,10,10);
+        g.translate(-Listener.Mouse.x, -Listener.Mouse.y);
     }
 }
