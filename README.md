@@ -13,3 +13,16 @@
 - How much wood would a wood chuck chuck if a wood chuck could chuck wood?
 - New Map?
 - Can we use the mouse to aim and shoot with a controls overhaul?
+# Patch History : Cause I can?
+### 0.0.0.1
+Officially started documenting Patches.
+Created Structure of the game. 
+- Initialize.java starts and holds the window
+- Listener.java holds the mouse and key listeners as well as keybinds
+- Logic.java is where all the updates are held
+- Artist.java is where all the art is created and drawn
+- util/Point.java is a more accurate java.util.Point
+- util/Line.java uses util/Point.java to create proper area detections
+- util/Shape.java uses util/Line.java to create greater areas of detection
+Created Initialize.startMenu() which makes it easier to create the starting menu for the game
+Finished Documentation 05/27/24 . 3:02 AM
