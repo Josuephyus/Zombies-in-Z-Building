@@ -11,7 +11,9 @@ public class Texture {
 
     
     public static void loadImages(){
-        gun = quickRead("weapons/",new String[]{"BigYellow"});
+        gun = quickRead("weapons/",new String[]{
+            "BigYellow", "Blue", "CPistol", "CWA", "Deagle1", "Flamethrower", "flammenwerfer2", "Flower"
+        });
     }
 
 
