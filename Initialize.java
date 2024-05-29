@@ -75,7 +75,7 @@ public class Initialize {
         public void run(){
             while (thread != null){
                 try {
-                    Long millisecondsPerFrame = (long)(1000.0 / 30.0);
+                    Long millisecondsPerFrame = (long)(1000.0 / 60.0);
                     update(); repaint();
                     Thread.sleep(millisecondsPerFrame);
                 } catch (InterruptedException e){
