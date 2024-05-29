@@ -14,7 +14,7 @@ Initialize should have all the universal options. As of now, those are</p><p>
 - New Map?<br>
 - Can we use the mouse to aim and shoot with a controls overhaul?<br></p>
 <h1>Patch History : Cause I can?</h1>
-<h3>0.0.0.1<h3><p>
+<h3>0.0.0.1</h3><p>
 Officially started documenting Patches.
 Created Structure of the game.</p><p>
  - Initialize.java starts and holds the window<br>
