@@ -23,16 +23,16 @@ Created Structure of the game.
 - Artist.java is where all the art is created and drawn
 - util/Point.java is a more accurate java.util.Point
 - util/Line.java uses util/Point.java to create proper area detections
-- util/Shape.java uses util/Line.java to create greater areas of detection<br>
-Created Initialize.startMenu() which makes it easier to create the starting menu for the game
+- util/Shape.java uses util/Line.java to create greater areas of detection
+ Created Initialize.startMenu() which makes it easier to create the starting menu for the game
 Finished Documentation 05/27/24 . 3:02 AM
 ### 0.0.0.2
-Added a Camera Mechanic!
-- Camera now moves in relation to the mouse as well<br>
+ Added a Camera Mechanic!
+- Camera now moves in relation to the mouse as well
 Map Changes!
-- A Circle with a radius of 10 units at 0,0 (centered)<br>
-Player Movement Buff!
+- A Circle with a radius of 10 units at 0,0 (centered)
+ Player Movement Buff!
 - Player movement increased from 150 to 280!
-- Ontop of a followup System change, the speed is actually 560 in comparison to previous<br>
-System Change!
+- Ontop of a followup System change, the speed is actually 560 in comparison to previous
+ System Change!
 - Frame Rate increased from 30 to 60!
