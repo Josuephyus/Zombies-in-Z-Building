@@ -17,6 +17,7 @@ public class Artist{
 
         // Move Center based on mouse position
         g.translate(Listener.Mouse.x / -3, Listener.Mouse.y / -3);
+        System.out.println("hello?");
 
         // Move Center to halfscreen / player position
         g.translate(Initialize.scrW / 2, Initialize.scrH / 2);
