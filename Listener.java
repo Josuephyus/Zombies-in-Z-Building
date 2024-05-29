@@ -12,26 +12,21 @@ public class Listener {
         
         public Key(){
             keyBinds = new Integer[]{
-                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D
+                KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
+                KeyEvent.VK_Q, KeyEvent.VK_E
             };
             keyActive = new Boolean[keyBinds.length];
-            for (int i = 0; i < keyBinds.length; i++){
-                keyActive[i] = false;
-            }
+            for (int i = 0; i < keyBinds.length; i++){keyActive[i] = false;}
         }
         
         public void keyTyped(KeyEvent e) {}
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(KeyEvent e) {swapKey(e,true);}
+        public void keyReleased(KeyEvent e) {swapKey(e,false);}
+
+        public void swapKey(KeyEvent e, Boolean a){
             for (int i = 0; i < keyBinds.length; i++){
                 if (e.getKeyCode() == keyBinds[i]){
-                    keyActive[i] = true;
-                }
-            }
-        }
-        public void keyReleased(KeyEvent e) {
-            for (int i = 0; i < keyBinds.length; i++){
-                if (e.getKeyCode() == keyBinds[i]){
-                    keyActive[i] = false;
+                    keyActive[i] = a;
                 }
             }
         }

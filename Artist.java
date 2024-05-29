@@ -50,7 +50,7 @@ public class Artist{
         Double theta = realPosition.directionTo(new Point(Listener.Mouse.x + realPosition.x, Listener.Mouse.y + realPosition.y));
         g2.rotate(theta);
         Boolean isLeft = theta > Math.PI / 2 || theta < Math.PI / -2;
-        g2.drawImage(Texture.gun[0], 100, 20 * (isLeft?1:-1), -100, 40 * (isLeft?-1:1), null);
+        g2.drawImage(Texture.gun[Texture.selectedWeapon], 100, 20 * (isLeft?1:-1), -100, 40 * (isLeft?-1:1), null);
         g2.rotate(-theta);
 
         // Undo Halfscreen Movement

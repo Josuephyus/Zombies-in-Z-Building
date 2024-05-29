@@ -1,11 +1,14 @@
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import textures.Texture;
 import util.Point;
 
 public class Logic {
 
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     static Boolean LCToggle = true;
+    static Boolean SwapToggle = true;
 
     public static void update(){
         Listener.Mouse.updatePosition();
@@ -13,22 +16,43 @@ public class Logic {
     }
 
     public static void updatePlayer(){
+
+        // p means the players position.
         Point p = Initialize.game.p.position;
+
+        // speed is the players speed
         Double speed = Initialize.game.p.speed / 100;
+
+        //pm is a temporary point to find the direction the player is moving
         Point pm = new Point(p.x, p.y);
 
-        //  Movement Commands
+
+        // Player Movement
         if (Listener.Key.keyActive[0])pm.y++;
         if (Listener.Key.keyActive[1])pm.x--;
         if (Listener.Key.keyActive[2])pm.y--;
         if (Listener.Key.keyActive[3])pm.x++;
 
+
+        // Swap Weapons
+        if (Listener.Key.keyActive[4] && SwapToggle){
+            Texture.selectedWeapon--; SwapToggle = false;
+        } else if (Listener.Key.keyActive[5] && SwapToggle){
+            Texture.selectedWeapon++; SwapToggle = false;
+        } else if (!Listener.Key.keyActive[4] && !Listener.Key.keyActive[5]){
+            SwapToggle = true;
+        }
+        if (Texture.selectedWeapon == -1)Texture.selectedWeapon = Texture.gun.length - 1;
+        if (Texture.selectedWeapon == Texture.gun.length)Texture.selectedWeapon = 0;
+
+
         // Update Projectiles
         for (Projectile i : projectiles){
             i.update();
         }
+
         
-        // Toggle for Left Click (Also shoot)
+        // Shoot if Conditions
         if (Listener.Mouse.LeftClick && LCToggle){
             LCToggle = false;
             projectiles.add(
@@ -43,6 +67,8 @@ public class Logic {
             LCToggle = true;
         }
 
+
+        // Move the player if a move command was input
         if (p.distance(pm) != 0){
             Double theta = p.directionTo(pm);
             Initialize.game.p.position.x += Math.cos(theta) * speed;

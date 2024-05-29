@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class Texture {
 
     public static BufferedImage[] gun;
-
+    public static Integer selectedWeapon = 0;
     
     public static void loadImages(){
         gun = quickRead("weapons/",new String[]{
