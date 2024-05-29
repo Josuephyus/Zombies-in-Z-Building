@@ -38,11 +38,12 @@ public class Listener {
     }
     public static class Mouse implements MouseListener{
 
+        public static Boolean LeftClick, RightClick;
         public static Integer x, y;
         static Integer px = 0;
         static Integer py = 14;
 
-        public Mouse(){x = 0; y = 0;}
+        public Mouse(){x = y = 0; LeftClick = RightClick = false;}
 
         public static void updatePosition(){
             int x1 = (int)MouseInfo.getPointerInfo().getLocation().getX();
@@ -52,9 +53,17 @@ public class Listener {
         }
 
         public void mouseClicked(MouseEvent e) {}
-        public void mousePressed(MouseEvent e) {}
-        public void mouseReleased(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {swapClick(e, true);}
+        public void mouseReleased(MouseEvent e) {swapClick(e, false);}
         public void mouseEntered(MouseEvent e) {}
         public void mouseExited(MouseEvent e) {}
+
+        public void swapClick(MouseEvent e, Boolean a){
+            if (e.getButton() == 1){
+                LeftClick = a;
+            } else if (e.getButton() == 3){
+                RightClick = a;
+            }
+        }
     }
 }

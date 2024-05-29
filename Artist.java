@@ -7,6 +7,8 @@ import util.Point;
 
 public class Artist{
 
+    static Graphics2D g2;
+
     public static void loadImages(){
         Texture.loadImages();
     }
@@ -22,17 +24,29 @@ public class Artist{
         Point realPosition = new Point(Initialize.game.p.position.x, -Initialize.game.p.position.y);
 
         // Draw Circle at 0,0
-        Graphics2D g2 = (Graphics2D) g;
         g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
         g.setColor(Color.WHITE);
         g.fillOval(-10, -10, 20, 20);
         g.setColor(Color.GRAY);
         g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
 
+        // Draw Projectiles
+        g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
+        g2 = (Graphics2D) g;
+        for (Logic.Projectile i : Logic.projectiles){
+            g2.translate((int)Math.round(i.position.x), (int)Math.round(i.position.y));
+            g2.rotate(i.rotation);
+            g2.fillRect(-(i.width/2), -(i.height/2), i.width, i.height);
+            g2.rotate(-i.rotation);
+            g2.translate((int)Math.round(-i.position.x), (int)Math.round(-i.position.y));
+        }
+        g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
+
         // Draw Player
         Initialize.game.p.drawMethod(g);
 
         // Draw Gun (based on player position)
+        g2 = (Graphics2D) g;
         Double theta = realPosition.directionTo(new Point(Listener.Mouse.x + realPosition.x, Listener.Mouse.y + realPosition.y));
         g2.rotate(theta);
         Boolean isLeft = theta > Math.PI / 2 || theta < Math.PI / -2;

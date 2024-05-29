@@ -9,6 +9,7 @@ import util.Point;
 public class Player extends Entity{
 
     public Player(){ //Assign Default Values
+        ID = 0;
         mHP = cHP = 100;
         damage = 1.0; speed = 280.0;
         size = 30;
