@@ -8,9 +8,11 @@ import util.Point;
 public class Artist{
 
     static Graphics2D g2;
+    static Double zoom;
 
     public static void loadImages(){
         Texture.loadImages();
+        zoom = Initialize.scrW / 1000.0;
     }
 
     public static void draw(Graphics g){
@@ -53,9 +55,37 @@ public class Artist{
         g2.drawImage(Texture.gun[Texture.selectedWeapon], 100, 20 * (isLeft?1:-1), -100, 40 * (isLeft?-1:1), null);
         g2.rotate(-theta);
 
+
+        // Draw Zombies
+        g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
+        for (int i = 0; i < Logic.zombies.size(); i++){
+            g.translate((int)Math.round(Logic.zombies.get(i).position.x), (int)Math.round(Logic.zombies.get(i).position.y));
+            Logic.zombies.get(i).drawMethod(g);
+            g.translate((int)Math.round(-Logic.zombies.get(i).position.x), (int)Math.round(-Logic.zombies.get(i).position.y));
+        }
+        g.translate((int)Math.round(realPosition.x), (int)Math.round(realPosition.y));
+
+
         // Undo Halfscreen Movement
         g.translate(Listener.Mouse.x / 3, Listener.Mouse.y / 3);
-        // Draw Cursor]
+
+
+        // Draw HUD
+        g.translate(Initialize.scrW / -2, Initialize.scrH / 2);
+        // HP
+        g.setColor(Color.GRAY);
+        g.fillRect(10,-10 - ((int)(40 * zoom)),(Initialize.scrW / 3), (int)(40 * zoom));
+        g.setColor(Color.RED);
+        g.fillRect(10,-10 - ((int)(40 * zoom)),(Initialize.scrW / 3) * (Initialize.game.p.cHP / Initialize.game.p.mHP), (int)(40 * zoom));
+        // Stamina
+        g.setColor(Color.GRAY);
+        g.fillRect(10, -20 - (int)(40 * zoom) - (int)(30 * zoom), (Initialize.scrW / 4), (int)(30 * zoom));
+        g.setColor(((Initialize.game.p.canDash) ? Color.YELLOW:Color.ORANGE));
+        g.fillRect(10, -20 - (int)(40 * zoom) - (int)(30 * zoom), (int)((Initialize.scrW / 4) * (Initialize.game.p.cEnergy / Initialize.game.p.mEnergy)), (int)(30 * zoom));
+        g.translate(Initialize.scrW / 2, Initialize.scrH / -2);
+
+
+        // Draw Cursor
         g2.setColor(Color.RED);
         g.translate(Listener.Mouse.x, Listener.Mouse.y);
         g.drawOval(-5,-5,10,10);

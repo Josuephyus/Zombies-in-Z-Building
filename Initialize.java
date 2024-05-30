@@ -76,7 +76,11 @@ public class Initialize {
             while (thread != null){
                 try {
                     Long millisecondsPerFrame = (long)(1000.0 / 60.0);
-                    update(); repaint();
+                    update(4);
+                    if (!Listener.Key.keyActive[5]){
+                        update(16);
+                    }
+                    repaint();
                     Thread.sleep(millisecondsPerFrame);
                 } catch (InterruptedException e){
                     e.printStackTrace(); thread.interrupt();
@@ -89,8 +93,8 @@ public class Initialize {
             Artist.draw(g);
         }
 
-        public void update(){
-            Logic.update();
+        public void update(Integer time){
+            Logic.update(time);
         }
     }
 }

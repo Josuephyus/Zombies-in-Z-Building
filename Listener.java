@@ -3,6 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.MouseInfo;
+import java.awt.Toolkit;
 
 public class Listener {
     public static class Key implements KeyListener{
@@ -13,7 +14,9 @@ public class Listener {
         public Key(){
             keyBinds = new Integer[]{
                 KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D,
-                KeyEvent.VK_Q, KeyEvent.VK_E
+                KeyEvent.VK_SHIFT, KeyEvent.VK_SPACE,
+                KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4,
+                KeyEvent.VK_Q, KeyEvent.VK_E, KeyEvent.VK_R, KeyEvent.VK_F
             };
             keyActive = new Boolean[keyBinds.length];
             for (int i = 0; i < keyBinds.length; i++){keyActive[i] = false;}
@@ -43,8 +46,8 @@ public class Listener {
         public static void updatePosition(){
             int x1 = (int)MouseInfo.getPointerInfo().getLocation().getX();
             int y1 = (int)MouseInfo.getPointerInfo().getLocation().getY();
-            x = x1 - Initialize.scrW + (px / 2);
-            y = y1 - Initialize.scrH + (py / 2);
+            x = x1 - ((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() - px) / 2;
+            y = y1 - ((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() - py) / 2;
         }
 
         public void mouseClicked(MouseEvent e) {}

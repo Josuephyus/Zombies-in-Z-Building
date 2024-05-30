@@ -1,11 +1,12 @@
 <style>
     tab {
-        margin-left: 30px;
+        margin-left: 20px;
     }
     h1 {
         color : lightblue;
     }
 </style>
+
 
 <h1>Zombies in Z Building </h1><p>
 Top down Shooter against hordes of all types of zombies.</p>
@@ -22,6 +23,8 @@ Initialize should have all the universal options. As of now, those are</p><p>
 <tab></tab>- How much wood would a wood chuck chuck if a wood chuck could chuck wood?<br>
 <tab></tab>- New Map?<br>
 <tab></tab>- Can we use the mouse to aim and shoot with a controls overhaul?<br></p>
+
+
 <h1>Patch History : Cause I can?</h1>
 <h3>0.0.0.1</h3><p>
 Officially started documenting Patches. Created Structure of the game.</p><p>
@@ -33,7 +36,10 @@ Officially started documenting Patches. Created Structure of the game.</p><p>
 <tab></tab>- util/Line.java uses util/Point.java to create proper area detections.<br>
 <tab></tab>- util/Shape.java uses util/Line.java to create greater areas of detection.<br><br>
 Created Initialize.startMenu() which makes it easier to create the starting menu for the game<br>
-Finished Documentation 05/27/24 . 3:02 AM</p>
+Finished Documentation 05/27/24 . 3:02 AM
+</p>
+
+
 <h3>0.0.0.2</h3><p>
 Added a Camera Mechanic!<br>
 <tab></tab>- Camera now moves in relation to the mouse as well<br>
@@ -45,9 +51,17 @@ Map Changes!<br>
  System Change!<br>
 <tab></tab>- Frame Rate increased from 30 to 60!<br>
 </p>
+
+
 <h3>0.0.0.3</h3><p>
  Added Projectiles + Weapon Swapping<br>
  Players can now use Q and E to swap weapons (unlimited)<br>
  Projectiles are summoned from the players body!<br>
  Finished Documentatin 05/29/2024 . 5:17 PM
+</p>
+
+<h3>0.0.0.4</h3><p>
+Added An Enemy! (It can move!!!)<br>
+Holding space now slows time by 80%!<br>
+Holding shift uses sprint and increases movement speed!!!!<br>
 </p>
