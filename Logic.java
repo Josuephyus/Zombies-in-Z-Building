@@ -25,7 +25,7 @@ public class Logic {
 
         // Checking what should the player's speed be assda well as assigning a speed value
         Double speed = Initialize.game.p.speed * time / (100 * tickPerSecond);
-        if (Listener.Key.keyActive[4] && Initialize.game.p.canDash){
+        if (Listener.check("Sprint") && Initialize.game.p.canDash){
             speed = Initialize.game.p.speed * time / (40 * tickPerSecond);
             Initialize.game.p.cEnergy -= 1.2 * time / tickPerSecond;
             Initialize.game.p.canDash = (Initialize.game.p.cEnergy >= 0);
@@ -38,10 +38,10 @@ public class Logic {
         //pm is a temporary point to find the direction the player is moving
         Point pm = new Point(Initialize.game.p.position.x, Initialize.game.p.position.y);
         // Player Movement
-        if (Listener.Key.keyActive[0])pm.y++;
-        if (Listener.Key.keyActive[1])pm.x--;
-        if (Listener.Key.keyActive[2])pm.y--;
-        if (Listener.Key.keyActive[3])pm.x++;
+        if (Listener.check("MoveForward"))pm.y++;
+        if (Listener.check("MoveLeft"))pm.x--;
+        if (Listener.check("MoveBackward"))pm.y--;
+        if (Listener.check("MoveRight"))pm.x++;
         // Move the player if a move command was input
         if (Initialize.game.p.position.distance(pm) != 0){
             Double theta = Initialize.game.p.position.directionTo(pm);
@@ -51,11 +51,11 @@ public class Logic {
 
 
         // Swap Weapons
-        if (Listener.Key.keyActive[10] && SwapToggle){
+        if (Listener.check("SwapLeft") && SwapToggle){
             Texture.selectedWeapon--; SwapToggle = false;
-        } else if (Listener.Key.keyActive[11] && SwapToggle){
+        } else if (Listener.check("SwapRight") && SwapToggle){
             Texture.selectedWeapon++; SwapToggle = false;
-        } else if (!Listener.Key.keyActive[10] && !Listener.Key.keyActive[11]){
+        } else if (!Listener.check("SwapLeft") && !Listener.check("SwapRight")){
             SwapToggle = true;
         }
         if (Texture.selectedWeapon == -1)Texture.selectedWeapon = Texture.gun.length - 1;
@@ -67,7 +67,7 @@ public class Logic {
             projectiles.get(i).update(time);
         }
         // Shoot if Conditions
-        if (Listener.Mouse.LeftClick && LCToggle){
+        if (Listener.check("Fire") && LCToggle){
             LCToggle = false;
             projectiles.add(
                 new Projectile(
@@ -82,19 +82,27 @@ public class Logic {
                     0
                     )
             );
-        } else if (!Listener.Mouse.LeftClick){
+        } else if (!Listener.check("Fire")){
             LCToggle = true;
         }
 
-        for (Zombie i : zombies){
-            i.update(new Point(Initialize.game.p.position.x, -Initialize.game.p.position.y), time, tickPerSecond);
+        // Update zombies
+        for (int i = 0; i < zombies.size(); i++){
+            Initialize.game.p.cHP -= zombies.get(i).update(new Point(Initialize.game.p.position.x, -Initialize.game.p.position.y), time, tickPerSecond);
+            if (!zombies.get(i).isAlive()){
+                for (int o = 0; o < zombies.size(); o++){
+                    if (zombies.get(i).ID == zombies.get(o).ID){
+                        zombies.remove(o); break;
+                    }
+                }
+            }
         }
     }
 
     public static class Projectile{
         static Integer nextID = 0;
         public Integer ownerID, ID;
-        public Integer width, height, speed;
+        public Integer width, height, speed, damage;
         public Double rotation, lifespan;
         public Point position;
 
@@ -106,6 +114,7 @@ public class Logic {
                 this.width = 10;
                 this.height = 4;
                 this.speed = 1500;
+                this.damage = 100;
             }
         }
 
@@ -117,6 +126,12 @@ public class Logic {
                 for (int i = 0; i < projectiles.size(); i++){
                     if (this.ID == projectiles.get(i).ID){
                         projectiles.remove(i);
+                    }
+                }
+            } else {
+                for (Zombie i : zombies){
+                    if (this.position.distance(i.position) < i.size + 2){
+                        i.cHP -= damage; lifespan = 0.0; return;
                     }
                 }
             }

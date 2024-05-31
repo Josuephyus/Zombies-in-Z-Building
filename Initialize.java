@@ -21,14 +21,16 @@ public class Initialize {
     public void start(){
         
         // Universals Setup
-        scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
-        scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+        scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        new Listener();
         uKL = new Listener.Key();
         uML = new Listener.Mouse();
         // Window Setup
         win = new JFrame();
         win.setDefaultCloseOperation(3);
         win.setResizable(false);
+        win.setUndecorated(true);
         win.setTitle("Zombies in Z Building");
         //startMenu();
         setupGame();
@@ -77,7 +79,7 @@ public class Initialize {
                 try {
                     Long millisecondsPerFrame = (long)(1000.0 / 60.0);
                     update(4);
-                    if (!Listener.Key.keyActive[5]){
+                    if (!Listener.check("SlowTime")){
                         update(16);
                     }
                     repaint();

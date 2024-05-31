@@ -66,3 +66,15 @@ Holding space now slows time by 80%!<br>
 Holding shift uses sprint and increases movement speed!!!!<br>
 Finished Documentation 0/30/2024 . 3:00 AM
 </p>
+
+<h3>0.0.0.5</h3><p>
+Added damage Instances to Player<br>
+Added damage Instances to Enemies<br>
+Fixed window formating<br>
+Added easy changing Keybinds<br>
+</p>
+
+<h3>TODO</h3><p>
+Add Laser weapons<br>
+Add Area Weapons (shotguns)<br>
+</p>

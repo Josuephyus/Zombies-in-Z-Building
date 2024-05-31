@@ -76,7 +76,7 @@ public class Artist{
         g.setColor(Color.GRAY);
         g.fillRect(10,-10 - ((int)(40 * zoom)),(Initialize.scrW / 3), (int)(40 * zoom));
         g.setColor(Color.RED);
-        g.fillRect(10,-10 - ((int)(40 * zoom)),(Initialize.scrW / 3) * (Initialize.game.p.cHP / Initialize.game.p.mHP), (int)(40 * zoom));
+        g.fillRect(10,-10 - ((int)(40 * zoom)),(int)((Initialize.scrW / 3) * ((double)Initialize.game.p.cHP / (double)Initialize.game.p.mHP)), (int)(40 * zoom));
         // Stamina
         g.setColor(Color.GRAY);
         g.fillRect(10, -20 - (int)(40 * zoom) - (int)(30 * zoom), (Initialize.scrW / 4), (int)(30 * zoom));
