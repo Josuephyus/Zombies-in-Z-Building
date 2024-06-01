@@ -34,8 +34,7 @@ public class Initialize {
         win.setTitle("Zombies in Z Building");
         //startMenu();
         setupGame();
-        win.add(game);
-        win.pack();
+        win.add(game); win.pack();
         win.setLocationRelativeTo(null);
         win.setVisible(true);
 

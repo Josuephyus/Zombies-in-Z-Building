@@ -1,8 +1,11 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.BasicStroke;
 
 import textures.Texture;
+import util.Projectile;
+import util.Laser;
 import util.Point;
 
 public class Artist{
@@ -23,7 +26,11 @@ public class Artist{
         // Move Center to halfscreen / player position
         g.translate(Initialize.scrW / 2, Initialize.scrH / 2);
 
+
+
         Point realPosition = new Point(Initialize.game.p.position.x, -Initialize.game.p.position.y);
+
+
 
         // Draw Circle at 0,0
         g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
@@ -32,16 +39,31 @@ public class Artist{
         g.setColor(Color.GRAY);
         g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
 
+
         // Draw Projectiles
         g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
         g2 = (Graphics2D) g;
-        for (Logic.Projectile i : Logic.projectiles){
-            g2.translate((int)Math.round(i.position.x), (int)Math.round(i.position.y));
-            g2.rotate(i.rotation);
-            g2.fillRect(-(i.width/2), -(i.height/2), i.width, i.height);
-            g2.rotate(-i.rotation);
-            g2.translate((int)Math.round(-i.position.x), (int)Math.round(-i.position.y));
+        for (int i = 0; i < Logic.projectiles.size(); i++){
+            Projectile cur = Logic.projectiles.get(i);
+            g2.translate((int)Math.round(cur.position.x), (int)Math.round(cur.position.y));
+            g2.rotate(cur.rotation);
+            g2.fillRect(-(cur.width/2), -(cur.height/2), cur.width, cur.height);
+            g2.rotate(-cur.rotation);
+            g2.translate((int)Math.round(-cur.position.x), (int)Math.round(-cur.position.y));
         }
+        g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
+
+
+        // Draw Lasers
+        g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
+        g2 = (Graphics2D) g;
+        g2.setColor(Color.CYAN);
+        for (int i = 0; i < Logic.lasers.size(); i++){
+            Laser cur = Logic.lasers.get(i);
+            g2.setStroke(new BasicStroke(cur.getDisplayWidth()));
+            g2.drawLine((int)Math.round(cur.hitbox.s.x), (int)Math.round(cur.hitbox.s.y), (int)Math.round(cur.hitbox.e.x), (int)Math.round(cur.hitbox.e.y));
+        }
+        g2.setStroke(new BasicStroke(3));
         g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
 
         // Draw Player

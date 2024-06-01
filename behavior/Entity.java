@@ -24,7 +24,9 @@ public class Entity {
     public Point position;
     
 
-    public void drawMethod(Graphics g){
-        
+    public void drawMethod(Graphics g){}
+    public boolean isAlive(){return (cHP > 0);}
+    public Integer update(Point a, Integer b, Integer c){
+        return (int)Math.round(damage);
     }
 }

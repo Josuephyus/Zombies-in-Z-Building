@@ -12,7 +12,7 @@ public class Listener {
     public Listener(){
         key = new HashMap<String,KeyBind>();
         keyBindNames = new String[]{
-            "MoveForward", "MoveLeft", "MoveBackward", "MoveRight",
+            "MoveUp", "MoveLeft", "MoveBackward", "MoveRight",
             "SwapLeft", "SwapRight", "Sprint", "Fire",
             "SlowTime"
         };
@@ -65,10 +65,7 @@ public class Listener {
         }
 
         public void mouseClicked(MouseEvent e) {}
-        public void mousePressed(MouseEvent e) {
-            swap(true, e.getButton(), true);
-            System.out.println(e.getButton());
-        }
+        public void mousePressed(MouseEvent e) {swap(true, e.getButton(), true);}
         public void mouseReleased(MouseEvent e) {swap(true, e.getButton(), false);}
         public void mouseEntered(MouseEvent e) {}
         public void mouseExited(MouseEvent e) {}

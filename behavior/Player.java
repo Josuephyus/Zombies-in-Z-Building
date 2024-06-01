@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 
 import util.Point;
+import util.Projectile;
+import util.Laser;
 
 public class Player extends Entity{
 
@@ -30,5 +32,37 @@ public class Player extends Entity{
         g2.translate(-size/2, -size/2);
         g2.fillOval(0,0,size,size);
         g2.translate(size/2, size/2);
+    }
+
+
+    public String fireType(){
+        return "Laser";
+    }
+
+    public Projectile fireProjectile(Point to){
+        return new Projectile(
+            (int)Math.round(position.x),
+            (int)Math.round(-position.y),
+            position.directionTo(
+                new Point(
+                    to.x+position.x, 
+                    to.y+position.y
+                )
+            ),
+            0
+        );
+    }
+
+    public Laser fireLaser(Point to){
+        return new Laser(
+            position,
+            position.directionTo(
+                new Point(
+                    to.x + position.x,
+                    to.y + position.y
+                )
+            ),
+            20
+        );
     }
 }
