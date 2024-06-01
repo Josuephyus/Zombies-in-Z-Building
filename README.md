@@ -74,6 +74,15 @@ Fixed window formating<br>
 Added easy changing Keybinds<br>
 </p>
 
+<h4>0.0.0.5.1</h4><p>
+Added VERY BASIC lasers...<br>
+Need a lot more fixing<br>
+<tab></tab>- Scale with screen size<br>
+<tab></tab>- Proper Hitbox detection<br>
+<tab></tab>- Make easy to change (its not rn)<br>
+Lot more to do, so I'm gonna do it in the morning<br>
+Finished Documentation 06/01/2024<tab></tab>12:28 AM<br>
+</p>
 <h3>TODO</h3><p>
 Add Laser weapons<br>
 Add Area Weapons (shotguns)<br>
