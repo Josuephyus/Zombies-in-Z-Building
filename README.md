@@ -3,7 +3,7 @@
         margin-left: 20px;
     }
     h1 {
-        color : lightblue;
+        color: lightblue;
     }
 </style>
 
