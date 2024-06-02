@@ -80,7 +80,18 @@ Need a lot more fixing<br>
 Lot more to do, so I'm gonna do it in the morning<br>
 Finished Documentation 06/01/2024<tab></tab>12:28 AM<br>
 </p>
-<h3>TODO</h3><p>
-Add Laser weapons<br>
+
+<h4>0.0.0.5.2</h4><p>
+Lasers have been adjusted (i think).<br>
+Artist have been changed to display with negative Y-Coordinates instead of a mix bag of negative. and non-negatives in the code.<br>
+New files for Laser and Projectile.<br>
+List for zombies now properly holds the ArrayList&lt;Entity> instead of &lt;Zombie>.<br>
+Finished Documentation 06/01/2024 . 12:30 AM
+</p>
+
+
+<h2>TODO</h2><p>
+Make Lasers scale with screensize<br>
 Add Area Weapons (shotguns)<br>
+Add an inventory of weapons<br>
 </p>

@@ -29,9 +29,7 @@ public class Player extends Entity{
     public void drawMethod(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.YELLOW);
-        g2.translate(-size/2, -size/2);
-        g2.fillOval(0,0,size,size);
-        g2.translate(size/2, size/2);
+        g2.fillOval(-size/2,-size/2,size,size);
     }
 
 
@@ -42,11 +40,11 @@ public class Player extends Entity{
     public Projectile fireProjectile(Point to){
         return new Projectile(
             (int)Math.round(position.x),
-            (int)Math.round(-position.y),
+            (int)Math.round(position.y),
             position.directionTo(
                 new Point(
-                    to.x+position.x, 
-                    to.y+position.y
+                    position.x - to.x, 
+                    position.y - to.y
                 )
             ),
             0

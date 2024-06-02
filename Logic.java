@@ -52,14 +52,14 @@ public class Logic {
                     }
                 }
             } else {
-                lasers.remove(i);
+                lasers.remove(i);            
             }
         }
 
 
         // Update zombies
         for (int i = 0; i < zombies.size(); i++){
-            Initialize.game.p.cHP -= zombies.get(i).update(new Point(Initialize.game.p.position.x, -Initialize.game.p.position.y), time, tickPerSecond);
+            Initialize.game.p.cHP -= zombies.get(i).update(Initialize.game.p.position, time, tickPerSecond);
             if (!zombies.get(i).isAlive()){
                 for (int o = 0; o < zombies.size(); o++){
                     if (zombies.get(i).ID == zombies.get(o).ID){
@@ -117,7 +117,7 @@ public class Logic {
         // Shoot if Conditions
         if (Listener.check("Fire") && FireToggle){
             String i = Initialize.game.p.fireType();
-            Point mouse = new Point(Listener.Mouse.x, Listener.Mouse.y);
+            Point mouse = new Point(Listener.Mouse.x, -Listener.Mouse.y);
             if (i.equals("Projectile"))projectiles.add(Initialize.game.p.fireProjectile(mouse));
             else lasers.add(Initialize.game.p.fireLaser(mouse));
             FireToggle = false;

@@ -21,8 +21,8 @@ public class Initialize {
     public void start(){
         
         // Universals Setup
-        scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+        scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
         new Listener();
         uKL = new Listener.Key();
         uML = new Listener.Mouse();
@@ -69,6 +69,7 @@ public class Initialize {
             p = new Player();
             thread = new Thread(this);
         }
+        
         public void start(){
             thread.start();
         }

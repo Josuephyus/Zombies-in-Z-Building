@@ -12,11 +12,11 @@ public class Laser {
         this.hitbox = new Line(
             new Point(
                 start.x,
-                -start.y
+                start.y
             ),
             new Point(
                 start.x + (Math.cos(direction) * 1000),
-                -start.y + (Math.sin(direction) * 1000)
+                start.y + (Math.sin(direction) * 1000)
             )
         );
         this.width = width;

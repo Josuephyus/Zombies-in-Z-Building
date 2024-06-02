@@ -61,7 +61,7 @@ public class Artist{
         for (int i = 0; i < Logic.lasers.size(); i++){
             Laser cur = Logic.lasers.get(i);
             g2.setStroke(new BasicStroke(cur.getDisplayWidth()));
-            g2.drawLine((int)Math.round(cur.hitbox.s.x), (int)Math.round(cur.hitbox.s.y), (int)Math.round(cur.hitbox.e.x), (int)Math.round(cur.hitbox.e.y));
+            g2.drawLine((int)Math.round(cur.hitbox.s.x), (int)Math.round(-cur.hitbox.s.y), (int)Math.round(cur.hitbox.e.x), (int)Math.round(-cur.hitbox.e.y));
         }
         g2.setStroke(new BasicStroke(3));
         g.translate((int)Math.round(realPosition.x),(int)Math.round(realPosition.y));
@@ -81,9 +81,9 @@ public class Artist{
         // Draw Zombies
         g.translate((int)Math.round(-realPosition.x), (int)Math.round(-realPosition.y));
         for (int i = 0; i < Logic.zombies.size(); i++){
-            g.translate((int)Math.round(Logic.zombies.get(i).position.x), (int)Math.round(Logic.zombies.get(i).position.y));
+            g.translate((int)Math.round(Logic.zombies.get(i).position.x), (int)Math.round(-Logic.zombies.get(i).position.y));
             Logic.zombies.get(i).drawMethod(g);
-            g.translate((int)Math.round(-Logic.zombies.get(i).position.x), (int)Math.round(-Logic.zombies.get(i).position.y));
+            g.translate((int)Math.round(-Logic.zombies.get(i).position.x), (int)Math.round(Logic.zombies.get(i).position.y));
         }
         g.translate((int)Math.round(realPosition.x), (int)Math.round(realPosition.y));
 
