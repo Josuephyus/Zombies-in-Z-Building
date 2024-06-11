@@ -2,6 +2,9 @@
     tab {
         margin-left: 20px;
     }
+    h1 {
+        color: lightblue;
+    }
 </style>
 
 
@@ -78,7 +81,7 @@ Need a lot more fixing<br>
 <tab></tab>- Proper Hitbox detection<br>
 <tab></tab>- Make easy to change (its not rn)<br>
 Lot more to do, so I'm gonna do it in the morning<br>
-Finished Documentation 06/01/2024<tab></tab>12:28 AM<br>
+Finished Documentation 06/01/2024 . 12:28 AM<br>
 </p>
 
 <h4>0.0.0.5.2</h4><p>
