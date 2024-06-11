@@ -35,7 +35,7 @@ public class Initialize {
         //startMenu();
         setupGame();
         win.add(game); win.pack();
-        win.setLocationRelativeTo(null);
+        win.setLocation(scrW/2, scrH/2);
         win.setVisible(true);
 
         game.start();

@@ -29,13 +29,13 @@ public class Laser {
         this.curLifespan -= (double)time / (tickPerSecond * 50);
     }
 
-    public Integer getDisplayWidth(){
+    public Double getDisplayWidth(){
         Double timer = ((curLifespan/maxLifespan) * -6) + 6;
-        Integer returnthis = width;
+        Double returnthis = (double)width;
         if (timer < 1){
-            returnthis = (int)Math.round((0.3 + (timer * 0.7)) * width);
+            returnthis = (0.3 + (timer * 0.7)) * width;
         } else if (timer > 3){
-            returnthis = (int)Math.round((1 - (0.28 * (timer - 3))) * width);
+            returnthis = (1 - (0.28 * (timer - 3))) * width;
         }
         return returnthis;
     }

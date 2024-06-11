@@ -89,9 +89,16 @@ List for zombies now properly holds the ArrayList&lt;Entity> instead of &lt;Zomb
 Finished Documentation 06/01/2024 . 12:30 AM
 </p>
 
+<h4>0.0.0.5.3</h4><p>
+Lasers now scale with screen size.<br>
+Artist now has new functions for Relative and Absolute, both of which scale with screen size
+(widths widen the wider the screen and heights increases the taller the screen)<br>
+<tab></tab>- Needs to be adjusted to look right
+FIX: Laser hitboxes are bugged... fix soon
+</p>
+
 
 <h2>TODO</h2><p>
-Make Lasers scale with screensize<br>
 Add Area Weapons (shotguns)<br>
 Add an inventory of weapons<br>
 </p>
