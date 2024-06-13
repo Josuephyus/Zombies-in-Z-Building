@@ -10,10 +10,13 @@ public class Line {
         slope = (e.y - s.y)/(e.x - s.x);
     }
     public Line(Point Start, Point End){
-        s = Start; e = End; direction = s.directionTo(e);
+        s = Start;
+        e = End;
+        direction = s.directionTo(e);
+        slope = (e.y - s.y)/(e.x - s.x);
     }
     public double distance(Point other){
-        Double t = slope;
+        Double t = (slope < 0.001 && slope > -0.001) ? 0.0001:slope;
         Double r = -1/t;
 
         // direct distances from start and end point
@@ -26,14 +29,11 @@ public class Line {
         // get distance from point on line to other
         Double d2 = (double)Integer.MAX_VALUE;
         if (dx > Math.min(s.x, e.x) && dx < Math.max(s.x, e.x)){
-            if (dy > Math.min(s.y, e.y) && dy < Math.max(s.y, e.y)){
-                Integer Intdx = (int)Math.round(dx);
-                Integer Intdy = (int)Math.round(dy);
-                d2 = new Point(Intdx, Intdy).distance(other);
-            }
+            Integer Intdx = (int)Math.round(dx);
+            Integer Intdy = (int)Math.round(dy);
+            d2 = new Point(Intdx, Intdy).distance(other);
         }
 
-        System.out.println(d1 + " " + d2);
         return Math.min(d1, d2);
     }
 

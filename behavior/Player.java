@@ -60,7 +60,7 @@ public class Player extends Entity{
                     to.y + position.y
                 )
             ),
-            20
+            12
         );
     }
 }

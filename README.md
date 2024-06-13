@@ -100,8 +100,15 @@ Artist now has new functions for Relative and Absolute, both of which scale with
 FIX: Laser hitboxes are bugged... fix soon
 </p>
 
+<h3>0.0.0.6</h3><p>
+Lasers are now implemented with fixed hitboxes.<br>
+Ofiicially...<br>
+Finished Documentation 06/12/2024 . 8:40 PM
+</p>
+
 
 <h2>TODO</h2><p>
+FIX BUGS: HUD sometimes shakes (idk why)<br>
 Add Area Weapons (shotguns)<br>
 Add an inventory of weapons<br>
 </p>
