@@ -152,7 +152,7 @@ Extra Information... This is not finalized. I think the weapons should have dama
 
 
 <h2>TODO</h2><p>
-FIX BUGS: HUD sometimes shakes (idk why)<br>
+Add JSON integration<br>
 Add Area Weapons (shotguns)<br>
 Add an inventory of weapons<br>
 </p>
