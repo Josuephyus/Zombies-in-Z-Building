@@ -1,7 +1,6 @@
 {
-    "direction":0,
     "type":"projectile",
-    "id":0,
+    "image":"CPistol",
     "width":100,
     "height":40,
 
@@ -16,14 +15,9 @@
             "height":12,
             "radius":12,
 
-            "main":"die",
+            "pierce":0,
             "secondary":"",
-            "values":{
-                "lifespan":0,
-                "radius":0,
-                "mainType":0,
-                "mainValue":0
-            }
+            "values":{}
         }
     ]
 }

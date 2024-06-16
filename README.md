@@ -108,44 +108,21 @@ Finished Documentation 06/12/2024 . 8:40 PM
 
 <h4>0.0.0.6.1</h4><p>
 Cannot for the life of me replicate the HUD shaking and I don't know why.<br>
-New JSON interpretations!<br></p>
+New JSON interpretations! Every value is self explanatory.<br></p>
 <h5>Projectiles</h5><p>
-type: "classifying its a projectile"<br>
-id: which image index to use<br>
-width / height: the size of the weapon in hand<br>
-values: a list of all projectiles shot and their values<br>
-<tab></tab>id: what image index to use for the projectile<br>
-<tab></tab>speed: speed of the projectile<br>
-<tab></tab>range: maximum range of the projectile<br>
-<tab></tab>direction: degrees in which it is offset from forward<br><br>
-<tab></tab>width/height: draw size of the projectile<br>
-<tab></tab>radius: the detection range used to detect hits<br>
-<tab></tab>main: die, pierce, penetrate<br>
-<tab></tab>secondary: blank, bounce, boomerang, return<br>
-<tab></tab>values: holds main and secondary information<br>
-<tab></tab><tab></tab>lifespan: for pierce (and bounce), how many enemies<br>
-<tab></tab><tab></tab>radius: for boomerange<br>
-<tab></tab><tab></tab>mainType: how to reduce<br>
-<tab></tab><tab></tab>mainValue: amount reduced
-Extra Information, two main types. Pierce either deals damage past the first enemy reduced by main value per enemy hit or after the first one. Penetration pierces on kill and either does full damage, is reduced by the amount of damage that killed, or is modified by a percentage.</p>
+pierce - 0 and 1 mean the same thing...<br>
+secondary - die, bounce, boomerang<br>
+values:<br>
+<tab></tab>if pierce > 1, reduceType: percent, flat<br>
+<tab></tab>if bounce, range:<br>
+<tab></tab>if boomerang, returnSpeed:<br>
+</p>
 <h5> Areas</h5><p>
-type: "classifying its an area"<br>
-id: which image index to use<br>
-width / height: the size of weapon in hand<br>
-values: a list of areas<br>
-<tab></tab>type: additive or subtractive<br>
-<tab></tab>shape: triangle, square or circle<br>
-<tab></tab>width / height: (base height for triange)<br>
-<tab></tab>x / y: offset from center<br>
-<tab></tab>rotation: rotated around offset position (degrees)<br>
-Extra information, yes its complicated but easier to add newer area weapons.
+Self Explanitory
 </p>
 <h5>Lasers</h5><p>
-type, id, width height you alr get it.<br>
-values: a list of lasers and their info<br>
+values:<br>
 <tab></tab>width: max laser width and the one used for hit detection<br>
-<tab></tab>direction: degrees in which it is offset from forward<br><br>
-<tab></tab>lifspan: how long the laser persists<br>
 <tab></tab>1/2/3/4/5: width at n/5 of lifespan<br>
 Extra Information... This is not finalized. I think the weapons should have damage modifiers and attack speed, max ammo, etc, but this is a good start.
 </p>

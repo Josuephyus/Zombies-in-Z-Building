@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Component;
 
 import behavior.Player;
+import behavior.Weapons;
 
 public class Initialize {
     public static void main(String[] args){Initialize i = new Initialize(); i.start();}
@@ -66,6 +67,7 @@ public class Initialize {
 
         public RunnablePanel(){
             Artist.loadImages();
+            Weapons.start();
             p = new Player();
             thread = new Thread(this);
         }
