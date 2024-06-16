@@ -1,0 +1,19 @@
+{
+    "type":"laser",
+    "id":2,
+    "width":100,
+    "height":40,
+
+    "values":[
+        {
+            "width":10,
+            "direction":0,
+            "lifespan":10,
+            "1":1,
+            "2":1,
+            "3":-1,
+            "4":-1,
+            "5":0
+        }
+    ]
+}
