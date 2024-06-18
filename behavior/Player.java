@@ -34,7 +34,7 @@ public class Player extends Entity{
 
 
     public String fireType(){
-        return "Laser";
+        return "Projectile";
     }
 
     public Projectile fireProjectile(Point to){
@@ -43,8 +43,8 @@ public class Player extends Entity{
             (int)Math.round(position.y),
             position.directionTo(
                 new Point(
-                    position.x - to.x, 
-                    position.y - to.y
+                    position.x + to.x, 
+                    position.y + to.y
                 )
             ),
             0
@@ -56,8 +56,8 @@ public class Player extends Entity{
             position,
             position.directionTo(
                 new Point(
-                    to.x + position.x,
-                    to.y + position.y
+                    position.x + to.x,
+                    position.y + to.y
                 )
             ),
             12

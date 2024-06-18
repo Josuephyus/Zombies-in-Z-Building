@@ -9,11 +9,11 @@ public class Texture {
 
     public static BufferedImage[] gun;
     public static Integer selectedWeapon = 0;
+    public static String[] weaponNames;
     
     public static void loadImages(){
-        gun = quickRead("weapons/",new String[]{
-            "BigYellow", "Blue", "CPistol", "CWA", "Deagle1", "Flamethrower", "flammenwerfer2", "Flower"
-        });
+        weaponNames = new String[]{"BigYellow", "Blue", "CPistol", "CWA", "Deagle1", "Flamethrower", "flammenwerfer2", "Flower"};
+        gun = quickRead("weapons/",weaponNames);
     }
 
 

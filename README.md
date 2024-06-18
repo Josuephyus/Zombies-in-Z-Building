@@ -127,6 +127,10 @@ values:<br>
 Extra Information... This is not finalized. I think the weapons should have damage modifiers and attack speed, max ammo, etc, but this is a good start.
 </p>
 
+<h4>0.0.0.6.2</h4><p>
+Added a ".weapon" file type to easily add and change weapons as well as added a Weapons.java to behaviors to interpret ".weapon" files.<br>
+The idea of having ".something" is super appealing and I'll have it like that for ".enemy", ".map", and ".powerup" if i can.
+</p>
 
 <h2>TODO</h2><p>
 Add JSON integration<br>

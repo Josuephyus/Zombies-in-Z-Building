@@ -45,9 +45,9 @@ public class Artist{
         g.setColor(Color.WHITE);
         for (int i = 0; i < Logic.projectiles.size(); i++){
             Projectile cur = Logic.projectiles.get(i);
-            g.translate((int)Math.round(cur.position.x), (int)Math.round(cur.position.y));
-            fillRelativeRect(cur.rotation,-(cur.width/2), -(cur.height/2), cur.width, cur.height);
-            g.translate((int)Math.round(-cur.position.x), (int)Math.round(-cur.position.y));
+            g.translate((int)Math.round(cur.position.x), (int)Math.round(-cur.position.y));
+            fillRelativeRect(-cur.rotation,-(cur.width/2), -(cur.height/2), cur.width, cur.height);
+            g.translate((int)Math.round(-cur.position.x), (int)Math.round(cur.position.y));
         }
 
 

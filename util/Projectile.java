@@ -3,7 +3,7 @@ package util;
 public class Projectile{
     static Integer nextID = 0;
     public Integer ownerID, ID;
-    public Integer width, height, speed, damage;
+    public Integer width, height, speed, damage, radius;
     public Double rotation, lifespan;
     public Point position;
 
@@ -16,6 +16,7 @@ public class Projectile{
             this.height = 4;
             this.speed = 1500;
             this.damage = 100;
+            this.radius = 2;
         }
     }
 

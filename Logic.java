@@ -29,7 +29,7 @@ public class Logic {
             if (projectiles.get(i).isAlive()){
                 projectiles.get(i).update(time, tickPerSecond);
                 for (int o = 0; o < zombies.size(); o++){
-                    if (projectiles.get(i).position.distance(zombies.get(o).position) < zombies.get(o).size + 2){
+                    if (projectiles.get(i).position.distance(zombies.get(o).position) < zombies.get(o).size + projectiles.get(i).radius){
                         zombies.get(o).cHP -= projectiles.get(i).damage;
                         projectiles.get(i).lifespan = 0.0;
                         break;
@@ -86,6 +86,8 @@ public class Logic {
             Initialize.game.p.cEnergy += Initialize.game.p.mEnergy * time / (300 * tickPerSecond);
             Initialize.game.p.canDash = (Initialize.game.p.cEnergy >= Initialize.game.p.mEnergy);
         } else Initialize.game.p.cEnergy += Initialize.game.p.rEnergy * time / (100 * tickPerSecond);
+        
+        //If cur is higher than max, set cur to max
         if (Initialize.game.p.cEnergy > Initialize.game.p.mEnergy)Initialize.game.p.cEnergy = Initialize.game.p.mEnergy;
 
         //pm is a temporary point to find the direction the player is moving
