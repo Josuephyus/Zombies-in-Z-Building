@@ -57,17 +57,30 @@ public class Player extends Entity{
         return weapons[weaponIndex].type;
     }
 
-    public Projectile fireProjectile(Point to){
-        return new Projectile(
-            (int)Math.round(position.x),
-            (int)Math.round(position.y),
-            position.directionTo(
-                new Point(
-                    position.x + to.x, 
-                    position.y + to.y
+    public Projectile[] fireProjectile(Point to){
+        Projectile[] returnThis = new Projectile[weapons[weaponIndex].projectiles.length];
+        for (int i = 0; i < returnThis.length; i++){
+            returnThis[i] = new Projectile(
+                (int)Math.round(position.x),
+                (int)Math.round(position.y),
+                position.directionTo(
+                    new Point(
+                        position.x + to.x, 
+                        position.y + to.y
+                    )
                 )
-            )
-        );
+            );
+            returnThis[i].damage = weapons[weaponIndex].projectiles[i].damage;
+            returnThis[i].width = weapons[weaponIndex].projectiles[i].width;
+            returnThis[i].height = weapons[weaponIndex].projectiles[i].height;
+            returnThis[i].radius = weapons[weaponIndex].projectiles[i].radius;
+            returnThis[i].speed = weapons[weaponIndex].projectiles[i].speed;
+            returnThis[i].rotation = Math.toRadians(weapons[weaponIndex].projectiles[i].direction) + returnThis[i].rotation;
+        }
+
+        System.out.println(returnThis[0]);
+
+        return returnThis;
     }
 
     public Laser fireLaser(Point to){

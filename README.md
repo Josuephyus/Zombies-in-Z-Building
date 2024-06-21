@@ -132,8 +132,16 @@ Added a ".weapon" file type to easily add and change weapons as well as added a 
 The idea of having ".something" is super appealing and I'll have it like that for ".enemy", ".map", and ".powerup" if i can.
 </p>
 
+<h3>0.0.0.7</h3><p>
+Fixed the ".weapon" file format for projectiles and added a player inventory (one weapon as of now)<br>
+Added a static FPS value to Initialize.RunnablePanel<br>
+Added a static millisecondsPerFrame value to Initialize.RunnablePanel<br>
+Added totalTime to Logic to better make better use of TickRate<br>
+</p>
+
 <h2>TODO</h2><p>
+Fix HUD shake: (Still exists)<br>
 Add .weapon integration<br>
 Add Area Weapons (shotguns)<br>
-Add an inventory of weapons<br>
+Add ammo counter and rapid fire for projectiles<br>
 </p>

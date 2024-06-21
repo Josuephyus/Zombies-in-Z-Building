@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 import behavior.Zombie;
 import behavior.Entity;
-import textures.Texture;
 import util.Point;
 import util.Projectile;
 import util.Laser;
@@ -16,11 +15,10 @@ public class Logic {
     static Boolean SwapToggle = true;
 
     static Integer tickPerSecond = 20;
-    static Double framesPerSecond = 60.0;
 
     public static void update(Integer time){
 
-        Double totalTime = (time / (tickPerSecond * framesPerSecond));
+        Double totalTime = (time / (tickPerSecond * Initialize.RunnablePanel.fps * 1.0));
 
         Listener.Mouse.updatePosition();
 
@@ -45,7 +43,7 @@ public class Logic {
 
         if (Listener.check("Sprint") && player.canDash){
             speed = (player.speed) * totalTime * 2.5;
-            player.cEnergy -= 1.5 * totalTime * framesPerSecond;
+            player.cEnergy -= 1.5 * totalTime * Initialize.RunnablePanel.fps;
             player.canDash = (player.cEnergy >= 0); 
             
             /*
@@ -129,9 +127,12 @@ public class Logic {
 
         //                                              Shooting
         if (Listener.check("Fire") && FireToggle){
-            String i = player.fireType();
             Point mouse = new Point(Listener.Mouse.x, -Listener.Mouse.y);
-            if (i.equals("Projectile"))projectiles.add(player.fireProjectile(mouse));
+            if (player.fireType().equals("Projectile")){
+                for (util.Projectile i : player.fireProjectile(mouse)){
+                    projectiles.add(i);
+                }
+            }
             else lasers.add(player.fireLaser(mouse));
             FireToggle = false;
         } else if (!Listener.check("Fire")){
@@ -154,7 +155,7 @@ public class Logic {
                 for (int o = 0; o < zombies.size(); o++){
                     if (projectiles.get(i).position.distance(zombies.get(o).position) < zombies.get(o).size + projectiles.get(i).radius){
                         zombies.get(o).cHP -= projectiles.get(i).damage;
-                        projectiles.get(i).lifespan = 0.0;
+                        projectiles.get(i).curRange = projectiles.get(i).maxRange;
                         break;
                     }
                 }

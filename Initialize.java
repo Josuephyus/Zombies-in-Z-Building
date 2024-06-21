@@ -64,6 +64,8 @@ public class Initialize {
     public static class RunnablePanel extends JPanel implements Runnable{
         Thread thread;
         public Player p;
+        public static Integer fps = 60;
+        public static Long millisecondsPerFrame = (long)( 1000.0 / (fps * 1.0));
 
         public RunnablePanel(){
             Artist.loadImages();
@@ -79,7 +81,6 @@ public class Initialize {
         public void run(){
             while (thread != null){
                 try {
-                    Long millisecondsPerFrame = (long)(1000.0 / 60.0);
                     update(4);
                     if (!Listener.check("SlowTime")){
                         update(16);

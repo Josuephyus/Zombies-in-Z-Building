@@ -2,7 +2,6 @@ package behavior;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -57,8 +56,10 @@ public class Weapons {
 
                 //Check Type
                 String a = values.get(0).split(":")[1];
-                a.replaceFirst((a.charAt(0) + ""), (a.charAt(0) + "").toUpperCase());
-                thisOne.type = a;
+                String b = a.charAt(0) + "";
+                String[] c = a.split(b);
+                thisOne.type = b.toUpperCase() + c[1];
+                System.out.println(thisOne.type);
 
                 //Check Image
                 thisOne.image = values.get(1).split(":")[1];
@@ -70,9 +71,10 @@ public class Weapons {
                 //How many shots and their values;
                 thisOne.projectiles = new createProjectile[Integer.parseInt(values.get(4).split(":")[1])];
 
+
                 if (thisOne.type.equals("Projectile")){
                     for (int o = 0; o < thisOne.projectiles.length; o++){
-                        Integer p = (o * 8) + 5;
+                        Integer p = (o * 8) + 4;
                         thisOne.projectiles[o] = new createProjectile(
                             values.get(p + 1).split(":")[1],
                             values.get(p + 2).split(":")[1],
@@ -84,6 +86,7 @@ public class Weapons {
                             values.get(p + 8).split(":")[1],
                             values.get(p + 9).split(":")[1]
                         );
+                        System.out.println(thisOne.projectiles[0]);
                     }
                 } else if (thisOne.type.equals("Laser")){
 
@@ -91,7 +94,7 @@ public class Weapons {
 
                 }
 
-            } catch (IOException e){System.out.println(i +" file was invalid.");}
+            } catch (java.io.IOException e){System.out.println(i +" file was invalid.");}
 
             weapons.add(thisOne);
         }
@@ -109,6 +112,18 @@ public class Weapons {
             this.direction = parse(dir); this.damage = parse(d);
             this.width = parse(w); this.height = parse(h);
             this.radius = parse(rad); this.pierce = parse(p);
+        }
+        public String toString(){
+            return
+            ("Image: "+image) +
+            (", Speed: "+speed) +
+            (", Range: "+range) +
+            (", Direction: "+direction) +
+            (", Damage: "+damage) +
+            (", Width: "+width) +
+            (", Height: "+height) +
+            (", Radius: "+radius) +
+            (", Pierce: "+pierce);
         }
     }
     public static class createLaser{
