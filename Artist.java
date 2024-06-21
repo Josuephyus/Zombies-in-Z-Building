@@ -66,14 +66,22 @@ public class Artist{
         Double theta = playerPos.directionTo(new Point(Listener.Mouse.x + playerPos.x, Listener.Mouse.y + playerPos.y));
         Boolean isLeft = theta > Math.PI / 2 || theta < Math.PI / -2;
         g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
+        String toFind = Initialize.game.p.weapons[Initialize.game.p.weaponIndex].image; Integer weaponIndex = -1;
+        for (int i = 0; i < Texture.gun.length; i++){
+            if (toFind.equals(Texture.weaponNames[i])){
+                weaponIndex = i;
+            }
+        }
+        if (weaponIndex == -1){throw new Error();}
+        else {
         drawRelativeImage(
-            Texture.gun[Texture.selectedWeapon],
+            Texture.gun[weaponIndex],
             theta,
             100,
             20 * (isLeft?1:-1),
             -100,
             40 * (isLeft?-1:1)
-        );
+        );}
         g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
 
 

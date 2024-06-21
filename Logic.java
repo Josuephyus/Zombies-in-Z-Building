@@ -16,18 +16,141 @@ public class Logic {
     static Boolean SwapToggle = true;
 
     static Integer tickPerSecond = 20;
+    static Double framesPerSecond = 60.0;
 
     public static void update(Integer time){
+
+        Double totalTime = (time / (tickPerSecond * framesPerSecond));
+
+        Listener.Mouse.updatePosition();
 
         // If not enough zombies, add more
         if (zombies.size() < 2){
             zombies.add(new Zombie());
         }
 
-        // Update Projectiles
+        updateProjectiles(totalTime);
+        updateLasers(totalTime);
+        updateAreas(totalTime);
+
+        updateEnemies(totalTime);
+        updatePlayer(totalTime);
+    }
+
+    public static void updatePlayer(Double totalTime){
+
+        //                                          MOVEMENT
+        Double speed = (Initialize.game.p.speed) * totalTime;
+        behavior.Player player = Initialize.game.p;
+
+        if (Listener.check("Sprint") && player.canDash){
+            speed = (player.speed) * totalTime * 2.5;
+            player.cEnergy -= 1.5 * totalTime * framesPerSecond;
+            player.canDash = (player.cEnergy >= 0); 
+            
+            /*
+             *If Sprint(True) and canDash(True)
+             *Speed 2.5x walkSpeed
+             *Reduce cEnergy by flat amount
+             *Update canDash
+             */
+
+        } else if (player.cEnergy < player.mEnergy && !player.canDash){ 
+            player.cEnergy += (player.mEnergy) * totalTime / 5;
+            player.canDash = (player.cEnergy >= player.mEnergy);
+        
+            /*
+             *Else If cEnergy < mEnergy and canDash(False)
+             *cEnergy increase based on mEnergy
+             *Update canDash
+             */
+
+        } else player.cEnergy += player.rEnergy * totalTime;
+       
+            /* (Increase cEnergy if canDash(True))
+             * Else cEnergy increase based on rEnergy
+             */ 
+
+
+        if (player.cEnergy > player.mEnergy)
+        player.cEnergy = player.mEnergy;
+
+            /* (Fix Energy Overflow)
+            * If cEnergy > mEnergy
+            * cEnergy = mEnergy
+            */
+
+
+        Point playerToMove = new Point(player.position.x, player.position.y);
+
+        if (Listener.check("MoveUp"))playerToMove.y++;
+        if (Listener.check("MoveLeft"))playerToMove.x--;
+        if (Listener.check("MoveBackward"))playerToMove.y--;
+        if (Listener.check("MoveRight"))playerToMove.x++;
+
+        if (player.position.distance(playerToMove) != 0){
+            Double theta = player.position.directionTo(playerToMove);
+            player.position.x += Math.cos(theta) * speed;
+            player.position.y += Math.sin(theta) * speed;
+        }
+        
+        /* (Move the player if they moved)
+         * If playerToMove == player.position
+         * player.position += ( x movement , y movement )
+         */
+
+
+        //                                              Swap Weapons
+        if (Listener.check("SwapLeft") && SwapToggle){
+            player.weaponIndex--; SwapToggle = false;
+            if (player.weaponIndex == -1)player.weaponIndex = player.weapons.length - 1;
+            if (player.weapons[player.weaponIndex] == null){
+                player.weaponIndex++; if (player.weaponIndex == player.weapons.length)player.weaponIndex = 0;
+            }
+        } else if (Listener.check("SwapRight") && SwapToggle){
+            player.weaponIndex++; SwapToggle = false;
+            if (player.weaponIndex == player.weapons.length)player.weaponIndex = 0;
+            if (player.weapons[player.weaponIndex] == null){
+                player.weaponIndex--; if (player.weaponIndex == -1)player.weaponIndex = player.weapons.length - 1;
+            }
+        } else if (!Listener.check("SwapLeft") && !Listener.check("SwapRight")){
+            SwapToggle = true;
+        }
+
+
+        /* (Swap Weapons)
+         * If swapleft, swap to a leftward weapon (if possible)
+         * If swapright, swap to a rightward weapon (if possible)
+         * else enable the toggle
+         * 
+         * Overflow Protection
+         */
+
+
+        //                                              Shooting
+        if (Listener.check("Fire") && FireToggle){
+            String i = player.fireType();
+            Point mouse = new Point(Listener.Mouse.x, -Listener.Mouse.y);
+            if (i.equals("Projectile"))projectiles.add(player.fireProjectile(mouse));
+            else lasers.add(player.fireLaser(mouse));
+            FireToggle = false;
+        } else if (!Listener.check("Fire")){
+            FireToggle = true;
+        }
+        /*
+         * If can fire, fire
+         * else, don't fire (duh)
+         * 
+         * adjust toggle
+         */
+
+        Initialize.game.p = player;
+    }
+
+    public static void updateProjectiles(Double totalTime){
         for (int i = 0; i < projectiles.size(); i++){
             if (projectiles.get(i).isAlive()){
-                projectiles.get(i).update(time, tickPerSecond);
+                projectiles.get(i).update(totalTime);
                 for (int o = 0; o < zombies.size(); o++){
                     if (projectiles.get(i).position.distance(zombies.get(o).position) < zombies.get(o).size + projectiles.get(i).radius){
                         zombies.get(o).cHP -= projectiles.get(i).damage;
@@ -39,12 +162,12 @@ public class Logic {
                 projectiles.remove(i);
             }
         }
+    }
 
-
-        // Update Lasers
+    public static void updateLasers(Double totalTime){
         for (int i = 0; i < lasers.size(); i++){
             if (lasers.get(i).isAlive()){
-                lasers.get(i).update(time, tickPerSecond);
+                lasers.get(i).update(totalTime);
                 for (int o = 0; o < zombies.size(); o++){
                     if (lasers.get(i).hitbox.distance(zombies.get(o).position) < zombies.get(o).size - 3 && !lasers.get(i).alrHit(zombies.get(o).ID)){
                         zombies.get(o).cHP -= lasers.get(i).damage;
@@ -55,11 +178,15 @@ public class Logic {
                 lasers.remove(i);            
             }
         }
+    }
 
+    public static void updateAreas(Double totalTime){
 
-        // Update zombies
+    }
+
+    public static void updateEnemies(Double totalTime){
         for (int i = 0; i < zombies.size(); i++){
-            Initialize.game.p.cHP -= zombies.get(i).update(Initialize.game.p.position, time, tickPerSecond);
+            Initialize.game.p.cHP -= zombies.get(i).update(Initialize.game.p.position, totalTime);
             if (!zombies.get(i).isAlive()){
                 for (int o = 0; o < zombies.size(); o++){
                     if (zombies.get(i).ID == zombies.get(o).ID){
@@ -67,64 +194,6 @@ public class Logic {
                     }
                 }
             }
-        }
-
-
-        Listener.Mouse.updatePosition();
-        updatePlayer(time);
-    }
-
-    public static void updatePlayer(Integer time){
-
-        // Checking what should the player's speed be assda well as assigning a speed value
-        Double speed = Initialize.game.p.speed * time / (100 * tickPerSecond);
-        if (Listener.check("Sprint") && Initialize.game.p.canDash){
-            speed = Initialize.game.p.speed * time / (40 * tickPerSecond);
-            Initialize.game.p.cEnergy -= 1.2 * time / tickPerSecond;
-            Initialize.game.p.canDash = (Initialize.game.p.cEnergy >= 0);
-        } else if (Initialize.game.p.cEnergy < Initialize.game.p.mEnergy && !Initialize.game.p.canDash){
-            Initialize.game.p.cEnergy += Initialize.game.p.mEnergy * time / (300 * tickPerSecond);
-            Initialize.game.p.canDash = (Initialize.game.p.cEnergy >= Initialize.game.p.mEnergy);
-        } else Initialize.game.p.cEnergy += Initialize.game.p.rEnergy * time / (100 * tickPerSecond);
-        
-        //If cur is higher than max, set cur to max
-        if (Initialize.game.p.cEnergy > Initialize.game.p.mEnergy)Initialize.game.p.cEnergy = Initialize.game.p.mEnergy;
-
-        //pm is a temporary point to find the direction the player is moving
-        Point pm = new Point(Initialize.game.p.position.x, Initialize.game.p.position.y);
-        // Player Movement
-        if (Listener.check("MoveUp"))pm.y++;
-        if (Listener.check("MoveLeft"))pm.x--;
-        if (Listener.check("MoveBackward"))pm.y--;
-        if (Listener.check("MoveRight"))pm.x++;
-        // Move the player if a move command was input
-        if (Initialize.game.p.position.distance(pm) != 0){
-            Double theta = Initialize.game.p.position.directionTo(pm);
-            Initialize.game.p.position.x += Math.cos(theta) * speed;
-            Initialize.game.p.position.y += Math.sin(theta) * speed;
-        }
-
-
-        // Swap Weapons
-        if (Listener.check("SwapLeft") && SwapToggle){
-            Texture.selectedWeapon--; SwapToggle = false;
-        } else if (Listener.check("SwapRight") && SwapToggle){
-            Texture.selectedWeapon++; SwapToggle = false;
-        } else if (!Listener.check("SwapLeft") && !Listener.check("SwapRight")){
-            SwapToggle = true;
-        }
-        if (Texture.selectedWeapon == -1)Texture.selectedWeapon = Texture.gun.length - 1;
-        if (Texture.selectedWeapon == Texture.gun.length)Texture.selectedWeapon = 0;
-
-        // Shoot if Conditions
-        if (Listener.check("Fire") && FireToggle){
-            String i = Initialize.game.p.fireType();
-            Point mouse = new Point(Listener.Mouse.x, -Listener.Mouse.y);
-            if (i.equals("Projectile"))projectiles.add(Initialize.game.p.fireProjectile(mouse));
-            else lasers.add(Initialize.game.p.fireLaser(mouse));
-            FireToggle = false;
-        } else if (!Listener.check("Fire")){
-            FireToggle = true;
         }
     }
 }

@@ -6,7 +6,7 @@ import util.Point;
 
 public class Entity {
     //mHP is Max Health Points, cHP is Current Health Points
-    public Integer mHP, cHP;
+    public Float mHP, cHP;
 
 
     //size is the radius of check for hitbox intersection
@@ -17,7 +17,7 @@ public class Entity {
     //Speed is pixels / 100 per frame
     //Damage (for player) is a multiplicative modifier for projectiles
     //Damage (for NPCS) is a flat value of health reduction on damage instance;
-    public Double speed, damage;
+    public Float speed, damage;
 
 
     //Position... is position (with decimals)
@@ -26,7 +26,7 @@ public class Entity {
 
     public void drawMethod(Graphics g){}
     public boolean isAlive(){return (cHP > 0);}
-    public Integer update(Point a, Integer b, Integer c){
+    public Integer update(Point a, Double b){
         return (int)Math.round(damage);
     }
 }

@@ -133,7 +133,7 @@ The idea of having ".something" is super appealing and I'll have it like that fo
 </p>
 
 <h2>TODO</h2><p>
-Add JSON integration<br>
+Add .weapon integration<br>
 Add Area Weapons (shotguns)<br>
 Add an inventory of weapons<br>
 </p>

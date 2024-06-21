@@ -6,6 +6,7 @@ values:1
     image:classicPistol
     speed:50
     range:9999
+    damage:10
     direction:0
     width:12
     height:12

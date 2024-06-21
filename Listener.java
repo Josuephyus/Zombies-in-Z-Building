@@ -7,18 +7,32 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 public class Listener {
+
     public static HashMap<String,KeyBind> key;
     static String[] keyBindNames;
+
     public Listener(){
         key = new HashMap<String,KeyBind>();
         keyBindNames = new String[]{
-            "MoveUp", "MoveLeft", "MoveBackward", "MoveRight",
-            "SwapLeft", "SwapRight", "Sprint", "Fire",
+            "MoveUp",
+            "MoveLeft",
+            "MoveBackward",
+            "MoveRight",
+            "SwapLeft",
+            "SwapRight",
+            "Sprint",
+            "Fire",
             "SlowTime"
         };
         KeyBind[] defaultKeybinds = new KeyBind[]{
-            new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
-            new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E), new KeyBind(KeyEvent.VK_SHIFT), new KeyBind(1, true),
+            new KeyBind(KeyEvent.VK_W),
+            new KeyBind(KeyEvent.VK_A),
+            new KeyBind(KeyEvent.VK_S),
+            new KeyBind(KeyEvent.VK_D),
+            new KeyBind(KeyEvent.VK_Q),
+            new KeyBind(KeyEvent.VK_E),
+            new KeyBind(KeyEvent.VK_SHIFT),
+            new KeyBind(1, true),
             new KeyBind(KeyEvent.VK_SPACE)
         };
 

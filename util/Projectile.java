@@ -6,24 +6,21 @@ public class Projectile{
     public Integer width, height, speed, damage, radius;
     public Double rotation, lifespan;
     public Point position;
+    public java.awt.image.BufferedImage image;
 
-    public Projectile(Integer x, Integer y, Double direction, Integer type){
+    public Projectile(Integer x, Integer y, Double direction){
         this.position = new Point(x, y);
         this.ID = nextID; nextID++;
-        this.rotation = direction; lifespan = 2.0;
-        if (type == 0){
-            this.width = 10;
-            this.height = 4;
-            this.speed = 1500;
-            this.damage = 100;
-            this.radius = 2;
-        }
+        this.rotation = direction; lifespan = 1.0;
+        this.width = 10; this.height = 4;
+        this.speed = 750; this.damage = 100;
+        this.radius = 2;
     }
 
-    public void update(Integer time, Integer tickPerSecond){
-        position.x += Math.cos(rotation) * speed * time / (tickPerSecond * 100);
-        position.y += Math.sin(rotation) * speed * time / (tickPerSecond * 100);
-        lifespan -= (double)time / (tickPerSecond * 100);
+    public void update(Double totalTime){
+        position.x += Math.cos(rotation) * speed * totalTime;
+        position.y += Math.sin(rotation) * speed * totalTime;
+        lifespan -= totalTime;
     }
 
     public boolean isAlive(){

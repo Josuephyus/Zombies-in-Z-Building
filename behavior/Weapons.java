@@ -5,69 +5,60 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import util.Projectile;
-import textures.Texture;
 
 public class Weapons {
 
     public static ArrayList<String> names;
     public static ArrayList<Weapons> weapons;
+    public createProjectile[] projectiles;
+    public createLaser[] lasers;
+    public createArea[] areas;
 
     public String type, image;
     public Integer width, height;
-    public createProjectile[] projectiles;
 
-    public static class createProjectile{
-        public String image;
-        public Integer speed, range, direction, width, height, radius, pierce;
-    }
 
     public static void start(){
+
         names = new ArrayList<String>();
+        weapons = new ArrayList<Weapons>();
+
         File folder = new File(System.getProperty("user.dir")+"\\data\\weapons");
         for (File i : folder.listFiles()){
-            if (i.getName().split("\\.")[1].equals("weapon")){
-                names.add(i.getName());
-            }
+            if (i.getName().split("\\.")[1].equals("weapon"))names.add(i.getName());
         }
-        weapons = new ArrayList<Weapons>();
+
+        
         for (int i = 0; i < names.size(); i++){
             Weapons thisOne = new Weapons();
-            try{
+            try {
 
-                File weaponFile = new File(System.getProperty("user.dir")+"\\data\\weapons\\" + names.get(i));
-                FileReader weaponReader = new FileReader(weaponFile);
+                File wF = new File(System.getProperty("user.dir")+"\\data\\weapons\\" + names.get(i));
+                FileReader wR = new FileReader(wF);
 
 
-                int value = weaponReader.read();
+                int value = wR.read();
                 ArrayList<Integer> listOfValues = new ArrayList<Integer>();
                 while (value != -1){
                     listOfValues.add(value);
-                    value = weaponReader.read();
-                }
+                    value = wR.read();
+                } wR.close();
 
-                ArrayList<String> values = new ArrayList<String>();
+
+                ArrayList<String> values = new ArrayList<String>(); values.add("");
                 for (int o = 0; o < listOfValues.size(); o++){
-                    if (values.size() == 0){
-                        char a = (char)((int)listOfValues.get(o));
-                        values.add(""+a);
-                    } else if (listOfValues.get(o) == 13 && listOfValues.get(o+1) == 10){
-                        values.add("");o++;
-                    } else {
-                        String setTo = values.removeLast() + (char)((int)listOfValues.get(o));
-                        values.add(setTo);
+                    if (listOfValues.get(o) == 13 && listOfValues.get(o+1) == 10){
+                        values.add(""); o += 2;
                     }
+                    String setTo = values.removeLast() + (char)((int)listOfValues.get(o));
+                    values.add(setTo);
                 }
 
 
                 //Check Type
-                if (values.get(0).split(":")[1].equals("projectile")){
-                    thisOne.type = "Projectile";
-                } else if (values.get(0).split(":")[1].equals("laser")){
-                    thisOne.type = "Laser";
-                } else if (values.get(0).split(":")[1].equals("area")){
-                    thisOne.type = "Area";
-                }
+                String a = values.get(0).split(":")[1];
+                a.replaceFirst((a.charAt(0) + ""), (a.charAt(0) + "").toUpperCase());
+                thisOne.type = a;
 
                 //Check Image
                 thisOne.image = values.get(1).split(":")[1];
@@ -76,31 +67,54 @@ public class Weapons {
                 thisOne.width = Integer.parseInt(values.get(2).split(":")[1]);
                 thisOne.height = Integer.parseInt(values.get(3).split(":")[1]);
 
-                //How many shots
-                Integer howManyValues = Integer.parseInt(values.get(4).split(":")[1]);
-                thisOne.projectiles = new createProjectile[howManyValues];
+                //How many shots and their values;
+                thisOne.projectiles = new createProjectile[Integer.parseInt(values.get(4).split(":")[1])];
 
                 if (thisOne.type.equals("Projectile")){
-                    for (int o = 0; o < howManyValues; o++){
+                    for (int o = 0; o < thisOne.projectiles.length; o++){
                         Integer p = (o * 8) + 5;
-                        System.out.println(values.get(p));
-                        thisOne.projectiles[o].speed = Integer.parseInt(values.get(p + 1).split(":")[1]);
-                        thisOne.projectiles[o].range = Integer.parseInt(values.get(p + 2).split(":")[1]);
-                        thisOne.projectiles[o].direction = Integer.parseInt(values.get(p + 3).split(":")[1]);
-                        thisOne.projectiles[o].width = Integer.parseInt(values.get(p + 4).split(":")[1]);
-                        thisOne.projectiles[o].height = Integer.parseInt(values.get(p + 5).split(":")[1]);
-                        thisOne.projectiles[o].radius = Integer.parseInt(values.get(p + 6).split(":")[1]);
-                        thisOne.projectiles[o].pierce = Integer.parseInt(values.get(p + 7).split(":")[1]);
+                        thisOne.projectiles[o] = new createProjectile(
+                            values.get(p + 1).split(":")[1],
+                            values.get(p + 2).split(":")[1],
+                            values.get(p + 3).split(":")[1],
+                            values.get(p + 4).split(":")[1],
+                            values.get(p + 5).split(":")[1],
+                            values.get(p + 6).split(":")[1],
+                            values.get(p + 7).split(":")[1],
+                            values.get(p + 8).split(":")[1],
+                            values.get(p + 9).split(":")[1]
+                        );
                     }
+                } else if (thisOne.type.equals("Laser")){
+
+                } else { //Assume Area
+
                 }
-                
-                weaponReader.close();
+
             } catch (IOException e){System.out.println(i +" file was invalid.");}
 
             weapons.add(thisOne);
         }
     }
 
-    public Weapons(){
+    public Weapons(){}
+    public static Integer parse(String a){return Integer.parseInt(a);}
+    public static class createProjectile{
+        public String image;
+        public Integer speed, range, direction, damage;
+        public Integer width, height, radius, pierce;
+        public createProjectile(String img, String s, String ran, String dir, String d, String w, String h, String rad, String p){
+            this.image = img;
+            this.speed = parse(s); this.range = parse(ran);
+            this.direction = parse(dir); this.damage = parse(d);
+            this.width = parse(w); this.height = parse(h);
+            this.radius = parse(rad); this.pierce = parse(p);
+        }
+    }
+    public static class createLaser{
+
+    }
+    public static class createArea{
+        
     }
 }

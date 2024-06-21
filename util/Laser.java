@@ -25,8 +25,8 @@ public class Laser {
         alreadyHit = new ArrayList<Integer>();
     }
 
-    public void update(Integer time, Integer tickPerSecond){
-        this.curLifespan -= (double)time / (tickPerSecond * 50);
+    public void update(Double totalTime){
+        this.curLifespan -= totalTime;
     }
 
     public Double getDisplayWidth(){

@@ -12,12 +12,12 @@ public class Zombie extends Entity{
     static Double attackCD, attackTimer;
 
     public Zombie(){
-        mHP = cHP = 100;
+        mHP = cHP = 100f;
         ID = nextID; nextID++;
-        size = 20; speed = 175.0;
-        damage = 12.0;
+        size = 20; speed = 105f;
+        damage = 12f;
 
-        attackCD = 1.0;
+        attackCD = 2.0;
         attackTimer = 0.0;
 
         position = new Point(0,0);
@@ -28,18 +28,18 @@ public class Zombie extends Entity{
         g.fillOval(-size/2, -size/2, size, size);
     }
 
-    public Integer update(Point player, Integer time, Integer tickPerSecond){
+    public Integer update(Point player, Double totalTime){
         Double theta = position.directionTo(player);
-        position.x += Math.cos(theta) * speed * time / (100 * tickPerSecond);
-        position.y += Math.sin(theta) * speed * time / (100 * tickPerSecond);
+        position.x += Math.cos(theta) * speed * totalTime;
+        position.y += Math.sin(theta) * speed * totalTime;
 
         if (!isAlive()){return 0;}
 
         if (player.distance(position) < range + size && attackTimer <= 0){
-            attackTimer = attackCD - ((double)time / (100 * tickPerSecond));
+            attackTimer = attackCD;
             return (int)Math.round(damage);
         } else {
-            attackTimer -= (double)time / (100 * tickPerSecond);
+            attackTimer -= totalTime;
             if (attackTimer < 0) attackTimer = 0.0;
             return 0;
         }
