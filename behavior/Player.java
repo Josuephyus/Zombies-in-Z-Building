@@ -18,6 +18,8 @@ public class Player extends Entity{
     public Boolean canDash;
 
     public Player(){ // Assign Default Values
+        System.out.println("Player.java - Creating Player");
+
         ID = weaponIndex = 0; mHP = cHP = speed = 100f;
         
         // Damage Modifier rather than actual damage

@@ -6,12 +6,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import behavior.Entity;
 import behavior.Player;
 
 public class Debug{
     
-    static Player player = Initialize.game.p;
+    static Player player = Logic.player;
 
     static Dimension windowSize = new Dimension(300, 500);
     static JFrame win = new JFrame("Debug Menu");;
@@ -46,8 +45,8 @@ public class Debug{
         reset.setBounds(10,75,90,15);
         reset.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                Initialize.game.thread = null;
-                Initialize.win.remove(Initialize.game);
+                Logic.killLoop();;
+                Initialize.win.remove(Initialize.gameDisplay);
                 Initialize.start();
             }
         });

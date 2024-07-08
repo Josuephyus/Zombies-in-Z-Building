@@ -144,4 +144,8 @@ Fix HUD shake: (Still exists)<br>
 Add .weapon integration<br>
 Add Area Weapons (shotguns)<br>
 Add ammo counter and rapid fire for projectiles<br>
+Fix Panels<br>
+Implement Damage, Healing, and Movement Instances<br>
+<tab></tab>Instead of each individual updating all in order, grab all of them and update them in order<br>
+<tab></tab>Basically add the command to a list and do the list in order instead of doing them based on entity list<br>
 </p>

@@ -2,11 +2,15 @@ import java.util.ArrayList;
 
 import behavior.Zombie;
 import behavior.Entity;
+import behavior.Player;
+import behavior.Weapons;
 import util.Point;
 import util.Projectile;
 import util.Laser;
 
 public class Logic {
+
+    public static Player player;
 
     public static ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     public static ArrayList<Laser> lasers = new ArrayList<Laser>();
@@ -14,36 +18,73 @@ public class Logic {
     static Boolean FireToggle = true;
     static Boolean SwapToggle = true;
 
-    static Integer tickPerSecond = 20;
+    static Integer ticksPerUpdate = 20;
+    static Long fps = 60l;
+    static Long millisecondsPerFrame = 1000 / fps;
 
-    public static void update(Integer time){
+    static Runnable updateLoop = new Runnable(){
+        Thread t;
+        public boolean equals(Object a){
+            t = new Thread(this); t.start();
+            System.out.println("Logic.java - Starting Loop");
+            return true;
+        }
+        public void run(){
+            while (t != null){
+                if (Listener.check("SlowTime"))
+                    update(5);
+                else
+                    update(ticksPerUpdate);
+                Initialize.gameDisplay.repaint();
+                try{
+                    Thread.sleep(millisecondsPerFrame);
+                } catch (InterruptedException e){
+                    System.out.println("##### Thread Broke #####");
+                }
+            }
+        }
+        public String toString(){
+            t = null;
+            return "";
+        }
+    };;
 
-        Double totalTime = (time / (tickPerSecond * Initialize.RunnablePanel.fps * 1.0));
+    public static void start(){
+        Artist.loadImages();
+        Weapons.start();
+        Listener.start();
+        player = new Player();
+        updateLoop.equals(""); // Start (Overwritten)
+    }
 
-        Listener.Mouse.updatePosition();
+    // Use the overwritten toString command to kill loop
+    public static void killLoop(){updateLoop.toString();}
+
+    public static void update(Integer ticks){
+
+        Double time =  ticks / ((double)ticksPerUpdate * fps);
+        Listener.gameMouse.updatePosition();
 
         // If not enough zombies, add more
         if (zombies.size() < 2){
             zombies.add(new Zombie());
         }
 
-        updateProjectiles(totalTime);
-        updateLasers(totalTime);
-        updateAreas(totalTime);
+        updateProjectiles(time);
+        updateLasers(time);
+        updateAreas(time);
 
-        updateEnemies(totalTime);
-        updatePlayer(totalTime);
+        updateEnemies(time);
+        updatePlayer(time);
     }
 
-    public static void updatePlayer(Double totalTime){
-
-        //                                          MOVEMENT
-        Double speed = (Initialize.game.p.speed) * totalTime;
-        behavior.Player player = Initialize.game.p;
+    public static void updatePlayer(Double time){
+        // ##### MOVEMENT #####
+        Double speed = (player.speed) * time;
 
         if (Listener.check("Sprint") && player.canDash){
-            speed = (player.speed) * totalTime * 2.5;
-            player.cEnergy -= 1.5 * totalTime * Initialize.RunnablePanel.fps;
+            speed = (player.speed) * time * 2.5;
+            player.cEnergy -= 1.5 * time * fps;
             player.canDash = (player.cEnergy >= 0); 
             
             /*
@@ -54,7 +95,7 @@ public class Logic {
              */
 
         } else if (player.cEnergy < player.mEnergy && !player.canDash){ 
-            player.cEnergy += (player.mEnergy) * totalTime / 5;
+            player.cEnergy += (player.mEnergy) * time / 5;
             player.canDash = (player.cEnergy >= player.mEnergy);
         
             /*
@@ -63,7 +104,7 @@ public class Logic {
              *Update canDash
              */
 
-        } else player.cEnergy += player.rEnergy * totalTime;
+        } else player.cEnergy += player.rEnergy * time;
        
             /* (Increase cEnergy if canDash(True))
              * Else cEnergy increase based on rEnergy
@@ -81,10 +122,10 @@ public class Logic {
 
         Point playerToMove = new Point(player.position.x, player.position.y);
 
-        if (Listener.check("MoveUp"))playerToMove.y++;
-        if (Listener.check("MoveLeft"))playerToMove.x--;
-        if (Listener.check("MoveBackward"))playerToMove.y--;
-        if (Listener.check("MoveRight"))playerToMove.x++;
+        if (Listener.check("Up"))playerToMove.y++;
+        if (Listener.check("Left"))playerToMove.x--;
+        if (Listener.check("Down"))playerToMove.y--;
+        if (Listener.check("Right"))playerToMove.x++;
 
         if (player.position.distance(playerToMove) != 0){
             Double theta = player.position.directionTo(playerToMove);
@@ -127,7 +168,7 @@ public class Logic {
 
         //                                              Shooting
         if (Listener.check("Fire") && FireToggle){
-            Point mouse = new Point(Listener.Mouse.x, -Listener.Mouse.y);
+            Point mouse = new Point(Listener.gameMouse.x, -Listener.gameMouse.y);
             if (player.fireType().equals("Projectile")){
                 for (util.Projectile i : player.fireProjectile(mouse)){
                     projectiles.add(i);
@@ -145,13 +186,12 @@ public class Logic {
          * adjust toggle
          */
 
-        Initialize.game.p = player;
     }
 
-    public static void updateProjectiles(Double totalTime){
+    public static void updateProjectiles(Double time){
         for (int i = 0; i < projectiles.size(); i++){
             if (projectiles.get(i).isAlive()){
-                projectiles.get(i).update(totalTime);
+                projectiles.get(i).update(time);
                 for (int o = 0; o < zombies.size(); o++){
                     if (projectiles.get(i).position.distance(zombies.get(o).position) < zombies.get(o).size + projectiles.get(i).radius){
                         zombies.get(o).cHP -= projectiles.get(i).damage;
@@ -165,10 +205,10 @@ public class Logic {
         }
     }
 
-    public static void updateLasers(Double totalTime){
+    public static void updateLasers(Double time){
         for (int i = 0; i < lasers.size(); i++){
             if (lasers.get(i).isAlive()){
-                lasers.get(i).update(totalTime);
+                lasers.get(i).update(time);
                 for (int o = 0; o < zombies.size(); o++){
                     if (lasers.get(i).hitbox.distance(zombies.get(o).position) < zombies.get(o).size - 3 && !lasers.get(i).alrHit(zombies.get(o).ID)){
                         zombies.get(o).cHP -= lasers.get(i).damage;
@@ -181,13 +221,13 @@ public class Logic {
         }
     }
 
-    public static void updateAreas(Double totalTime){
+    public static void updateAreas(Double time){
 
     }
 
-    public static void updateEnemies(Double totalTime){
+    public static void updateEnemies(Double time){
         for (int i = 0; i < zombies.size(); i++){
-            Initialize.game.p.cHP -= zombies.get(i).update(Initialize.game.p.position, totalTime);
+            player.cHP -= zombies.get(i).update(player.position, time);
             if (!zombies.get(i).isAlive()){
                 for (int o = 0; o < zombies.size(); o++){
                     if (zombies.get(i).ID == zombies.get(o).ID){

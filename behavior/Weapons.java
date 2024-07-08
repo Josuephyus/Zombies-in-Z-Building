@@ -29,6 +29,7 @@ public class Weapons {
 
         
         for (int i = 0; i < names.size(); i++){
+            System.out.println("Weapons.java - Loading "+ names.get(i));
             Weapons thisOne = new Weapons();
             try {
 
@@ -59,7 +60,6 @@ public class Weapons {
                 String b = a.charAt(0) + "";
                 String[] c = a.split(b);
                 thisOne.type = b.toUpperCase() + c[1];
-                System.out.println(thisOne.type);
 
                 //Check Image
                 thisOne.image = values.get(1).split(":")[1];

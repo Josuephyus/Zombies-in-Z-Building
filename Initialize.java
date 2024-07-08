@@ -6,41 +6,40 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Component;
 
-import behavior.Player;
-import behavior.Weapons;
-
 public class Initialize {
     public static void main(String[] args){
+
+        //Window setup
         win.setUndecorated(true);
-        Initialize.start();
-    }
-
-    public static Integer scrW, scrH;
-    public static Listener.Key uKL;
-    public static Listener.Mouse uML;
-    
-    public static JFrame win = new JFrame();;
-    public static RunnablePanel game;
-
-    public static void start(){
-        
-        // Universals Setup
-        scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
-        scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
-        new Listener();
-        uKL = new Listener.Key();
-        uML = new Listener.Mouse();
-        // Window Setup
         win.setDefaultCloseOperation(3);
         win.setResizable(false);
         win.setTitle("Zombies in Z Building");
-        //startMenu();
-        setupGame();
-        win.add(game); win.pack();
+        
+        Initialize.start();
+    }
+
+    public static Integer scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+    public static Integer scrH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;;
+    public static Listener.gameKey gKL = new Listener.gameKey();
+    public static Listener.gameMouse gML = new Listener.gameMouse();
+    
+    public static JFrame win = new JFrame();
+    public static JPanel gameDisplay;
+
+    public static void start(){
+
+        // Start Game
+        setupGameDisplay();
+
+        Logic.start();
+
+        win.add(gameDisplay);
+        win.pack();
+
+        win.setSize(scrW, scrH);
         win.setLocation(scrW/2, scrH/2);
         win.setVisible(true);
 
-        game.start();
         Debug.startDebug();
     }
 
@@ -49,59 +48,20 @@ public class Initialize {
         return returnthis;
     }
 
-    public static void setupGame(){
-        game = new RunnablePanel();
-        game.setPreferredSize(new Dimension(scrW, scrH));
-        game.setDoubleBuffered(true);
-        game.addKeyListener(uKL);
-        game.addMouseListener(uML);
-        game.setFocusable(true);
-        game.setBackground(Color.BLACK);
-    }
-
-    public void startGame(){
-        game.start();
-    }
-
-    public static class RunnablePanel extends JPanel implements Runnable{
-        Thread thread;
-        public Player p;
-        public static Integer fps = 60;
-        public static Long millisecondsPerFrame = (long)( 1000.0 / (fps * 1.0));
-
-        public RunnablePanel(){
-            Artist.loadImages();
-            Weapons.start();
-            p = new Player();
-            thread = new Thread(this);
-        }
-        
-        public void start(){
-            thread.start();
-        }
-
-        public void run(){
-            while (thread != null){
-                try {
-                    update(4);
-                    if (!Listener.check("SlowTime")){
-                        update(16);
-                    }
-                    repaint();
-                    Thread.sleep(millisecondsPerFrame);
-                } catch (InterruptedException e){
-                    e.printStackTrace(); thread.interrupt();
-                }
+    public static void setupGameDisplay(){
+        System.out.println("test 1");
+        gameDisplay = new JPanel(){
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                Artist.draw(g);
             }
-        }
-
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            Artist.draw(g);
-        }
-
-        public void update(Integer time){
-            Logic.update(time);
-        }
+        };
+        System.out.println("test 2");
+        gameDisplay.setPreferredSize(new Dimension(scrW, scrH));
+        gameDisplay.setDoubleBuffered(true);
+        gameDisplay.addKeyListener(gKL);
+        gameDisplay.addMouseListener(gML);
+        gameDisplay.setFocusable(true);
+        gameDisplay.setBackground(Color.BLACK);
     }
 }

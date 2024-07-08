@@ -4,44 +4,86 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.MouseInfo;
 import java.awt.Toolkit;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Listener {
 
     public static HashMap<String,KeyBind> key;
-    static String[] keyBindNames;
+    static String[] keyBindNames = new String[]{
+        "Up", "Left", "Down", "Right",
+        "SwapLeft", "SwapRight",
+        "Sprint",
+        "Fire",
+        "SlowTime"
+    };
+    static KeyBind[] currentKeyBinds = new KeyBind[]{
+        new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
+        new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E),
+        new KeyBind(KeyEvent.VK_SHIFT),
+        new KeyBind(1, true),
+        new KeyBind(KeyEvent.VK_SPACE)
+    };
 
-    public Listener(){
+    public static void start(){
+        File keybindsFile = new File("data\\cache\\keybinds.txt");
+        try {
+            if (keybindsFile.createNewFile()){
+                System.out.println("Listener.java - Creating new Keybinds");
+                FileWriter saveKeyBinds = new FileWriter(keybindsFile);
+
+                for (int i = 0; i < keyBindNames.length; i++){
+                    saveKeyBinds.write(keyBindNames[i] +":" + currentKeyBinds[i].mouse[0] + "," + currentKeyBinds[i].code[0]);
+                    if (i != keyBindNames.length - 1){
+                        saveKeyBinds.write("\n");
+                    }
+                } saveKeyBinds.close();
+                //write a new one with default
+            } else {
+                System.out.println("Listener.java - Loading saved Keybinds");
+                FileReader readKeyBinds = new FileReader(keybindsFile);
+
+                Integer code = readKeyBinds.read();
+                ArrayList<Integer> allcodes = new ArrayList<Integer>();
+                while (code != -1){
+                    allcodes.add(code);
+                    code = readKeyBinds.read();
+                } readKeyBinds.close();
+
+                String txt = "";
+                for (int i = 0; i < allcodes.size(); i++){
+                    txt += ((char)(int)allcodes.get(i));
+                }
+                String[] txtSplit = txt.split((char)10 + "");
+                for (int i = 0; i < txtSplit.length; i++){
+                    String[] index = txtSplit[i].split(",");
+                    keyBindNames[i] = index[0].split(":")[0];
+                    if (index[0].split(":")[1].equals("true")){
+                        currentKeyBinds[i] = new KeyBind(Integer.parseInt(index[1]), true);
+                    } else {
+                        currentKeyBinds[i] = new KeyBind(Integer.parseInt(index[1]));
+                    }
+                }
+                //read
+            }
+        } catch (IOException e){
+
+        }
+
         key = new HashMap<String,KeyBind>();
-        keyBindNames = new String[]{
-            "MoveUp",
-            "MoveLeft",
-            "MoveBackward",
-            "MoveRight",
-            "SwapLeft",
-            "SwapRight",
-            "Sprint",
-            "Fire",
-            "SlowTime"
-        };
-        KeyBind[] defaultKeybinds = new KeyBind[]{
-            new KeyBind(KeyEvent.VK_W),
-            new KeyBind(KeyEvent.VK_A),
-            new KeyBind(KeyEvent.VK_S),
-            new KeyBind(KeyEvent.VK_D),
-            new KeyBind(KeyEvent.VK_Q),
-            new KeyBind(KeyEvent.VK_E),
-            new KeyBind(KeyEvent.VK_SHIFT),
-            new KeyBind(1, true),
-            new KeyBind(KeyEvent.VK_SPACE)
-        };
-
         for (int i = 0; i < keyBindNames.length; i++){
-            key.put(keyBindNames[i], defaultKeybinds[i]);
+            key.put(keyBindNames[i], currentKeyBinds[i]);
         }
     }
 
-
+    // IF KeyPressed set Keybind to True
+    // IF KeyReleased set Keybind to False
     public static void swap(Boolean mouse, Integer e, Boolean a){
         for (int i = 0; i < keyBindNames.length; i++){
             KeyBind thisKey = key.get(keyBindNames[i]);
@@ -55,21 +97,21 @@ public class Listener {
 
 
     public static boolean check(String name){
+        if (key.get(name) == null)return false;
         return (key.get(name).active[0] || key.get(name).active[1]);
     }
 
 
-    public static class Key implements KeyListener{
-        public Key(){}
+    public static class gameKey implements KeyListener{
+        public gameKey(){}
         
         public void keyTyped(KeyEvent e) {}
         public void keyPressed(KeyEvent e) {swap(false,e.getKeyCode(),true);}
         public void keyReleased(KeyEvent e) {swap(false,e.getKeyCode(),false);}
     }
-    public static class Mouse implements MouseListener{
-        public static Integer x, y;
-
-        public Mouse(){x = y = 0;}
+    public static class gameMouse implements MouseListener{
+        public static Integer x = 0, y = 0;
+        public gameMouse(){}
 
         public static void updatePosition(){
             int x1 = (int)MouseInfo.getPointerInfo().getLocation().getX();

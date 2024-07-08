@@ -27,12 +27,12 @@ public class Artist{
 
         g = gr;
         g2 = (Graphics2D) g;
-        playerPos = new Point(Initialize.game.p.position.x, Initialize.game.p.position.y);
+        playerPos = new Point(Logic.player.position.x, Logic.player.position.y);
 
         // Move Center based on mouse position &
         g.translate(
-            (Listener.Mouse.x / -3) + (Initialize.scrW / 2),
-            (Listener.Mouse.y / -3) + (Initialize.scrH / 2)
+            (Listener.gameMouse.x / -3) + (Initialize.scrW / 2),
+            (Listener.gameMouse.y / -3) + (Initialize.scrH / 2)
         );
         
 
@@ -60,13 +60,13 @@ public class Artist{
         }
 
         // Draw Player
-        Initialize.game.p.drawMethod(g);
+        Logic.player.drawMethod(g);
 
         // Draw Gun (based on player position)
-        Double theta = playerPos.directionTo(new Point(Listener.Mouse.x + playerPos.x, Listener.Mouse.y + playerPos.y));
+        Double theta = playerPos.directionTo(new Point(Listener.gameMouse.x + playerPos.x, Listener.gameMouse.y + playerPos.y));
         Boolean isLeft = theta > Math.PI / 2 || theta < Math.PI / -2;
         g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
-        String toFind = Initialize.game.p.weapons[Initialize.game.p.weaponIndex].image + ".png"; Integer weaponIndex = -1;
+        String toFind = Logic.player.weapons[Logic.player.weaponIndex].image + ".png"; Integer weaponIndex = -1;
         for (int i = 0; i < Texture.allWeapons.length; i++){
             if (toFind.equals(Texture.weaponNames[i])){
                 weaponIndex = i;
@@ -109,7 +109,7 @@ public class Artist{
             0.0,
             (int)10,
             (int)(-10 - (50 * heiRatio) + Initialize.scrH),
-            (int)((Initialize.scrW / 3) * ((double)Initialize.game.p.cHP / (double)Initialize.game.p.mHP)),
+            (int)((Initialize.scrW / 3) * ((double)Logic.player.cHP / (double)Logic.player.mHP)),
             (int)(50 * heiRatio)
         );
 
@@ -122,12 +122,12 @@ public class Artist{
             (int)(Initialize.scrW / 4),
             (int)(40 * heiRatio)
         );
-        g.setColor(((Initialize.game.p.canDash) ? Color.YELLOW:Color.ORANGE));
+        g.setColor(((Logic.player.canDash) ? Color.YELLOW:Color.ORANGE));
         fillAbsoluteRect(
             0.0,
             (int)10,
             (int)(-20 - (50 * heiRatio) - (40 * heiRatio) + Initialize.scrH),
-            (int)((Initialize.scrW / 4) * (Initialize.game.p.cEnergy / Initialize.game.p.mEnergy)),
+            (int)((Initialize.scrW / 4) * (Logic.player.cEnergy / Logic.player.mEnergy)),
             (int)(40 * heiRatio)
         );
 
@@ -137,8 +137,8 @@ public class Artist{
         g2.setStroke(new BasicStroke((int)Math.round(2 * (widRatio + heiRatio))));
         drawAbsoluteOval(
             0.0,
-            Listener.Mouse.x - 5 ,
-            Listener.Mouse.y - 5,
+            Listener.gameMouse.x - 5 ,
+            Listener.gameMouse.y - 5,
             10,
             10
         );
@@ -185,28 +185,28 @@ public class Artist{
     }
     public static void drawAbsoluteRect(Double rot, Integer x, Integer y, Integer w, Integer h){
         g.translate(
-            (Listener.Mouse.x / 3) + (Initialize.scrW / -2),
-            (Listener.Mouse.y / 3) + (Initialize.scrH / -2)
+            (Listener.gameMouse.x / 3) + (Initialize.scrW / -2),
+            (Listener.gameMouse.y / 3) + (Initialize.scrH / -2)
         );
         g2.rotate(rot);
         g2.drawRect(x,y,w,h);
         g2.rotate(-rot);
         g.translate(
-            (Listener.Mouse.x / -3) + (Initialize.scrW / 2),
-            (Listener.Mouse.y / -3) + (Initialize.scrH / 2)
+            (Listener.gameMouse.x / -3) + (Initialize.scrW / 2),
+            (Listener.gameMouse.y / -3) + (Initialize.scrH / 2)
         );
     }
     public static void fillAbsoluteRect(Double rot, Integer x, Integer y, Integer w, Integer h){
         g.translate(
-            (Listener.Mouse.x / 3) + (Initialize.scrW / -2),
-            (Listener.Mouse.y / 3) + (Initialize.scrH / -2)
+            (Listener.gameMouse.x / 3) + (Initialize.scrW / -2),
+            (Listener.gameMouse.y / 3) + (Initialize.scrH / -2)
         );
         g2.rotate(rot);
         g2.fillRect(x,y,w,h);
         g2.rotate(-rot);
         g.translate(
-            (Listener.Mouse.x / -3) + (Initialize.scrW / 2),
-            (Listener.Mouse.y / -3) + (Initialize.scrH / 2)
+            (Listener.gameMouse.x / -3) + (Initialize.scrW / 2),
+            (Listener.gameMouse.y / -3) + (Initialize.scrH / 2)
         );
     }
     

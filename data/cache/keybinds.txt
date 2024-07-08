@@ -1,0 +1,9 @@
+Up:false,87
+Left:false,65
+Down:false,83
+Right:false,68
+SwapLeft:false,81
+SwapRight:false,69
+Sprint:false,16
+Fire:true,1
+SlowTime:false,32

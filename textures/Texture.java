@@ -46,7 +46,7 @@ public class Texture {
         BufferedImage b[] = new BufferedImage[a.length];
         for (int i = 0; i < a.length; i++){
             try {
-                System.out.println("Loading "+prefix+" Textures: " + a[i] + " " + (i + 1) + " / " + a.length);
+                System.out.println("Textures.java - Loading " + prefix + "/" + a[i] + ", " + (i + 1) + " / " + a.length);
                 b[i] = ImageIO.read(Texture.class.getResourceAsStream(prefix + "/" + a[i]));
             } catch (IOException e){
                 System.out.println(a[i]+" failed to load.");
