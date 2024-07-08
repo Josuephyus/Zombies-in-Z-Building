@@ -31,7 +31,7 @@ public class Projectile{
     public String toString(){
         return (
             ("ID:" + ID) +
-            (", Direction:" + rotation) +
+            (", Direction:" + Math.toDegrees(rotation)) +
             (", Range:" + curRange + " / " + maxRange) +
             (", Width:" + width) +
             (", Height:" + height) +

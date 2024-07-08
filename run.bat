@@ -1,0 +1,2 @@
+java Initialize.java
+pause
