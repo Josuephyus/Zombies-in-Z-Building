@@ -40,6 +40,7 @@ public class Initialize {
         win.setVisible(true);
 
         game.start();
+        Debug.startDebug();
     }
 
     public Component[] startMenu(){

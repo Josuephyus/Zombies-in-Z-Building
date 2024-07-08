@@ -86,7 +86,6 @@ public class Weapons {
                             values.get(p + 8).split(":")[1],
                             values.get(p + 9).split(":")[1]
                         );
-                        System.out.println(thisOne.projectiles[0]);
                     }
                 } else if (thisOne.type.equals("Laser")){
 
@@ -113,6 +112,7 @@ public class Weapons {
             this.width = parse(w); this.height = parse(h);
             this.radius = parse(rad); this.pierce = parse(p);
         }
+        @Override
         public String toString(){
             return
             ("Image: "+image) +
