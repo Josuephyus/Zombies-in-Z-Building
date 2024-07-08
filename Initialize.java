@@ -10,16 +10,19 @@ import behavior.Player;
 import behavior.Weapons;
 
 public class Initialize {
-    public static void main(String[] args){Initialize i = new Initialize(); i.start();}
+    public static void main(String[] args){
+        win.setUndecorated(true);
+        Initialize.start();
+    }
 
     public static Integer scrW, scrH;
     public static Listener.Key uKL;
     public static Listener.Mouse uML;
     
-    public static JFrame win;
+    public static JFrame win = new JFrame();;
     public static RunnablePanel game;
 
-    public void start(){
+    public static void start(){
         
         // Universals Setup
         scrW = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
@@ -28,10 +31,8 @@ public class Initialize {
         uKL = new Listener.Key();
         uML = new Listener.Mouse();
         // Window Setup
-        win = new JFrame();
         win.setDefaultCloseOperation(3);
         win.setResizable(false);
-        win.setUndecorated(true);
         win.setTitle("Zombies in Z Building");
         //startMenu();
         setupGame();
@@ -48,7 +49,7 @@ public class Initialize {
         return returnthis;
     }
 
-    public void setupGame(){
+    public static void setupGame(){
         game = new RunnablePanel();
         game.setPreferredSize(new Dimension(scrW, scrH));
         game.setDoubleBuffered(true);

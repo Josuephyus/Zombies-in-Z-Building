@@ -112,7 +112,7 @@ public class Weapons {
             this.width = parse(w); this.height = parse(h);
             this.radius = parse(rad); this.pierce = parse(p);
         }
-        @Override
+
         public String toString(){
             return
             ("Image: "+image) +
