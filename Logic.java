@@ -32,10 +32,12 @@ public class Logic {
         public void run(){
             while (t != null){
                 if (Listener.check("SlowTime"))
-                    update(5);
-                else
+                    update(ticksPerUpdate / 4);
+                else if (Listener.check("Pause"))
+                    update(0);
+                else 
                     update(ticksPerUpdate);
-                Initialize.gameDisplay.repaint();
+                Initialize.win.repaint();
                 try{
                     Thread.sleep(millisecondsPerFrame);
                 } catch (InterruptedException e){
@@ -47,12 +49,15 @@ public class Logic {
             t = null;
             return "";
         }
-    };;
+    };
 
     public static void start(){
-        Artist.loadImages();
+        projectiles = new ArrayList<Projectile>();
+        lasers = new ArrayList<Laser>();
+        zombies = new ArrayList<Entity>();
+        FireToggle = true;
+        SwapToggle = true;
         Weapons.start();
-        Listener.start();
         player = new Player();
         updateLoop.equals(""); // Start (Overwritten)
     }

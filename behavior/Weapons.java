@@ -118,7 +118,7 @@ public class Weapons {
             ("Image: "+image) +
             (", Speed: "+speed) +
             (", Range: "+range) +
-            (", Direction: "+direction) +
+            (", Direction: "+Math.round(direction)) +
             (", Damage: "+damage) +
             (", Width: "+width) +
             (", Height: "+height) +

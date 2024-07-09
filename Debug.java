@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.Dimension;
@@ -12,37 +13,38 @@ public class Debug{
     
     static Player player = Logic.player;
 
-    static Dimension windowSize = new Dimension(300, 500);
-    static JFrame win = new JFrame("Debug Menu");;
-    static JLabel pX = new JLabel("x: " + player.position.x);
-    static JLabel pY = new JLabel("y: " + player.position.y);
+    static Dimension windowSize = new Dimension(300, Initialize.scrH);
+
     static JButton reset = new JButton("Reset");
 
-    static JLabel w_opt1 = new JLabel("Image:");
-    static JLabel w_opt2 = new JLabel("Speed:");
-    static JLabel w_opt3 = new JLabel("Range:");
-    static JLabel w_opt4 = new JLabel("Damage:");
+    static JFrame win = new JFrame("Debug Menu");
+    static JLabel xLab = new JLabel("x:");
+        static JTextField xText = new JTextField();
+    static JLabel yLab = new JLabel("y:");
+        static JTextField yText = new JTextField();
+
+    static JLabel w_opt1 = new JLabel();
+        static JTextField w_txt1 = new JTextField();
+    static JLabel w_opt2 = new JLabel();
+        static JTextField w_txt2 = new JTextField();
+    static JLabel w_opt3 = new JLabel();
+        static JTextField w_txt3 = new JTextField();
+    static JLabel w_opt4 = new JLabel();
+        static JTextField w_txt4 = new JTextField();
+
+    static JLabel lastShot = new JLabel("Last Shot Fired: ");
+    static JLabel lastShotValues = new JLabel();
 
     public static void startDebug(){
+        if (!win.isDisplayable())
+            win.setUndecorated(true);
         win.setDefaultCloseOperation(3);
         win.setLayout(null);
+        Integer windowWidth = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        Integer windowHeight = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        win.setLocation((windowWidth + Initialize.scrW) / 2, (windowHeight-Initialize.scrH) / 2);
 
-
-        pX.setBounds(0,0,150,15);
-        win.add(pX);
-        pY.setBounds(150,0,150,15);
-        win.add(pY);
-
-        w_opt1.setBounds(0,15,300,15);
-        win.add(w_opt1);
-        w_opt2.setBounds(0,30,300,15);
-        win.add(w_opt2);
-        w_opt3.setBounds(0,45,300,15);
-        win.add(w_opt3);
-        w_opt4.setBounds(0,60,300,15);
-        win.add(w_opt4);
-
-        reset.setBounds(10,75,90,15);
+        reset.setBounds(10,10,90,15);
         reset.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 Logic.killLoop();;
@@ -52,6 +54,37 @@ public class Debug{
         });
         win.add(reset);
 
+        xLab.setBounds(10,25,20,15);
+        win.add(xLab);
+            xText.setBounds(30,25,260,15);
+            win.add(xText);
+        yLab.setBounds(10,40,20,15);
+        win.add(yLab);
+            yText.setBounds(30,40,260,15);
+            win.add(yText);
+
+        w_opt1.setBounds(10,55,60,15);
+        win.add(w_opt1);
+            w_txt1.setBounds(70,55,210,15);
+            win.add(w_txt1);
+        w_opt2.setBounds(10,70,60,15);
+        win.add(w_opt2);
+            w_txt2.setBounds(70,70,210,15);
+            win.add(w_txt2);
+        w_opt3.setBounds(10,85,60,15);
+        win.add(w_opt3);
+            w_txt3.setBounds(70,85,210,15);
+            win.add(w_txt3);
+        w_opt4.setBounds(10,100,60,15);
+        win.add(w_opt4);
+            w_txt4.setBounds(70,100,210,15);
+            win.add(w_txt4);
+
+        lastShot.setBounds(40, 115, 230, 15);
+        win.add(lastShot);
+        lastShotValues.setBounds(10, 135, 280, 15);
+        win.add(lastShotValues);
+    
         win.pack();
         win.setSize(windowSize);
         win.setVisible(true);
@@ -60,30 +93,35 @@ public class Debug{
             Thread t = new Thread(this);
             {t.start();}
             public void run(){
-                while (t != null){
-                    try {
+                try {
+                    while (t != null){
                         Debug.update();
                         Thread.sleep(50);
-                    } catch (InterruptedException e){
-                        System.out.println("Debug failed");
                     }
+                } catch (InterruptedException e){
+                    System.out.println("Debug failed");
                 }
             }
         };
     }
 
     public static void update(){
-        pX.setText("x: " + player.position.x);
-        pY.setText("y: " + player.position.y);
+        xText.setText(player.position.x.toString());
+        yText.setText(player.position.y.toString());
         if (player.weapons[player.weaponIndex].type.equals("Projectile")){
-            w_opt1.setText("Image: "+player.weapons[player.weaponIndex].projectiles[0].image);
-            w_opt2.setText("Speed: "+player.weapons[player.weaponIndex].projectiles[0].speed);
-            w_opt3.setText("Range: "+player.weapons[player.weaponIndex].projectiles[0].range);
-            w_opt4.setText("Damage: "+player.weapons[player.weaponIndex].projectiles[0].damage);
+            w_opt1.setText("Image: ");
+            w_txt1.setText(player.weapons[player.weaponIndex].projectiles[0].image);
+            w_opt2.setText("Speed: ");
+            w_txt2.setText(player.weapons[player.weaponIndex].projectiles[0].speed.toString());
+            w_opt3.setText("Range: ");
+            w_txt3.setText(player.weapons[player.weaponIndex].projectiles[0].range.toString());
+            w_opt4.setText("Damage: ");
+            w_txt4.setText(player.weapons[player.weaponIndex].projectiles[0].damage.toString());
         } else if (player.weapons[player.weaponIndex].type.equals("Lasers")){
             //weaponImage.setText(player.weapons[player.weaponIndex].lasers[0].image);
         } else {
             //weaponImage.setText(player.weapons[player.weaponIndex].areas[0].image);
         }
+        lastShotValues.setText(Logic.player.getLastShot());
     }
 }

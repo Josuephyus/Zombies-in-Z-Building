@@ -21,14 +21,14 @@ public class Listener {
         "SwapLeft", "SwapRight",
         "Sprint",
         "Fire",
-        "SlowTime"
+        "SlowTime", "Pause"
     };
     static KeyBind[] currentKeyBinds = new KeyBind[]{
         new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
         new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E),
         new KeyBind(KeyEvent.VK_SHIFT),
         new KeyBind(1, true),
-        new KeyBind(KeyEvent.VK_SPACE)
+        new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_ESCAPE)
     };
 
     public static void start(){
@@ -39,7 +39,10 @@ public class Listener {
                 FileWriter saveKeyBinds = new FileWriter(keybindsFile);
 
                 for (int i = 0; i < keyBindNames.length; i++){
-                    saveKeyBinds.write(keyBindNames[i] +":" + currentKeyBinds[i].mouse[0] + "," + currentKeyBinds[i].code[0]);
+                    saveKeyBinds.write(keyBindNames[i] +":"
+                    + currentKeyBinds[i].mouse[0] + ","
+                    + currentKeyBinds[i].code[0] + ","
+                    + currentKeyBinds[i].toggle[0]);
                     if (i != keyBindNames.length - 1){
                         saveKeyBinds.write("\n");
                     }
@@ -60,7 +63,7 @@ public class Listener {
                 for (int i = 0; i < allcodes.size(); i++){
                     txt += ((char)(int)allcodes.get(i));
                 }
-                String[] txtSplit = txt.split((char)10 + "");
+                String[] txtSplit = txt.split("" + (char)10);
                 for (int i = 0; i < txtSplit.length; i++){
                     String[] index = txtSplit[i].split(",");
                     keyBindNames[i] = index[0].split(":")[0];
@@ -68,6 +71,9 @@ public class Listener {
                         currentKeyBinds[i] = new KeyBind(Integer.parseInt(index[1]), true);
                     } else {
                         currentKeyBinds[i] = new KeyBind(Integer.parseInt(index[1]));
+                    }
+                    if (index[2].equals("true")){
+                        currentKeyBinds[i].toggle[0] = true;
                     }
                 }
                 //read
@@ -79,18 +85,28 @@ public class Listener {
         key = new HashMap<String,KeyBind>();
         for (int i = 0; i < keyBindNames.length; i++){
             key.put(keyBindNames[i], currentKeyBinds[i]);
+            System.out.println("    "+keyBindNames[i] +" > " + currentKeyBinds[i]);
         }
     }
 
     // IF KeyPressed set Keybind to True
     // IF KeyReleased set Keybind to False
-    public static void swap(Boolean mouse, Integer e, Boolean a){
+    public static void swap(Boolean mouse, Integer e, Boolean setTo){
         for (int i = 0; i < keyBindNames.length; i++){
             KeyBind thisKey = key.get(keyBindNames[i]);
+
             if (thisKey.mouse[0] == mouse && e == thisKey.code[0]){
-                key.get(keyBindNames[i]).active[0] = a;
-            } else if (thisKey.mouse[1] == mouse && e == thisKey.code[1]){
-                key.get(keyBindNames[i]).active[0] = a;
+                if (thisKey.toggle[0] && setTo == false)
+                    key.get(keyBindNames[i]).active[0] = !key.get(keyBindNames[i]).active[0];
+                else if (!thisKey.toggle[0])
+                    key.get(keyBindNames[i]).active[0] = setTo;
+            }
+
+            else if (thisKey.mouse[1] == mouse && e == thisKey.code[1]){
+                if (thisKey.toggle[1] && setTo == false)
+                    key.get(keyBindNames[i]).active[1] = !key.get(keyBindNames[i]).active[1];
+                else if (!thisKey.toggle[1])
+                    key.get(keyBindNames[i]).active[1] = setTo;
             }
         }
     }
@@ -129,16 +145,25 @@ public class Listener {
 
 
     public static class KeyBind{
-        public Boolean[] mouse, active;
+        public Boolean[] active = new Boolean[]{false, false};
+        public Boolean[] toggle = new Boolean[]{false, false};
+        public Boolean[] mouse;
         public Integer[] code;
         
         public KeyBind(Integer a){
-            mouse = new Boolean[]{false, null}; active = new Boolean[]{false, false};
+            mouse = new Boolean[]{false, null};
             code = new Integer[]{a, Integer.MAX_VALUE};
         }
         public KeyBind(Integer a, Boolean b){
-            mouse = new Boolean[]{true, null}; active = new Boolean[]{false, false};
+            mouse = new Boolean[]{true, null};
             code = new Integer[]{a, Integer.MAX_VALUE};
+        }
+
+        public String toString(){
+            if (mouse[0])
+                return ("MB " + code[0].toString() + ", Toggle: " + toggle[0].toString());
+            else
+                return ("Key " + (char)(int)code[0] + ", Toggle: " + toggle[0].toString());
         }
     }
 }

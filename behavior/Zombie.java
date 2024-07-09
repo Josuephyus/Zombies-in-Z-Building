@@ -20,7 +20,7 @@ public class Zombie extends Entity{
         attackCD = 2.0;
         attackTimer = 0.0;
 
-        position = new Point(0,0);
+        position = new Point(300,0);
     }
 
     public void drawMethod(Graphics g){

@@ -30,14 +30,11 @@ public class Projectile{
 
     public String toString(){
         return (
-            ("ID:" + ID) +
-            (", Direction:" + Math.toDegrees(rotation)) +
-            (", Range:" + curRange + " / " + maxRange) +
-            (", Width:" + width) +
-            (", Height:" + height) +
-            (", Radius:" + radius) +
-            (", Speed:" + speed) +
-            (", Damage:" + damage)
+            ("id: " + ID) +
+            (" | " + Math.round(Math.toDegrees(rotation)) + "°") +
+            (" | r: " + radius) +
+            (" | speed: " + speed) +
+            (" | ad: " + damage)
         );
     }
 }

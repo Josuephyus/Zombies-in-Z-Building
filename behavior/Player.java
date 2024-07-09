@@ -17,6 +17,8 @@ public class Player extends Entity{
     public Double mEnergy, cEnergy, rEnergy;
     public Boolean canDash;
 
+    String lastShot = "";
+
     public Player(){ // Assign Default Values
         System.out.println("Player.java - Creating Player");
 
@@ -80,7 +82,7 @@ public class Player extends Entity{
             returnThis[i].rotation = Math.toRadians(weapons[weaponIndex].projectiles[i].direction) + returnThis[i].rotation;
         }
 
-        System.out.println(returnThis[0]);
+        lastShot = returnThis[0].toString();
 
         return returnThis;
     }
@@ -96,5 +98,9 @@ public class Player extends Entity{
             ),
             12
         );
+    }
+
+    public String getLastShot(){
+        return lastShot;
     }
 }
