@@ -126,3 +126,6 @@ Rewriting Patch notes too.
 - Addition 1
 
 Added area weapons. Dont fuck with them, I don't understand how or why they work.
+FORGOT TO MENTION: Adjusted some value types. Most were Doubles, but capital letter types are not numerical types but number types instead.
+AKA a Double cannot convert to a Float but a double can convert to a float. This is the same with Integer and int. Most Doubles were changed to float or double depending on how bothersome they were to change.
+Rule of thumb. If it's good enough for minecraft, its good enough for us. They use float for position and rotation. Unity also does. So does Unreal. doubles are just unnecessary.
