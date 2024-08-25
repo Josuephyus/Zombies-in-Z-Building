@@ -20,16 +20,18 @@ public class Initialize {
         win.addKeyListener(new Listener.gameKey());
         win.addMouseListener(new Listener.gameMouse());
         
-        // Everything else
+        // Load Keybinds
         Listener.start();
+
         Initialize.start();
     }
 
     public static void start(){
 
+        // Adds the start menu
         win.add(startScreen);
 
-        win.pack();
+        
         win.setSize(scrW, scrH);
         win.setLocation(scrW / 2, scrH / 2);
         win.setVisible(true);

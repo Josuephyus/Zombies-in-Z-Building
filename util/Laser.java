@@ -1,54 +1,75 @@
 package util;
 
-import java.util.ArrayList;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 
-public class Laser {
-    public Integer ownerID, ID, width, damage;
-    public Double curLifespan, maxLifespan;
-    public ArrayList<Integer> alreadyHit;
+import behavior.Entity;
+
+public class Laser extends Damage{
+    public float currentDuration;
     public Line hitbox;
 
-    public Laser(Point start, Double direction, Integer width){
+    public float updateCount = 0;
+
+    public Laser(){this(new Point(), 0f, 10, 1000);}
+    public Laser(int a, int b, float c){this(new Point(a, b), c, 4, 1000);}
+    public Laser(Damage l, Point pos, float direction){
+        this(pos, direction, l.width, l.range);
+        duration = l.duration;
+        damage = l.damage;
+    }
+    public Laser(Point start, float direction, int width, float rang){
+        range = rang;
         this.hitbox = new Line(
             new Point(
                 start.x,
                 start.y
             ),
             new Point(
-                start.x + (Math.cos(direction) * 1000),
-                start.y + (Math.sin(direction) * 1000)
+                start.x + (Math.cos(-direction) * range),
+                start.y + (Math.sin(-direction) * range)
             )
         );
+        rotation = direction;
         this.width = width;
-        this.curLifespan = this.maxLifespan = 1.0;
         this.damage = 40;
-        alreadyHit = new ArrayList<Integer>();
+        this.duration = 1;
     }
 
-    public void update(Double totalTime){
-        this.curLifespan -= totalTime;
+    public void update(float totalTime){
+        currentDuration += totalTime; updateCount++;
+        hitbox = new Line(
+            new Point(
+                tied.position.x,
+                tied.position.y
+            ),
+            new Point(
+                tied.position.x + (Math.cos(-rotation) * range),
+                tied.position.y + (Math.sin(-rotation) * range)
+            )
+        );}
+    public boolean isAlive(){return (currentDuration < duration);}
+
+    public void draw(Graphics g){
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke(getDisplayWidth()));
+        g2.drawLine((int)hitbox.s.x, -(int)hitbox.s.y, (int)hitbox.e.x, -(int)hitbox.e.y);
     }
 
-    public Double getDisplayWidth(){
-        Double timer = ((curLifespan/maxLifespan) * -6) + 6;
-        Double returnthis = (double)width;
+    public boolean canHit(Entity e){
+        System.out.println(hitbox.distance(e.position) < width + e.size);
+        return hitbox.distance(e.position) < (width * 2) + e.size && updateCount < 2;
+    }
+
+    private int getDisplayWidth(){
+        float timer = ((currentDuration / duration) * -6) + 6;
+        int returnthis = width;
         if (timer < 1){
-            returnthis = (0.3 + (timer * 0.7)) * width;
+            returnthis = (int)((0.3 + (timer * 0.7)) * width);
         } else if (timer > 3){
-            returnthis = (1 - (0.28 * (timer - 3))) * width;
+            returnthis = (int)((1 - (0.28 * (timer - 3))) * width);
         }
         return returnthis;
-    }
-
-    public boolean alrHit(Integer ID){
-        for (Integer i : alreadyHit){
-            if (i == ID){
-                return true;
-            }
-        } return false;
-    }
-
-    public boolean isAlive(){
-        return (curLifespan > 0);
     }
 }

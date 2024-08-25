@@ -27,7 +27,7 @@ public class Listener {
         new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
         new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E),
         new KeyBind(KeyEvent.VK_SHIFT),
-        new KeyBind(1, true),
+        new KeyBind(KeyEvent.VK_F),
         new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_ESCAPE)
     };
 

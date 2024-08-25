@@ -3,9 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Graphics;
 import java.awt.Color;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class Menus{
 
@@ -24,6 +22,13 @@ public class Menus{
     public static JPanel loading(){
         return Menus.game();
     }
+
+
+    /*
+     * This is the start screen, officially called landing. The landing screen
+     * will support settings, credits, play, and exit, but for testing purposes,
+     * it is only gameplay
+     */
     public static JPanel landing(){
         return new JPanel(){{
             setLayout(null);

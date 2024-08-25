@@ -25,8 +25,9 @@ public class Texture {
             weaponNames[i] = tweaponNames.get(i);
         }
 
-        allWeapons = quickRead("weapons",weaponNames);
 
+        allWeapons = quickRead("weapons",weaponNames);
+        System.out.println("aisa" + allWeapons.length);
 
         java.util.ArrayList<String> tenemyNames = new java.util.ArrayList<String>();
         File enemiesFolder = new File(System.getProperty("user.dir")+"\\textures\\Enemies");

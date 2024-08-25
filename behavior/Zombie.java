@@ -7,20 +7,20 @@ import util.Point;
 
 public class Zombie extends Entity{
 
-    static Integer nextID = 0;
     static Integer range = 10;
-    static Double attackCD, attackTimer;
+ 
+    private float _speed = 105f;
+    public int size = 20;
+    public float damage = 12f;
 
-    public Zombie(){
-        mHP = cHP = 100f;
-        ID = nextID; nextID++;
-        size = 20; speed = 105f;
-        damage = 12f;
+    private static float attackCD = 2.0f;
+    private static float attackTimer = 0.0f;
 
-        attackCD = 2.0;
-        attackTimer = 0.0;
 
-        position = new Point(300,0);
+    public Zombie(int x, int y){
+        position = new Point(x, y);
+        HP = new float[]{100f, 100f, 0f};
+        AdvanceID(this);
     }
 
     public void drawMethod(Graphics g){
@@ -28,10 +28,10 @@ public class Zombie extends Entity{
         g.fillOval(-size/2, -size/2, size, size);
     }
 
-    public Integer update(Point player, Double totalTime){
-        Double theta = position.directionTo(player);
-        position.x += Math.cos(theta) * speed * totalTime;
-        position.y += Math.sin(theta) * speed * totalTime;
+    public int update(Point player, double totalTime){
+        float theta = position.directionTo(player);
+        position.x += Math.cos(theta) * _speed * totalTime;
+        position.y += Math.sin(theta) * _speed * totalTime;
 
         if (!isAlive()){return 0;}
 
@@ -40,12 +40,12 @@ public class Zombie extends Entity{
             return (int)Math.round(damage);
         } else {
             attackTimer -= totalTime;
-            if (attackTimer < 0) attackTimer = 0.0;
+            if (attackTimer < 0) attackTimer = 0.0f;
             return 0;
         }
     }
 
     public boolean isAlive(){
-        return (cHP > 0);
+        return (HP[0] > 0);
     }
 }

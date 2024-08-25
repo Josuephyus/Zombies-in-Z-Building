@@ -5,6 +5,6 @@ Right:false,68,false
 SwapLeft:false,81,false
 SwapRight:false,69,false
 Sprint:false,16,false
-Fire:true,1,false
+Fire:false,70,false
 SlowTime:false,32,false
-Pause:false,27,true
+Pause:false,27,false

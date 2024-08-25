@@ -7,11 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import behavior.Player;
-
 public class Debug{
-    
-    static Player player = Logic.player;
 
     static Dimension windowSize = new Dimension(300, Initialize.scrH);
 
@@ -90,11 +86,9 @@ public class Debug{
         win.setVisible(true);
 
         Runnable update = new Runnable(){
-            Thread t = new Thread(this);
-            {t.start();}
             public void run(){
                 try {
-                    while (t != null){
+                    while (true){
                         Debug.update();
                         Thread.sleep(50);
                     }
@@ -103,25 +97,21 @@ public class Debug{
                 }
             }
         };
+        Thread t = new Thread(update);
+        t.start();
     }
 
     public static void update(){
-        xText.setText(player.position.x.toString());
-        yText.setText(player.position.y.toString());
-        if (player.weapons[player.weaponIndex].type.equals("Projectile")){
-            w_opt1.setText("Image: ");
-            w_txt1.setText(player.weapons[player.weaponIndex].projectiles[0].image);
-            w_opt2.setText("Speed: ");
-            w_txt2.setText(player.weapons[player.weaponIndex].projectiles[0].speed.toString());
-            w_opt3.setText("Range: ");
-            w_txt3.setText(player.weapons[player.weaponIndex].projectiles[0].range.toString());
-            w_opt4.setText("Damage: ");
-            w_txt4.setText(player.weapons[player.weaponIndex].projectiles[0].damage.toString());
-        } else if (player.weapons[player.weaponIndex].type.equals("Lasers")){
-            //weaponImage.setText(player.weapons[player.weaponIndex].lasers[0].image);
-        } else {
-            //weaponImage.setText(player.weapons[player.weaponIndex].areas[0].image);
-        }
-        lastShotValues.setText(Logic.player.getLastShot());
+        xText.setText(((Double)Logic.player.position.x).toString());
+        yText.setText(((Double)Logic.player.position.y).toString());
+
+        w_opt1.setText("Image: ");
+        w_txt1.setText(Logic.player.weapons[Logic.player.weaponIndex].create.image);
+        w_opt2.setText("Speed: ");
+        w_txt2.setText(((Integer)Logic.player.weapons[Logic.player.weaponIndex].create.speed).toString());
+        w_opt3.setText("Range: ");
+        w_txt3.setText(((Float)Logic.player.weapons[Logic.player.weaponIndex].create.range).toString());
+        w_opt4.setText("Damage: ");
+        w_txt4.setText(((Integer)Logic.player.weapons[Logic.player.weaponIndex].create.damage).toString());
     }
 }

@@ -37,16 +37,35 @@ public class Line {
         return Math.min(d1, d2);
     }
 
-    public boolean intersect(Line other, Integer distance){
-        Double tan = Math.tan(direction);
-        Double tanOther = Math.tan(other.direction);
+    public boolean intersect(Line other){
+        float a1, a2, b1, b2, c1, c2, d1, d2;
 
-        double x = ((tanOther * other.s.x) + (tan * s.x) - other.s.y + s.y) / (tanOther + tan);
-        double y = tan * (x - s.x) + s.y;
-        Point i = new Point((int)Math.round(x),(int)Math.round(y));
-        if (this.distance(i) <= distance && other.distance(i) <= distance){
-            return true;
-        }
+        float x11 = (float)s.x; float y11 = (float)s.y;
+        float x12 = (float)e.x; float y12 = (float)e.y;
+        float x21 = (float)other.s.x; float y21 = (float)other.s.y;
+        float x22 = (float)other.e.x; float y22 = (float)other.e.y;
+        
+
+        a1 = y12 - y11;
+        b1 = x11 - x12;
+        c1 = x12 * y11 + x11 * y12;
+
+        d1 = (a1 * x21) + (b1 * y21) + c1;
+        d2 = (a1 * x22) + (b1 * y22) + c1;
+
+        if (d1 > 0 && d2 > 0) return false;
+        if (d1 < 0 && d2 < 0) return false;
+
+        a2 = y22 - y21;
+        b2 = x21 - x22;
+        c2 = x22 * y21 + x21 * y22;
+
+        d1 = (a2 * x11) + (b2 * y11) + c2;
+        d1 = (a2 * x12) + (b2 * y12) + c2;
+
+        if (d1 > 0 && d2 > 0) return false;
+        if (d1 < 0 && d2 < 0) return false;
+
         return true;
     }
 }

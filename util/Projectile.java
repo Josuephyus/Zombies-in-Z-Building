@@ -1,27 +1,63 @@
 package util;
 
-public class Projectile{
-    static Integer nextID = 0;
-    public Integer ownerID, ID;
-    public Integer width, height, speed, damage, radius;
-    public Double rotation, curRange, maxRange;
-    public Point position;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import behavior.Entity;
+
+public class Projectile extends Damage{
+    public int speed, radius;
+    public int width, height;
     public String image;
 
-    public Projectile(Integer x, Integer y, Double direction){
-        this.position = new Point(x, y);
-        this.ID = nextID; nextID++;
-        this.rotation = direction;
-        this.maxRange = 1000.0; this.curRange = 0.0;
+    private float curRange, maxRange;
+    public void setRange(int a){maxRange = a * 1f;}
+
+    public Projectile(){this(0, 0, 0f);}
+
+    public Projectile(Damage d, Point p, float dir){
+        rotation = -dir;
+        position = new Point(p.x, p.y);
+
+        maxRange = d.range; curRange = 0f;
+        width = d.width; height = d.height;
+        speed = d.speed; damage = d.damage;
+        radius = d.radius + 1;
+
+        image = d.image;
+
+        Damage.AdvanceID(this);
+    }
+
+    public Projectile(int x, int y, float direction){
+        position = new Point(x, y);
+        rotation = direction;
+        this.maxRange = 1000f; this.curRange = 0f;
         this.width = 10; this.height = 4;
         this.speed = 750; this.damage = 100;
         this.radius = 2;
+
+        Damage.AdvanceID(this);
     }
 
-    public void update(Double totalTime){
+    public void update(float totalTime){
         curRange += (Math.abs(Math.cos(rotation)) + Math.abs(Math.sin(rotation))) * speed * totalTime;
         position.x += Math.cos(rotation) * speed * totalTime;
         position.y += Math.sin(rotation) * speed * totalTime;
+    }
+
+    public boolean canHit(Entity e){
+        return e.position.distance(position) < radius + e.size;
+    }
+
+    public void draw(Graphics g){
+        Graphics2D graphics2D = (Graphics2D)g;
+
+        graphics2D.translate((int)Math.round(position.x), (int)Math.round(-position.y));
+        graphics2D.rotate(-rotation);
+        graphics2D.fillRect(-width/2, -height/2, width, height);
+        graphics2D.rotate(rotation);
+        graphics2D.translate((int)Math.round(-position.x), (int)Math.round(position.y));
     }
 
     public boolean isAlive(){

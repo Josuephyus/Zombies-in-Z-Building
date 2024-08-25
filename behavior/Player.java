@@ -4,50 +4,128 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
-import util.Point;
-import util.Projectile;
-import util.Laser;
+import util.*;
 
 public class Player extends Entity{
 
-    public behavior.Weapons[] weapons;
+    public Weapon[] weapons = new Weapon[]{WeaponManager.newWeapon(2, this), null, null};
+    public Integer weaponIndex = 0;
 
-    public Integer weaponIndex;
+    //Current, Max, Regeneration
+    public float[] Energy = new float[]{200f, 200f, 40f};
+    public Boolean canDash = true;
+    private float _sprint_speed = 180f;
 
-    public Double mEnergy, cEnergy, rEnergy;
-    public Boolean canDash;
+    public int size = 30;
+
+    // Again, Current, Max, Regeneration
+    public float[] HP = new float[]{100f, 100f, 0f};
+
+    private boolean _SwapToggle = true;
+    private boolean _FireToggle = true;
+
 
     String lastShot = "";
 
-    public Player(){ // Assign Default Values
-        System.out.println("Player.java - Creating Player");
+    public Player(){
+        System.out.println("java - Creating Player");
 
-        ID = weaponIndex = 0; mHP = cHP = speed = 100f;
-        
-        // Damage Modifier rather than actual damage
+        _speed = 100f;
+
+        position = new Point(0, 0);
+        rotation = 0f;
         damage = 1f;
+    }
 
-        size = 30;
+    public void update(Keys a, Mouse b, float time){
 
-        mEnergy = cEnergy = 200.0;
-        rEnergy = 40.0; canDash = true;
+        float speed = _speed * time;
 
-        position = new Point(0,0);
 
-        weapons = new behavior.Weapons[3];
-        Integer index = -1;
-        for (int i = 0; i < behavior.Weapons.names.size(); i++){
-            if (behavior.Weapons.names.get(i).equals("pistol.weapon")){
-                index = i;
+        // SPRINT LOGIC
+
+        if (a.k[4] && canDash){
+
+            speed = _sprint_speed * time;
+            Energy[0] -= 1.5f * time;
+            canDash = (Energy[0] >= 0);
+
+        } else if (Energy[0] < Energy[1] && !canDash){ 
+            
+            Energy[0] += (Energy[1]) * time / 5;
+            canDash = (Energy[0] >= Energy[1]);
+
+        } else{
+
+            Energy[0] += Energy[2] * time;
+
+        }
+
+        if (Energy[0] > Energy[1])
+        Energy[0] = Energy[1];
+
+
+        
+        Point playerToMove = new Point(position.x, position.y);
+
+        if (a.k[0])playerToMove.y++;
+        if (a.k[2])playerToMove.x--;
+        if (a.k[1])playerToMove.y--;
+        if (a.k[3])playerToMove.x++;
+
+        if (position.distance(playerToMove) != 0){
+            float theta = position.directionTo(playerToMove);
+            position.x += Math.cos(theta) * speed;
+            position.y += Math.sin(theta) * speed;
+        }
+        
+        /* (Move the player if they moved)
+         * If playerToMove == position
+         * position += ( x movement , y movement )
+         */
+
+
+        //                                              Swap Weapons
+        if (a.k[5] && _SwapToggle){
+            weaponIndex--; _SwapToggle = false;
+            if (weaponIndex == -1)weaponIndex = weapons.length - 1;
+            if (weapons[weaponIndex] == null){
+                weaponIndex++; if (weaponIndex == weapons.length)weaponIndex = 0;
             }
+        } else if (a.k[6] && _SwapToggle){
+            weaponIndex++; _SwapToggle = false;
+            if (weaponIndex == weapons.length)weaponIndex = 0;
+            if (weapons[weaponIndex] == null){
+                weaponIndex--; if (weaponIndex == -1)weaponIndex = weapons.length - 1;
+            }
+        } else if (!a.k[5] && !a.k[6]){
+            _SwapToggle = true;
         }
-        if (index == -1){
-            throw new Error();
-        } else {
-            weapons[0] = behavior.Weapons.weapons.get(index);
-            weapons[1] = null;
-            weapons[2] = null;
+
+
+        /* (Swap Weapons)
+         * If swapleft, swap to a leftward weapon (if possible)
+         * If swapright, swap to a rightward weapon (if possible)
+         * else enable the toggle
+         * 
+         * Overflow Protection
+         */
+
+
+        //                                              Shooting
+        rotation = position.directionTo(new Point(b.x, b.y));
+        if (a.k[7] && _FireToggle){
+            damages.add(weapons[weaponIndex].Fire(this));
+            _FireToggle = false;
+        } else if (!a.k[7]){
+            _FireToggle = true;
         }
+        /*
+         * If can fire, fire
+         * else, don't fire (duh)
+         * 
+         * adjust toggle
+         */
     }
 
     public void drawMethod(Graphics g){
@@ -56,51 +134,16 @@ public class Player extends Entity{
         g2.fillOval(-size/2,-size/2,size,size);
     }
 
-
-    public String fireType(){
-        return weapons[weaponIndex].type;
-    }
-
-    public Projectile[] fireProjectile(Point to){
-        Projectile[] returnThis = new Projectile[weapons[weaponIndex].projectiles.length];
-        for (int i = 0; i < returnThis.length; i++){
-            returnThis[i] = new Projectile(
-                (int)Math.round(position.x),
-                (int)Math.round(position.y),
-                position.directionTo(
-                    new Point(
-                        position.x + to.x, 
-                        position.y + to.y
-                    )
-                )
-            );
-            returnThis[i].damage = weapons[weaponIndex].projectiles[i].damage;
-            returnThis[i].width = weapons[weaponIndex].projectiles[i].width;
-            returnThis[i].height = weapons[weaponIndex].projectiles[i].height;
-            returnThis[i].radius = weapons[weaponIndex].projectiles[i].radius;
-            returnThis[i].speed = weapons[weaponIndex].projectiles[i].speed;
-            returnThis[i].rotation = Math.toRadians(weapons[weaponIndex].projectiles[i].direction) + returnThis[i].rotation;
-        }
-
-        lastShot = returnThis[0].toString();
-
-        return returnThis;
-    }
-
-    public Laser fireLaser(Point to){
-        return new Laser(
-            position,
-            position.directionTo(
-                new Point(
-                    position.x + to.x,
-                    position.y + to.y
-                )
-            ),
-            12
-        );
-    }
-
     public String getLastShot(){
         return lastShot;
+    }
+
+    public static class Keys{
+        public boolean[] k;
+        public Keys(boolean[] a){k = a;}
+    }
+    public static class Mouse{
+        public int x, y;
+        public Mouse(int x, int y){this.x = x; this.y = y;}
     }
 }
