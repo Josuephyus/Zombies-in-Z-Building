@@ -61,7 +61,7 @@ Added .weapon format for custom weapons
 
 Promises
  [♦][♦][♦] Weapon types (Projectile, Laser, Area)
- [ ][ ][ ] Test Vending Machines (Attack Speed, Movement Speed, Lifesteal)
+ [♦][♦][♦] Test Vending Machines (Attack Speed, Movement Speed, Lifesteal)
  [ ][ ]    Walls (Bounds, Obstacles)
 
 LetDowns

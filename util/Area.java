@@ -11,7 +11,7 @@ public class Area extends Damage {
     public int xa = 0, ya = 0;
     
     public Area(){}
-    public Area(Damage d, Point p, float direction){
+    public Area(Entity e, Damage d, Point p, float direction){
         rotation = -direction;
         position = new Point(p.x, p.y);
 
@@ -21,6 +21,7 @@ public class Area extends Damage {
         duration = d.duration;
         image = d.image;
 
+        tied = e;
         currentDuration = 0;
 
         Damage.AdvanceID(this);

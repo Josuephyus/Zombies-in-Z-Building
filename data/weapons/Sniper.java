@@ -25,7 +25,7 @@ public class Sniper extends Weapon{
     }
 
     public Damage Fire(Entity e){
-        Damage a = new Laser(create, e.position, e.rotation);
+        Damage a = new Laser(e, create, e.position, e.rotation);
         a.tied = e;
         return a;
     }

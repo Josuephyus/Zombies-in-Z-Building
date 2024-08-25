@@ -39,13 +39,21 @@ public class Artist{
         drawRelativeOval(0f,-10,-10,20,20);
 
 
+        // Draw Vending Machines
+        g.setColor(Color.WHITE);
+        g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
+        for (int i = 0; i < Logic.interactables.length; i++){
+            Logic.interactables[i].draw(g);
+        }
+        g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
+
         // Draw Projectiles
         g.setColor(Color.WHITE);
+        g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
         for (int i = 0; i < Logic.damages.size(); i++){
-            g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
             Logic.damages.get(i).draw(g);
-            g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
         }
+        g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
 
         // Draw Player
         Logic.player.drawMethod(g);

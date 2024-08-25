@@ -9,6 +9,8 @@ public class Entity {
 
     private static int NEXT_ID;
     public int ID;
+    public String[] buffs = new String[3];
+    public int buffIndex = 0;
 
     public ArrayList<Damage> damages = new ArrayList<Damage>();
 
@@ -36,6 +38,22 @@ public class Entity {
     
     public static void AdvanceID(Entity e){
         e.ID = NEXT_ID; NEXT_ID++;
+    }
+
+    public void addBuff(String a){
+        buffs[buffIndex] = a;
+        buffIndex++;
+        buffIndex %= buffs.length;
+    }
+
+    public boolean hasBuff(String a){
+        for (int i = 0; i < buffs.length; i++){
+            if (buffs[i] != null){
+                if (buffs[i].equals(a)){
+                    return true;
+                }
+            }
+        } return false;
     }
 
     public void drawMethod(Graphics g){}

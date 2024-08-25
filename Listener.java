@@ -20,15 +20,15 @@ public class Listener {
         "Up", "Left", "Down", "Right",
         "SwapLeft", "SwapRight",
         "Sprint",
-        "Fire",
-        "SlowTime", "Pause"
+        "Fire", "Reload", "Interact",
+        "SlowTime", "Pause",
     };
     static KeyBind[] currentKeyBinds = new KeyBind[]{
         new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
         new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E),
         new KeyBind(KeyEvent.VK_SHIFT),
-        new KeyBind(KeyEvent.VK_F),
-        new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_ESCAPE)
+        new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_R), new KeyBind(KeyEvent.VK_F),
+        new KeyBind(KeyEvent.VK_CONTROL), new KeyBind(KeyEvent.VK_ESCAPE),
     };
 
     public static void start(){

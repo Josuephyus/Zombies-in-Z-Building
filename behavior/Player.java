@@ -2,13 +2,16 @@ package behavior;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
+import data.weapons.Weapon;
+
 import java.awt.Color;
 
 import util.*;
 
 public class Player extends Entity{
 
-    public Weapon[] weapons = new Weapon[]{WeaponManager.newWeapon(2, this), null, null};
+    public Weapon[] weapons = new Weapon[]{WeaponManager.newWeapon(0, this), null, null};
     public Integer weaponIndex = 0;
 
     //Current, Max, Regeneration
@@ -18,11 +21,7 @@ public class Player extends Entity{
 
     public int size = 30;
 
-    // Again, Current, Max, Regeneration
-    public float[] HP = new float[]{100f, 100f, 0f};
-
     private boolean _SwapToggle = true;
-    private boolean _FireToggle = true;
 
 
     String lastShot = "";
@@ -31,6 +30,7 @@ public class Player extends Entity{
         System.out.println("java - Creating Player");
 
         _speed = 100f;
+        HP = new float[]{100f, 100f, 0f};
 
         position = new Point(0, 0);
         rotation = 0f;
@@ -40,7 +40,6 @@ public class Player extends Entity{
     public void update(Keys a, Mouse b, float time){
 
         float speed = _speed * time;
-
 
         // SPRINT LOGIC
 
@@ -72,6 +71,10 @@ public class Player extends Entity{
         if (a.k[2])playerToMove.x--;
         if (a.k[1])playerToMove.y--;
         if (a.k[3])playerToMove.x++;
+
+        if (hasBuff("movespeed")){
+            speed *= 2;
+        }
 
         if (position.distance(playerToMove) != 0){
             float theta = position.directionTo(playerToMove);
@@ -114,12 +117,12 @@ public class Player extends Entity{
 
         //                                              Shooting
         rotation = position.directionTo(new Point(b.x, b.y));
-        if (a.k[7] && _FireToggle){
+        if (a.k[7]){
             damages.add(weapons[weaponIndex].Fire(this));
-            _FireToggle = false;
-        } else if (!a.k[7]){
-            _FireToggle = true;
+        } else if (a.k[8]){
+            weapons[weaponIndex].Reload();
         }
+        weapons[weaponIndex].update(time);
         /*
          * If can fire, fire
          * else, don't fire (duh)

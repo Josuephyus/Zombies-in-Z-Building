@@ -15,7 +15,7 @@ public class Projectile extends Damage{
 
     public Projectile(){this(0, 0, 0f);}
 
-    public Projectile(Damage d, Point p, float dir){
+    public Projectile(Entity e, Damage d, Point p, float dir){
         rotation = -dir;
         position = new Point(p.x, p.y);
 
@@ -24,6 +24,7 @@ public class Projectile extends Damage{
         speed = d.speed; damage = d.damage;
         radius = d.radius + 1;
 
+        tied = e;
         image = d.image;
 
         Damage.AdvanceID(this);

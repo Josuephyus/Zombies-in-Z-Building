@@ -25,7 +25,7 @@ public class Shotgun extends Weapon{
     }
 
     public Damage Fire(Entity e){
-        Damage a = new Area(create, e.position, e.rotation);
+        Damage a = new Area(e, create, e.position, e.rotation);
         return a;
     }
 }

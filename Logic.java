@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 
-import behavior.Zombie;
-import behavior.Entity;
-import behavior.Player;
-
+import behavior.*;
+import data.interactables.*;
 import util.*;
 
 public class Logic {
@@ -12,8 +10,8 @@ public class Logic {
 
     public static ArrayList<Damage> damages = new ArrayList<Damage>();
     public static ArrayList<Entity> zombies = new ArrayList<Entity>();
-    static Boolean FireToggle = true;
-    static Boolean SwapToggle = true;
+
+    public static Interactable[] interactables = new Interactable[3];
 
     static int ticksPerUpdate = 20;
     static Long fps = 60l;
@@ -50,8 +48,11 @@ public class Logic {
 
     public static void start(){
         damages = new ArrayList<Damage>();
-        FireToggle = true;
-        SwapToggle = true;
+        interactables = new Interactable[]{
+            new FireRate(),
+            new Movespeed(),
+            new Lifesteal()
+        };
         player = new Player();
         updateLoop.equals(""); // Start (Overwritten)
     }
@@ -85,6 +86,7 @@ public class Logic {
             Listener.check("SwapLeft"),
             Listener.check("SwapRight"),
             Listener.check("Fire"),
+            Listener.check("Reload"),
         };
 
         int x = Listener.gameMouse.x + (int)player.position.x;
@@ -93,7 +95,18 @@ public class Logic {
         
         player.update(new Player.Keys(boolean_array), new Player.Mouse(x, y), time);
         while (player.damages.size() > 0){
-            damages.add(player.damages.removeLast());
+            Damage d = player.damages.removeLast();
+            if (d != null){
+                damages.add(d);
+            }
+        }
+
+        if (Listener.check("Interact")){
+            for (Interactable i : interactables){
+                if (i.position.distance(player.position) < i.radius){
+                    i.interactedWith(player);
+                }
+            }
         }
     }
 
@@ -104,6 +117,9 @@ public class Logic {
                 for (int o = 0; o < zombies.size(); o++){
                     if (damages.get(i).canHit(zombies.get(o))){
                         zombies.get(o).HP[0] -= damages.get(i).damage;
+                        if (damages.get(i).tied.hasBuff("Lifesteal")){
+                            damages.get(i).tied.HP[0] += damages.get(i).damage;
+                        }
                         damages.get(i).setRange(0);
                     }
                 }

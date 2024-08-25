@@ -14,10 +14,11 @@ public class Laser extends Damage{
 
     public Laser(){this(new Point(), 0f, 10, 1000);}
     public Laser(int a, int b, float c){this(new Point(a, b), c, 4, 1000);}
-    public Laser(Damage l, Point pos, float direction){
+    public Laser(Entity e, Damage l, Point pos, float direction){
         this(pos, direction, l.width, l.range);
         duration = l.duration;
         damage = l.damage;
+        tied = e;
     }
     public Laser(Point start, float direction, int width, float rang){
         range = rang;
