@@ -22,7 +22,6 @@ public class Player extends Entity{
     public int size = 30;
 
     private boolean _SwapToggle = true;
-    public Map m = new Map();
 
     String lastShot = "";
 

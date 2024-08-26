@@ -48,6 +48,10 @@ public class Logic {
     };
 
     public static void start(){
+
+        m = new Map();
+        Entity.m = m;
+
         damages = new ArrayList<Damage>();
         interactables = new Interactable[]{
             new FireRate(),
@@ -55,8 +59,6 @@ public class Logic {
             new Lifesteal()
         };
         player = new Player();
-        m = new Map();
-        player.m = m;
         updateLoop.equals(""); // Start (Overwritten)
     }
 
@@ -116,7 +118,6 @@ public class Logic {
     public static void updateProjectiles(float time){
         for (int i = 0; i < damages.size(); i++){
             if (damages.get(i).isAlive()){
-                damages.get(i).update(time);
                 for (int o = 0; o < zombies.size(); o++){
                     if (damages.get(i).canHit(zombies.get(o))){
                         zombies.get(o).HP[0] -= damages.get(i).damage;
@@ -126,6 +127,7 @@ public class Logic {
                         damages.get(i).setRange(0);
                     }
                 }
+                damages.get(i).update(time);
             } else {
                 damages.remove(i);
             }

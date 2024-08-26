@@ -7,6 +7,7 @@ import util.*;
 
 public class Entity {
 
+    public static Map m;
     private static int NEXT_ID;
     public int ID;
     public String[] buffs = new String[3];
@@ -58,7 +59,7 @@ public class Entity {
 
     public void drawMethod(Graphics g){}
     public boolean isAlive(){return (HP[0] > 0);}
-    public int update(Point a, double b){
-        return (int)Math.round(damage);
+    public float update(Point a, float b){
+        return Math.round(damage);
     }
 }

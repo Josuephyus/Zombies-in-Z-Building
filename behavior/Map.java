@@ -12,6 +12,7 @@ public class Map {
 
     public Wall[] walls = new Wall[]{
         new Wall(-500,-500,100,200),
+        new Wall(100,100,100,100),
     };
 
     public Map(){}

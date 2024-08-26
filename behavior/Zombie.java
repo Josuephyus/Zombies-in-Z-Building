@@ -28,10 +28,21 @@ public class Zombie extends Entity{
         g.fillOval(-size/2, -size/2, size, size);
     }
 
-    public int update(Point player, double totalTime){
+    public float update(Point player, float totalTime){
         float theta = position.directionTo(player);
-        position.x += Math.cos(theta) * _speed * totalTime;
-        position.y += Math.sin(theta) * _speed * totalTime;
+
+        int microsteps = 4;
+        float xM = (float)Math.cos(theta) * _speed * totalTime / (float)microsteps;
+        float yM = (float)Math.sin(theta) * _speed * totalTime / (float)microsteps;
+
+        for (int i = 0; i < microsteps; i++){
+            if (m.isValid(new Point(position.x + xM, position.y))){
+                position.x += xM; System.out.println(xM);
+            }
+            if (m.isValid(new Point(position.x, position.y + yM))){
+                position.y += yM; System.out.println(yM);
+            }
+        }
 
         if (!isAlive()){return 0;}
 
