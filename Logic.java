@@ -7,6 +7,7 @@ import util.*;
 public class Logic {
 
     public static Player player;
+    public static Map m;
 
     public static ArrayList<Damage> damages = new ArrayList<Damage>();
     public static ArrayList<Entity> zombies = new ArrayList<Entity>();
@@ -54,6 +55,8 @@ public class Logic {
             new Lifesteal()
         };
         player = new Player();
+        m = new Map();
+        player.m = m;
         updateLoop.equals(""); // Start (Overwritten)
     }
 

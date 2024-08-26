@@ -32,7 +32,12 @@ public class Artist{
             (Listener.gameMouse.x / -3) + (Initialize.scrW / 2),
             (Listener.gameMouse.y / -3) + (Initialize.scrH / 2)
         );
-        
+
+        // Draw Map
+        g.setColor(Color.WHITE);
+        g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
+        Logic.m.draw(g);
+        g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
 
         // Draw Circle at 0,0
         g.setColor(Color.WHITE);

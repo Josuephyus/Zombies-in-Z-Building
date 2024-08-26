@@ -107,8 +107,6 @@ Added a static FPS value
 Added a static millisecondsPerFrame
 Added totalTime to logic for improved Tick Rate functions
 
-### 0.0.0.8 WIP
-
 TODO:
 Fix HUD Shake
 Add Area Weapons
@@ -132,4 +130,12 @@ Rule of thumb. If it's good enough for minecraft, its good enough for us. They u
 
 - Addition 2
 
-Working on Interactions.
+Working on Interactions. Got them all. Kind of scuffed, but very easy to fix in big updates.
+
+- Addition 3
+
+Working on walls. Got Walls and Obstacles working.
+
+### 0.0.0.8
+
+All the 0.0.0.7 additions.

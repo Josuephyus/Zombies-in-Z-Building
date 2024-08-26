@@ -22,7 +22,7 @@ public class Player extends Entity{
     public int size = 30;
 
     private boolean _SwapToggle = true;
-
+    public Map m = new Map();
 
     String lastShot = "";
 
@@ -46,7 +46,7 @@ public class Player extends Entity{
         if (a.k[4] && canDash){
 
             speed = _sprint_speed * time;
-            Energy[0] -= 1.5f * time;
+            Energy[0] -= 75f * time;
             canDash = (Energy[0] >= 0);
 
         } else if (Energy[0] < Energy[1] && !canDash){ 
@@ -78,8 +78,19 @@ public class Player extends Entity{
 
         if (position.distance(playerToMove) != 0){
             float theta = position.directionTo(playerToMove);
-            position.x += Math.cos(theta) * speed;
-            position.y += Math.sin(theta) * speed;
+
+            int microsteps = 4;
+            
+            float xM = (float)(Math.cos(theta) * speed) / microsteps;
+            float yM = (float)(Math.sin(theta) * speed) / microsteps;
+            for (int i = 0; i < microsteps; i++){
+                if (m.isValid(new Point(position.x + xM, position.y))){
+                    position.x += xM;
+                }
+                if (m.isValid(new Point(position.x, position.y + yM))){
+                    position.y+= yM;
+                }
+            }
         }
         
         /* (Move the player if they moved)

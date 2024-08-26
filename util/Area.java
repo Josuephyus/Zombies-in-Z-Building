@@ -48,23 +48,14 @@ public class Area extends Damage {
             System.out.println(b[2]);
             System.out.println(b[3]);
     
-            Line[] c = new Line[]{
-                new Line(b[0], b[1]), new Line(b[1], b[2]), new Line(b[2], b[3]), new Line(b[3], b[0])
-            };
-    
             boolean inside = false;
-            int j = c.length - 1;
-            for (int i = 0; i < c.length; j = i++){
+            int j = 3;
+            for (int i = 0; i < 4; j = i++){
                 if ( ((ys[i] > e.position.y) != (ys[j] > e.position.y))
                 && (e.position.x < (xs[j] - xs[i]) * (e.position.y - ys[i]) / (ys[j] - ys[i]) + xs[i])){
                     inside = !inside;
                 }
             }
-            //for (int i = 0; i < c.length; i++){
-            //    if (c[i].intersect(a)){
-            //        inside = !inside;
-            //    }
-            //}
 
             return inside;
         } 

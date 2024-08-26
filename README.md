@@ -57,12 +57,14 @@ Added Lasers and Laser Weapons
 
 Added .weapon format for custom weapons
 
-### 0.0.0.8 (WIP)
+### 0.0.0.8
 
-Promises
- [♦][♦][♦] Weapon types (Projectile, Laser, Area)
- [♦][♦][♦] Test Vending Machines (Attack Speed, Movement Speed, Lifesteal)
- [ ][ ]    Walls (Bounds, Obstacles)
-
-LetDowns
- [♦] Weapon Mods
+Fixed:
+ Projectile Weapons,
+ Laser Weapons,
+Added:
+ Area Weapons,
+ Vending Machines,
+ Walls
+Removed:
+ .weapon file type
