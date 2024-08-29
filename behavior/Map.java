@@ -4,18 +4,26 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 import util.*;
+import data.interactables.*;
 
 public class Map {
 
     public Point lowerBound = new Point(-500,-500);
     public Point upperBound = new Point(500,500);
+    public Interactable[] interactables;
 
     public Wall[] walls = new Wall[]{
         new Wall(-500,-500,100,200),
         new Wall(100,100,100,100),
     };
 
-    public Map(){}
+    public Map(){
+        interactables = new Interactable[]{
+            new FireRate(),
+            new Movespeed(),
+            new Lifesteal(),
+        };
+    }
 
     public boolean isValid(Point e){
         if (e.x > upperBound.x) return false;

@@ -4,6 +4,9 @@ import behavior.*;
 import util.*;
 
 public class Shotgun extends Weapon{
+
+    private float _inbetween_cd = 0.1f;
+
     public Shotgun(){
         _MaxClipSize = 4;
         _MaxAmmo = 60;

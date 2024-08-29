@@ -14,7 +14,7 @@ public class Movespeed extends Interactable{
     }
 
     public void interactedWith(Entity e){
-        e.addBuff("movespeed");
+        e.addBuff("MOVESPEED_UP");
     }
 
     public void draw(Graphics g){

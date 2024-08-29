@@ -36,7 +36,7 @@ public class Artist{
         // Draw Map
         g.setColor(Color.WHITE);
         g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
-        Logic.m.draw(g);
+        Logic.map.draw(g);
         g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
 
         // Draw Circle at 0,0
@@ -47,8 +47,8 @@ public class Artist{
         // Draw Vending Machines
         g.setColor(Color.WHITE);
         g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
-        for (int i = 0; i < Logic.interactables.length; i++){
-            Logic.interactables[i].draw(g);
+        for (int i = 0; i < Logic.map.interactables.length; i++){
+            Logic.map.interactables[i].draw(g);
         }
         g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
 

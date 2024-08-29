@@ -7,10 +7,13 @@ import util.*;
 
 public class Entity {
 
-    public static Map m;
+    public static Map map;
     private static int NEXT_ID;
     public int ID;
     public String[] buffs = new String[3];
+    public String[] potentialBuffs = new String[]{
+        "FIRERATE_UP", "MOVEMENT_UP", "LIFESTEAL_5"
+    };
     public int buffIndex = 0;
 
     public ArrayList<Damage> damages = new ArrayList<Damage>();
@@ -44,17 +47,18 @@ public class Entity {
     public void addBuff(String a){
         buffs[buffIndex] = a;
         buffIndex++;
-        buffIndex %= buffs.length;
+        buffIndex = buffIndex % buffs.length;
     }
 
     public boolean hasBuff(String a){
         for (int i = 0; i < buffs.length; i++){
             if (buffs[i] != null){
-                if (buffs[i].equals(a)){
+                if (buffs[i].equals(a.toUpperCase())){
                     return true;
                 }
             }
-        } return false;
+        }
+        return false;
     }
 
     public void drawMethod(Graphics g){}

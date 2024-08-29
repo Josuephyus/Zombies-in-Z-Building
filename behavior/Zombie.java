@@ -36,11 +36,11 @@ public class Zombie extends Entity{
         float yM = (float)Math.sin(theta) * _speed * totalTime / (float)microsteps;
 
         for (int i = 0; i < microsteps; i++){
-            if (m.isValid(new Point(position.x + xM, position.y))){
-                position.x += xM; System.out.println(xM);
+            if (map.isValid(new Point(position.x + xM, position.y))){
+                position.x += xM;
             }
-            if (m.isValid(new Point(position.x, position.y + yM))){
-                position.y += yM; System.out.println(yM);
+            if (map.isValid(new Point(position.x, position.y + yM))){
+                position.y += yM;
             }
         }
 

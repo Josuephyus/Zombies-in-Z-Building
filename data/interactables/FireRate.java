@@ -14,7 +14,7 @@ public class FireRate extends Interactable{
     }
 
     public void interactedWith(Entity e){
-        e.addBuff("Firerate");
+        e.addBuff("FIRERATE_UP");
     }
 
     public void draw(Graphics g){

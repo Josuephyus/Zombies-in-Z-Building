@@ -18,17 +18,15 @@ public class Listener {
     public static HashMap<String,KeyBind> key;
     static String[] keyBindNames = new String[]{
         "Up", "Left", "Down", "Right",
-        "SwapLeft", "SwapRight",
-        "Sprint",
-        "Fire", "Reload", "Interact",
-        "SlowTime", "Pause",
+        "Weapon1", "Weapon2", "Weapon3", "Weapon4",
+        "Fire", "Reload", "Interact", "Ability",
+        "Dash", "Sprint", "SlowTime", "Pause",
     };
     static KeyBind[] currentKeyBinds = new KeyBind[]{
         new KeyBind(KeyEvent.VK_W), new KeyBind(KeyEvent.VK_A), new KeyBind(KeyEvent.VK_S), new KeyBind(KeyEvent.VK_D),
-        new KeyBind(KeyEvent.VK_Q), new KeyBind(KeyEvent.VK_E),
-        new KeyBind(KeyEvent.VK_SHIFT),
-        new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_R), new KeyBind(KeyEvent.VK_F),
-        new KeyBind(KeyEvent.VK_CONTROL), new KeyBind(KeyEvent.VK_ESCAPE),
+        new KeyBind(KeyEvent.VK_1), new KeyBind(KeyEvent.VK_2), new KeyBind(KeyEvent.VK_3), new KeyBind(KeyEvent.VK_4),
+        new KeyBind(KeyEvent.VK_F), new KeyBind(KeyEvent.VK_R), new KeyBind(KeyEvent.VK_E), new KeyBind(KeyEvent.VK_Q),
+        new KeyBind(KeyEvent.VK_SPACE), new KeyBind(KeyEvent.VK_SHIFT), new KeyBind(KeyEvent.VK_P), new KeyBind(KeyEvent.VK_ESCAPE), 
     };
 
     public static void start(){

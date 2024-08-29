@@ -19,7 +19,7 @@ public class Pistol extends Weapon {
 
         width = 90;
         height = 45;
-        create.damage = 10;
+        create.damage = 60;
         create.range = 9999f;
         
         create.width = 6;
@@ -28,8 +28,8 @@ public class Pistol extends Weapon {
         create.image = "N/A";
         create.speed = 750;
 
-        fireRate = 12f;
-        reloadSpeed = 2f;
+        fireRate = 2.25f;
+        reloadSpeed= 2f;
         reloading = false;
         
     }

@@ -1,65 +1,58 @@
 import java.util.ArrayList;
 
 import behavior.*;
-import data.interactables.*;
 import util.*;
 
 public class Logic {
 
     public static Player player;
-    public static Map m;
+    public static Map map;
+
+    public static Thread t;
 
     public static ArrayList<Damage> damages = new ArrayList<Damage>();
     public static ArrayList<Entity> zombies = new ArrayList<Entity>();
-
-    public static Interactable[] interactables = new Interactable[3];
 
     static int ticksPerUpdate = 20;
     static Long fps = 60l;
     static Long millisecondsPerFrame = 1000 / fps;
 
+    public static float zombiesPerRound = 10;
+    public static int zombiesKilled = 0;
+    private static int maxZombiesAllowed = 30;
+    private static int roundCounter = 1;
+
     static Runnable updateLoop = new Runnable(){
-        Thread t;
-        public boolean equals(Object a){
-            t = new Thread(this); t.start();
-            System.out.println("Logic.java - Starting Loop");
-            return true;
-        }
         public void run(){
-            while (t != null){
-                if (Listener.check("SlowTime"))
-                    update(ticksPerUpdate / 4);
-                else if (Listener.check("Pause"))
-                    update(0);
-                else 
-                    update(ticksPerUpdate);
-                Initialize.win.repaint();
-                try{
+            try{
+                while (true){
+                    if (Listener.check("SlowTime"))
+                        update(ticksPerUpdate / 4);
+                    else if (Listener.check("Pause"))
+                        update(0);
+                    else 
+                        update(ticksPerUpdate);
+                    Initialize.win.repaint();
+
+
                     Thread.sleep(millisecondsPerFrame);
-                } catch (InterruptedException e){
-                    System.out.println("##### Thread Broke #####");
                 }
+            } catch (InterruptedException e){
+                System.out.println("##### Thread Broke #####");
             }
-        }
-        public String toString(){
-            t = null;
-            return "";
         }
     };
 
     public static void start(){
 
-        m = new Map();
-        Entity.m = m;
+        map = new Map();
+        Entity.map = map;
+
 
         damages = new ArrayList<Damage>();
-        interactables = new Interactable[]{
-            new FireRate(),
-            new Movespeed(),
-            new Lifesteal()
-        };
         player = new Player();
-        updateLoop.equals(""); // Start (Overwritten)
+        t = new Thread(updateLoop);
+        t.start();
     }
 
     // Use the overwritten toString command to kill loop
@@ -71,8 +64,13 @@ public class Logic {
         Listener.gameMouse.updatePosition();
 
         // If not enough zombies, add more
-        if (zombies.size() < 1){
-            zombies.add(new Zombie(300, 300));
+        if (zombiesKilled + zombies.size() < (int)zombiesPerRound && zombies.size() < maxZombiesAllowed){
+            zombies.add(new Zombie(400, 0));
+        } else if (zombiesKilled == (int)zombiesPerRound){
+            zombiesPerRound *= 1.75;
+            zombiesKilled = 0;
+            roundCounter++;
+            System.out.println("Round " + roundCounter);
         }
 
         updateProjectiles(time);
@@ -83,15 +81,21 @@ public class Logic {
     public static void updatePlayer(float time){
 
         boolean[] boolean_array = {
-            Listener.check("Up"),
+            Listener.check("Up"), // 0
             Listener.check("Down"),
             Listener.check("Left"),
             Listener.check("Right"),
-            Listener.check("Sprint"),
-            Listener.check("SwapLeft"),
-            Listener.check("SwapRight"),
-            Listener.check("Fire"),
+            Listener.check("Weapon1"), // 4
+            Listener.check("Weapon2"),
+            Listener.check("Weapon3"),
+            Listener.check("Weapon4"),
+            Listener.check("Fire"), // 8
             Listener.check("Reload"),
+            Listener.check("Interact"),
+            Listener.check("Ability"),
+            Listener.check("Dash"), // 12
+            Listener.check("Sprint"),
+            Listener.check("Interact")
         };
 
         int x = Listener.gameMouse.x + (int)player.position.x;
@@ -105,14 +109,6 @@ public class Logic {
                 damages.add(d);
             }
         }
-
-        if (Listener.check("Interact")){
-            for (Interactable i : interactables){
-                if (i.position.distance(player.position) < i.radius){
-                    i.interactedWith(player);
-                }
-            }
-        }
     }
 
     public static void updateProjectiles(float time){
@@ -121,8 +117,8 @@ public class Logic {
                 for (int o = 0; o < zombies.size(); o++){
                     if (damages.get(i).canHit(zombies.get(o))){
                         zombies.get(o).HP[0] -= damages.get(i).damage;
-                        if (damages.get(i).tied.hasBuff("Lifesteal")){
-                            damages.get(i).tied.HP[0] += damages.get(i).damage;
+                        if (damages.get(i).tied.hasBuff("LIFESTEAL_5")){
+                            damages.get(i).tied.HP[0] += damages.get(i).damage / 20;
                         }
                         damages.get(i).setRange(0);
                     }
@@ -138,6 +134,7 @@ public class Logic {
         for (int i = 0; i < zombies.size(); i++){
             player.HP[0] -= zombies.get(i).update(player.position, time);
             if (!zombies.get(i).isAlive()){
+                zombiesKilled++;
                 zombies.remove(i);
             }
         }

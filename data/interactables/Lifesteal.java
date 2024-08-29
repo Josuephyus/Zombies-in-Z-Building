@@ -14,7 +14,7 @@ public class Lifesteal extends Interactable{
     }
 
     public void interactedWith(Entity e){
-        e.addBuff("Lifesteal");
+        e.addBuff("LIFESTEAL_5");
     }
 
     public void draw(Graphics g){
