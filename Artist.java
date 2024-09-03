@@ -36,6 +36,12 @@ public class Artist{
         // Draw Map
         g.setColor(Color.WHITE);
         g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
+        g.drawImage(Texture.allMaps[1], -1000, -500, 2000, 1000, null);
+        g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
+
+        // Draw Debug Map
+        g.setColor(Color.WHITE);
+        g.translate((int)Math.round(-playerPos.x), (int)Math.round(playerPos.y));
         Logic.map.draw(g);
         g.translate((int)Math.round(playerPos.x), (int)Math.round(-playerPos.y));
 

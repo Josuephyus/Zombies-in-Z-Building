@@ -12,6 +12,8 @@ public class Texture {
     public static String[] weaponNames;
     public static BufferedImage[] allEnemies;
     public static String[] enemyNames;
+    public static BufferedImage[] allMaps;
+    public static String[] mapNames;
     
     public static void loadImages(){
 
@@ -27,7 +29,6 @@ public class Texture {
 
 
         allWeapons = quickRead("weapons",weaponNames);
-        System.out.println("aisa" + allWeapons.length);
 
         java.util.ArrayList<String> tenemyNames = new java.util.ArrayList<String>();
         File enemiesFolder = new File(System.getProperty("user.dir")+"\\textures\\Enemies");
@@ -40,10 +41,22 @@ public class Texture {
 
         allEnemies = quickRead("Enemies", enemyNames);
 
+
+        java.util.ArrayList<String> tmapNames = new java.util.ArrayList<String>();
+        File mapFolder = new File(System.getProperty("user.dir")+"\\textures\\Map");
+        for (File i : mapFolder.listFiles()){
+            if (i.getName().split("\\.")[1].equals("png"))tmapNames.add(i.getName());
+        } mapNames = new String[tmapNames.size()];
+        for (int i = 0; i < tmapNames.size(); i++){mapNames[i] = tmapNames.get(i);}
+
+        allMaps = quickRead("Map", mapNames);
+
     }
 
 
     public static BufferedImage[] quickRead(String prefix, String[] a){
+        if (a == null) return new BufferedImage[0];
+        if (a.length < 1) return new BufferedImage[0];
         BufferedImage b[] = new BufferedImage[a.length];
         for (int i = 0; i < a.length; i++){
             try {

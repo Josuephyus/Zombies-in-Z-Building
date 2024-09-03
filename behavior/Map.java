@@ -2,14 +2,16 @@ package behavior;
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import util.*;
 import data.interactables.*;
 
 public class Map {
 
-    public Point lowerBound = new Point(-500,-500);
-    public Point upperBound = new Point(500,500);
+    public BufferedImage image;
+    public Point lowerBound = new Point(-1000,-500);
+    public Point upperBound = new Point(1000,500);
     public Interactable[] interactables;
 
     public Wall[] walls = new Wall[]{
