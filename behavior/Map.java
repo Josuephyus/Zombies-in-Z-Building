@@ -15,7 +15,11 @@ public class Map {
     public Interactable[] interactables;
 
     public Wall[] walls = new Wall[]{
-        new Wall(-500,-500,100,200),
+        new Wall(-1000,496,316, 4),
+        new Wall(-1000, 224,316, 8),
+        new Wall(-1000, -16,316, 8),
+        new Wall(-1000, -256,316, 8),
+        new Wall(-1000, -500,316, 8),
         new Wall(100,100,100,100),
     };
 
@@ -42,7 +46,7 @@ public class Map {
     }
 
     public void draw(Graphics g){
-        g.setColor(Color.DARK_GRAY);
+        g.setColor(new Color(255,0,0,190));
         int[] xs = new int[]{(int)lowerBound.x, (int)lowerBound.x, (int)upperBound.x, (int)upperBound.x};
         int[] ys = new int[]{(int)lowerBound.y, (int)upperBound.y, (int)upperBound.y, (int)lowerBound.y};
         g.drawPolygon(xs, ys, 4);

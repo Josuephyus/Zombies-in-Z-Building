@@ -6,7 +6,7 @@ Weapon1:false,49,false
 Weapon2:false,50,false
 Weapon3:false,51,false
 Weapon4:false,52,false
-Fire:false,70,false
+Fire:true,1,false
 Reload:false,82,false
 Interact:false,69,false
 Ability:false,81,false

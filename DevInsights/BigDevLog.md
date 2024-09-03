@@ -164,3 +164,11 @@ Note to self: Move Interactables to the map and have the Player.update check int
 + Adjusted Artist to draw Logic.map.interactables instead of Logic.interactables
 
 - Logic has lost Interactables
+
+--- Addition 3 ---
+
++ Map now displays a map
+TODO:
+    Fix weapons
+    Add walls and locked rooms
+    Add Dash
