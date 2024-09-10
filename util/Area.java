@@ -3,6 +3,7 @@ package util;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Color;
 import behavior.*;
 
 public class Area extends Damage {
@@ -32,7 +33,6 @@ public class Area extends Damage {
         if (currentDuration < 0.017f){
             Line a = new Line(new Point(e.position.x, e.position.y), new Point(e.position.y));
             xa = (int)a.s.x; ya = (int)a.s.y;
-            System.out.println(e.position.y);
             Point[] b = new Point[4];
             float[] xs = {width, -10, -10, width};
             float[] ys = {height / 2, height / 2, height / -2, height / -2};
@@ -42,11 +42,6 @@ public class Area extends Damage {
                 xs[i] = (float)(b[i].x + position.x);
                 ys[i] = -(float)(b[i].y - position.y);;
             }
-
-            System.out.println(b[0]);
-            System.out.println(b[1]);
-            System.out.println(b[2]);
-            System.out.println(b[3]);
     
             boolean inside = false;
             int j = 3;
@@ -67,6 +62,7 @@ public class Area extends Damage {
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.GRAY);
         g2.translate(position.x, -position.y);
         g2.rotate(-rotation);
         g2.setStroke(new BasicStroke(1));

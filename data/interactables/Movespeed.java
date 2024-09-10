@@ -9,7 +9,7 @@ import util.*;
 public class Movespeed extends Interactable{
     
     public Movespeed(){
-        position = new Point(150, 100);
+        position = new Point(1150, 600);
         radius = 60;
     }
 

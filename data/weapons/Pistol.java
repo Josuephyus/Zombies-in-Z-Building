@@ -7,6 +7,7 @@ public class Pistol extends Weapon {
 
     private float _cooldown;
     private float _currentReloadSpeed;
+    private float _minReloadSpeed = 0.6f;
 
     public Pistol(){
         _MaxClipSize = 16;
@@ -29,7 +30,7 @@ public class Pistol extends Weapon {
         create.speed = 750;
 
         fireRate = 2.25f;
-        reloadSpeed= 2f;
+        reloadSpeed = 2f;
         reloading = false;
         
     }
@@ -57,9 +58,12 @@ public class Pistol extends Weapon {
         if (_cooldown <= 0 && !reloading){
             _CurrentClip--;
             _cooldown = 1 / fireRate;
-            if (e.hasBuff("Firerate"))
+            if (e.hasBuff("Firerate")){
                 _cooldown /= 2;
-            if (_CurrentClip < 1) Reload();
+            }
+            if (_CurrentClip < 1){
+                Reload(e);
+            }
             Damage a = new Projectile(e, create, e.position, e.rotation);
             return a;
         }
@@ -70,7 +74,8 @@ public class Pistol extends Weapon {
         if (!reloading && _CurrentClip < _MaxClipSize){
             reloading = true;
             _currentReloadSpeed = reloadSpeed * (1 - ((float)_CurrentClip / (float)_MaxClipSize));
-            _cooldown = _currentReloadSpeed + 0.5f;
+            if (_currentReloadSpeed < _minReloadSpeed) _currentReloadSpeed = _minReloadSpeed;
+            _cooldown = _currentReloadSpeed;
         }
     }
 }

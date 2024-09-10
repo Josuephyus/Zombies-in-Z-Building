@@ -21,7 +21,7 @@ public class Weapon {
     
     public Damage Fire(Entity e){return new Damage();}
     public void update(float time){}
-    public void Reload(){}
+    public void Reload(Entity e){}
 
     public int getMaxAmmo(){return _MaxAmmo;}
     public int getCurAmmo(){return _CurrentAmmo;}

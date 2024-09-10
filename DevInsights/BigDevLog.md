@@ -168,7 +168,7 @@ Note to self: Move Interactables to the map and have the Player.update check int
 --- Addition 3 ---
 
 + Map now displays a map
++ Fixed all weapons (now have reloads fixed too!)
 TODO:
-    Fix weapons
     Add walls and locked rooms
     Add Dash

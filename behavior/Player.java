@@ -26,6 +26,11 @@ public class Player extends Entity{
     private float _sprint_speed = 180f;
     private boolean _interactionToggle = true;
 
+    private String _ability_name = "Dash";
+    private boolean _ability_active = false;
+    private Point _ability_var1;
+    private float _ability_duration;
+
     public int size = 30;
 
     private boolean _SwapToggle = true;
@@ -38,7 +43,7 @@ public class Player extends Entity{
         _speed = 100f;
         HP = new float[]{100f, 100f, 0f};
 
-        position = new Point(0, 0);
+        position = new Point(1000,500);
         rotation = 0f;
         damage = 1f;
     }
@@ -46,7 +51,9 @@ public class Player extends Entity{
     public void update(Keys a, Mouse b, float time){
 
         boolean[] boolean_array = new boolean[]{a.k[0],a.k[1],a.k[2],a.k[3], a.k[13]};
-        Move(boolean_array, time);
+        if (!_ability_active || !(_ability_name.equals("Dash"))){
+            Move(boolean_array, time);
+        }
 
         boolean_array = new boolean[]{a.k[4], a.k[5], a.k[6], a.k[7]};
         SwapWeapons(boolean_array);
@@ -57,6 +64,34 @@ public class Player extends Entity{
         boolean_array = new boolean[]{a.k[10]};
         Interact(boolean_array, time);
 
+        Ability(a.k[11], time);
+    }
+
+    private void Ability(boolean a, float time){
+        _ability_duration -= time;
+        if (!_ability_active){
+            _ability_active = a;
+            _ability_duration = 0.4f;
+        } else if (_ability_active && _ability_duration < 0){
+            _ability_active = false;
+        } else {
+            switch(_ability_name){
+                case "Dash":
+                    float microsteps = 4;
+                    float xM = ((float)_ability_var1.x * _sprint_speed * time * 1.8f) / (microsteps);
+                    float yM = ((float)_ability_var1.y * _sprint_speed * time * 1.8f) / (microsteps);
+                    System.out.println((float)_ability_var1.x * _sprint_speed * time);
+                    for (int i = 0; i < microsteps; i++){
+                        if (map.isValid(new Point(position.x + xM, position.y))){
+                            position.x += xM;
+                        }
+                        if (map.isValid(new Point(position.x, position.y + yM))){
+                            position.y += yM;
+                        }
+                    } break;
+                default: break;
+            }
+        }
     }
 
     private void Interact(boolean[] a, float time){
@@ -76,7 +111,7 @@ public class Player extends Entity{
         if (a[0]){
             damages.add(weapons[weaponIndex].Fire(this));
         } else if (a[1]){
-            weapons[weaponIndex].Reload();
+            weapons[weaponIndex].Reload(this);
         }
         weapons[weaponIndex].update(time);
     }
@@ -124,6 +159,9 @@ public class Player extends Entity{
 
             int microsteps = 4;
             
+            if (_ability_name.equals("Dash")){
+                _ability_var1 = new Point(Math.cos(theta), Math.sin(theta));
+            }
             float xM = (float)(Math.cos(theta) * speed) / microsteps;
             float yM = (float)(Math.sin(theta) * speed) / microsteps;
             for (int i = 0; i < microsteps; i++){

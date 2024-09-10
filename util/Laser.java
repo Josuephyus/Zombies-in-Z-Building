@@ -3,6 +3,7 @@ package util;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
+import java.awt.Color;
 
 import behavior.Entity;
 
@@ -49,17 +50,18 @@ public class Laser extends Damage{
                 tied.position.x + (Math.cos(-rotation) * range),
                 tied.position.y + (Math.sin(-rotation) * range)
             )
-        );}
+        );
+    }
     public boolean isAlive(){return (currentDuration < duration);}
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.GRAY);
         g2.setStroke(new BasicStroke(getDisplayWidth()));
         g2.drawLine((int)hitbox.s.x, -(int)hitbox.s.y, (int)hitbox.e.x, -(int)hitbox.e.y);
     }
 
     public boolean canHit(Entity e){
-        System.out.println(hitbox.distance(e.position) < width + e.size);
         return hitbox.distance(e.position) < (width * 2) + e.size && updateCount < 2;
     }
 

@@ -56,7 +56,7 @@ public class Projectile extends Damage{
         Graphics2D graphics2D = (Graphics2D)g;
 
 
-        graphics2D.setColor(Color.GREEN);
+        graphics2D.setColor(Color.GRAY);
         graphics2D.translate((int)Math.round(position.x), (int)Math.round(-position.y));
         graphics2D.rotate(-rotation);
         graphics2D.fillRect(-width/2, -height/2, width, height);

@@ -9,7 +9,7 @@ import util.*;
 public class FireRate extends Interactable{
     
     public FireRate(){
-        position = new Point(-150, 0);
+        position = new Point(1150, 500);
         radius = 60;
     }
 

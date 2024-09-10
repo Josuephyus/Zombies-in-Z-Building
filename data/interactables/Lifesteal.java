@@ -9,7 +9,7 @@ import util.*;
 public class Lifesteal extends Interactable{
     
     public Lifesteal(){
-        position = new Point(150, -100);
+        position = new Point(1150, 400);
         radius = 60;
     }
 
