@@ -1,0 +1,16 @@
+Up:false,87,false
+Left:false,65,false
+Down:false,83,false
+Right:false,68,false
+Weapon1:false,49,false
+Weapon2:false,50,false
+Weapon3:false,51,false
+Weapon4:false,52,false
+Fire:false,70,false
+Reload:false,82,false
+Interact:false,69,false
+Ability:false,32,false
+Dash:false,81,false
+Sprint:false,16,false
+SlowTime:false,80,false
+Pause:false,27,false
