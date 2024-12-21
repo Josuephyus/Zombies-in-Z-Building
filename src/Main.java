@@ -3,6 +3,8 @@ import javax.swing.JPanel;
 import java.awt.Toolkit;
 
 import util.Listener;
+import util.Artist;
+import util.Logic;
 import util.Menus;
 
 public class Main {
@@ -35,7 +37,7 @@ public class Main {
         window.setLayout(null);
         window.setDefaultCloseOperation(3);
         window.setSize(win_w + 14, win_h + 37);
-        window.setLocation(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        window.setLocation(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
         window.setResizable(true);
         window.setVisible(true);
 
@@ -51,6 +53,8 @@ public class Main {
     }
 
     void StartGame() {
+        Logic.setListener(listeners);
+        Artist.setWindow(window);
         display = Menus.getMenu("Splash");
         window.add(display);
         window.repaint();

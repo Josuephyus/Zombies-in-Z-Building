@@ -39,7 +39,7 @@ public class _2 extends JPanel {
                     end = System.currentTimeMillis();
 
                    if (end - start < 16)
-                        Thread.sleep((end - start) - 16);
+                        Thread.sleep(16 - (end - start));
                 }    
             } catch (Exception e) {
                 e.printStackTrace();

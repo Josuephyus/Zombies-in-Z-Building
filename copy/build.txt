@@ -1,10 +1,15 @@
+entities\Player.class
+entities\_Entity.class
 Main.class
+maps\_Map.class
 util\Artist.class
 util\Listener$KeyBind.class
 util\Listener$KeyL.class
 util\Listener$MouseL.class
 util\Listener.class
 util\Logic.class
+util\math\MathF.class
+util\math\Vec2.class
 util\menus\_0$1.class
 util\menus\_0.class
 util\menus\_1$1.class

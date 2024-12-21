@@ -16,7 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class Listener {
-    public Listener(){  }
+    public Listener(){ KL = new KeyL(this); ML = new MouseL(this); }
 
     public KeyL KL;
     public MouseL ML;
@@ -25,7 +25,7 @@ public class Listener {
     KeyBind[] KeybindBinds;
     public void Start() {
         KeybindNames = new String[]{
-            "MoveU", "MoveD", "MoveL", "MoveR",
+            "MoveU", "MoveL", "MoveD", "MoveR",
             "Weapon1", "Weapon2", "Weapon3", "Weapon4",
             "Fire", "Reload", "Interact", "Ability",
             "Dash", "Sprint", "SlowTime", "Pause"
