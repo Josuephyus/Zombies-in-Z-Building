@@ -3,10 +3,6 @@ package entities;
 import util.math.Vec2;
 
 public class Player extends _Entity {
-    
-    public Vec2 position = new Vec2();
-
-    public float _movement_speed = 1f;
 
     public float _stamina_max = 100f;
     public float _stamina_cur = _stamina_max;
@@ -26,7 +22,7 @@ public class Player extends _Entity {
         boolean MoveL = Move[3];
         boolean Sprint = Move[4];
 
-        float speed = _movement_speed * time;
+        float speed = movement_speed * time;
 
 
         // Manipulate Stamina

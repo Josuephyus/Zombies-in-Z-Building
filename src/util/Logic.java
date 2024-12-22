@@ -50,6 +50,10 @@ public class Logic {
         for (int i = 0; i < ENEMIES.size(); i++) {
             ENEMIES.get(i).updateAI(time);
         }
+
+        if (ENEMIES.size() < 1) {
+            ENEMIES.add(new Zombie(0, 0));
+        }
     }
 
 

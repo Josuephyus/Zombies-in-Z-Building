@@ -1,4 +1,5 @@
 D:\Code\Java\Zombies-Redo2\Zombies-in-Z-Building\src\entities\Player.java
+D:\Code\Java\Zombies-Redo2\Zombies-in-Z-Building\src\entities\Zombie.java
 D:\Code\Java\Zombies-Redo2\Zombies-in-Z-Building\src\entities\_Entity.java
 D:\Code\Java\Zombies-Redo2\Zombies-in-Z-Building\src\Main.java
 D:\Code\Java\Zombies-Redo2\Zombies-in-Z-Building\src\maps\_Map.java
