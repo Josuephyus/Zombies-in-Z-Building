@@ -1,6 +1,8 @@
 package entities;
 
 import util.math.Vec2;
+import util.Logic;
+import util.math.MathF;
 
 public class Player extends _Entity {
 
@@ -68,5 +70,27 @@ public class Player extends _Entity {
         Vec2 WS_self = new Vec2(0, 0);
 
         facing = WS_self.directionTo(WS_mouse);
+    }
+
+    public void attack() {
+        //Melee weapon
+
+        float min = facing - (MathF.PI / 2);
+        float max = facing + (MathF.PI / 2);
+        float range = 100;
+        float damage = 1;
+
+        byte count = 0;
+        for (int i = 0; i < Logic.ENEMIES.size(); i++) {
+            if (Logic.ENEMIES.get(i).position.distance(this.position) < range) {
+                float dT = this.position.directionTo(Logic.ENEMIES.get(i).position);
+                if ( dT > min && dT < max) {
+                    count++;
+                    Logic.ENEMIES.get(i).HP.cur -= damage;
+                }
+                System.out.println("dT: " + dT + ", min: " + min + ", max: " + max);
+            }
+        }
+        System.out.println("facing: " + facing);
     }
 }

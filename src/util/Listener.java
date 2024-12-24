@@ -178,7 +178,7 @@ public class Listener {
             int scr_x = mainWindow.getX();
             int scr_y = mainWindow.getY();
             x = x1 - (scr_w / 2) - scr_x;
-            y = y1 - (scr_h / 2) - scr_y;
+            y = -y1 + (scr_h / 2) + scr_y;
         }
 
         public void mouseClicked(MouseEvent e) {}

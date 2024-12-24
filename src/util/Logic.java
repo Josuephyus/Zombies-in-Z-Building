@@ -15,6 +15,7 @@ public class Logic {
     public static Player PLAYER;
     public static _Map MAP;
     public static ArrayList<_Entity> ENEMIES;
+    public static int round = 0;
 
     public static void Start() {
         MAP = new _Map();
@@ -49,11 +50,22 @@ public class Logic {
 
     static void updateEnemies() {
         for (int i = 0; i < ENEMIES.size(); i++) {
+            if (ENEMIES.get(i).HP.cur < 0) {
+                ENEMIES.remove(i);
+                continue;
+            }
+
             ENEMIES.get(i).updateAI(time);
         }
 
-        if (ENEMIES.size() < 1) {
-            ENEMIES.add(new Zombie(0, 0));
+        if (ENEMIES.size() == 0) {
+            round++;
+
+            int new_count = round * 2 + 1;
+            
+            for (int i = 0; i < new_count; i++) {
+                ENEMIES.add(new Zombie(i * 4 + 1, i * 3 - 12));
+            }
         }
     }
 
@@ -75,5 +87,9 @@ public class Logic {
         
         // Facing
         PLAYER.face(LISTENER.ML.x, LISTENER.ML.y);
+
+        if (LISTENER.check("Fire")) {
+            PLAYER.attack();
+        }
     }
 }

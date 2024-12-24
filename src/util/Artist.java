@@ -49,7 +49,7 @@ public class Artist {
         // Draw Player
         float x = 0, y = 0;
         int w = 1, h = 1;
-        int center_x = base_w / 2 - LISTENER.ML.x / 3, center_y = base_h / 2 - LISTENER.ML.y / 3;
+        int center_x = base_w / 2 - LISTENER.ML.x / 3, center_y = base_h / 2 + LISTENER.ML.y / 3;
 
         Vec2 player_pos = Logic.PLAYER.position;
         x = center_x; y = center_y; w = 40; h = 40;
@@ -58,7 +58,7 @@ public class Artist {
 
         ((Graphics2D)g).setStroke(new BasicStroke(8));
         g.setColor(Color.gray);
-        drawLine(g, x, y, 10, 20, Logic.PLAYER.facing);
+        drawLine(g, x, y, 10, 20, -Logic.PLAYER.facing);
         ((Graphics2D)g).setStroke(new BasicStroke(2));
 
 
