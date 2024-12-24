@@ -50,7 +50,7 @@ public class Logic {
 
     static void updateEnemies() {
         for (int i = 0; i < ENEMIES.size(); i++) {
-            if (ENEMIES.get(i).HP.cur < 0) {
+            if (ENEMIES.get(i).HP.cur <= 0) {
                 ENEMIES.remove(i);
                 continue;
             }
