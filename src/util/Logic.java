@@ -71,5 +71,9 @@ public class Logic {
         };
 
         PLAYER.move(Move, time);
+
+        
+        // Facing
+        PLAYER.face(LISTENER.ML.x, LISTENER.ML.y);
     }
 }

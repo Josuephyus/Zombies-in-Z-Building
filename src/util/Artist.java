@@ -3,10 +3,15 @@ package util;
 import javax.swing.JFrame;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 
+import java.util.ArrayList;
+
 import util.math.Vec2;
+import util.math.MathF;
+
 import entities.*;
 import entities._Entity.Resource;;
 
@@ -41,6 +46,7 @@ public class Artist {
         scale_w = ((float)disp_w / base_w);
         scale_h = ((float)disp_h / base_h);
 
+        // Draw Player
         float x = 0, y = 0;
         int w = 1, h = 1;
         int center_x = base_w / 2 - LISTENER.ML.x / 3, center_y = base_h / 2 - LISTENER.ML.y / 3;
@@ -50,7 +56,13 @@ public class Artist {
         g.setColor(Color.cyan);
         fillCenteredCircle(g, x, y, w, h);
 
+        ((Graphics2D)g).setStroke(new BasicStroke(8));
+        g.setColor(Color.gray);
+        drawLine(g, x, y, 10, 20, Logic.PLAYER.facing);
+        ((Graphics2D)g).setStroke(new BasicStroke(2));
 
+
+        // Draw UI
         x = 10; y = base_h - 50; w = base_w / 3; h = 40;
         g.setColor(Color.gray);
         fillRect(g, x, y, w, h);
@@ -68,6 +80,8 @@ public class Artist {
         g.setColor(Color.yellow);
         fillRect(g, x, y, w, h);
 
+
+        // Draw Enemies
         for (int i = 0; i < E.size(); i++) {
             Vec2 pos = E.get(i).position;
             Resource hp = E.get(i).HP;
@@ -146,5 +160,22 @@ public class Artist {
         float new_x = x - (w / 2);
         float new_y = y - (h / 2);
         fillCircle(g, new_x, new_y, w, h);
+    }
+
+    static void drawLine(Graphics g, float x, float y, float s, float l, float d) {
+        
+        Vec2 a = new Vec2(MathF.cos(d), MathF.sin(d));
+        a.multiply(s);
+
+        float x1 = (x + a.x) * scale_w;
+        float y1 = (y + a.y) * scale_h;
+        
+        a = new Vec2(MathF.cos(d), MathF.sin(d));
+        a.multiply(l);
+
+        float x2 = (x + a.x) * scale_w;
+        float y2 = (y + a.y) * scale_h;
+
+        g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
     }
 }

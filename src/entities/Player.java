@@ -7,6 +7,8 @@ public class Player extends _Entity {
     public Resource _stamina = new Resource(new float[]{ 100f, 100f, 0.8f, 1f, 0.6f});
     public boolean _stamina_empty = false;
 
+    public float facing = 0;
+
     public float _sprinting_modifier = 2f;
     public Player() {
         HP = new Resource(100, 1);
@@ -58,5 +60,13 @@ public class Player extends _Entity {
             movement.multiply(speed);
             position.add(movement);
         }
+    }
+
+    public void face(float x, float y) {
+        // WindowSpace
+        Vec2 WS_mouse = new Vec2(x, y);
+        Vec2 WS_self = new Vec2(0, 0);
+
+        facing = WS_self.directionTo(WS_mouse);
     }
 }
