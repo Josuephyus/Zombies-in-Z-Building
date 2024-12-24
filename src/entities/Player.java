@@ -4,14 +4,13 @@ import util.math.Vec2;
 
 public class Player extends _Entity {
 
-    public float _stamina_max = 100f;
-    public float _stamina_cur = _stamina_max;
-    public float _stamina_consume = 0.8f;
-    public float _stamina_regen = 1f;
-    public float _stamina_regen_empty = (100f / 60f) / 3f;
+    public Resource _stamina = new Resource(new float[]{ 100f, 100f, 0.8f, 1f, 0.6f});
     public boolean _stamina_empty = false;
 
     public float _sprinting_modifier = 2f;
+    public Player() {
+        HP = new Resource(100, 1);
+    }
 
 
     public void move(boolean[] Move, float time) {
@@ -27,22 +26,22 @@ public class Player extends _Entity {
 
         // Manipulate Stamina
         if (_stamina_empty) {
-            _stamina_cur += _stamina_regen_empty * time;
-            if (_stamina_cur >= _stamina_max) {
-                _stamina_cur = _stamina_max;
+            _stamina.cur += _stamina.regen_empty * time;
+            if (_stamina.cur >= _stamina.max) {
+                _stamina.cur = _stamina.max;
                 _stamina_empty = false;
             }
         } else if (Sprint) {
             speed *= _sprinting_modifier;
-            _stamina_cur -= _stamina_consume * time;
-            if (_stamina_cur < 0) {
-                _stamina_cur = 0;
+            _stamina.cur -= _stamina.consume * time;
+            if (_stamina.cur < 0) {
+                _stamina.cur = 0;
                 _stamina_empty = true;
             }
-        } else if (_stamina_cur < _stamina_max) {
-            _stamina_cur += _stamina_regen * time;
-            if (_stamina_cur == _stamina_max) {
-                _stamina_cur = _stamina_max;
+        } else if (_stamina.cur < _stamina.max) {
+            _stamina.cur += _stamina.regen * time;
+            if (_stamina.cur == _stamina.max) {
+                _stamina.cur = _stamina.max;
             }
         }
 

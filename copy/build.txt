@@ -1,5 +1,6 @@
 entities\Player.class
 entities\Zombie.class
+entities\_Entity$Resource.class
 entities\_Entity.class
 Main.class
 maps\_Map.class
