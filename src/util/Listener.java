@@ -1,5 +1,7 @@
 package util;
 
+import javax.swing.JFrame;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +19,8 @@ import java.awt.event.MouseEvent;
 
 public class Listener {
     public Listener(){ KL = new KeyL(this); ML = new MouseL(this); }
+
+    public void setWindow(JFrame window) { ML.mainWindow = window; }
 
     public KeyL KL;
     public MouseL ML;
@@ -159,6 +163,7 @@ public class Listener {
         Listener L;
         int x, y;
         int scr_w, scr_h;
+        public JFrame mainWindow;
         public MouseL(Listener L) {
             this.L = L;
             scr_w = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -168,8 +173,12 @@ public class Listener {
         public void mouseUpdate() {
             int x1 = (int)MouseInfo.getPointerInfo().getLocation().getX();
             int y1 = (int)MouseInfo.getPointerInfo().getLocation().getY();
-            x = x1 - (scr_w / 2);
-            y = y1 - (scr_h / 2);
+            scr_w = mainWindow.getWidth();
+            scr_h = mainWindow.getHeight();
+            int scr_x = mainWindow.getX();
+            int scr_y = mainWindow.getY();
+            x = x1 - (scr_w / 2) - scr_x;
+            y = y1 - (scr_h / 2) - scr_y;
         }
 
         public void mouseClicked(MouseEvent e) {}

@@ -46,6 +46,7 @@ public class Main {
 
     void SetupListener() {
         listeners = new Listener();
+        listeners.setWindow(window);
 
         listeners.Start();
         window.addKeyListener(listeners.KL);
@@ -54,6 +55,7 @@ public class Main {
 
     void StartGame() {
         Logic.setListener(listeners);
+        Artist.setListener(listeners);
         Artist.setWindow(window);
         display = Menus.getMenu("Splash");
         window.add(display);

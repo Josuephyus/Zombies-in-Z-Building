@@ -38,6 +38,7 @@ public class Logic {
 
 
     public static void update() {
+        LISTENER.ML.mouseUpdate();
         boolean doUpdate = setSpeed();
         if (!doUpdate) return;
 

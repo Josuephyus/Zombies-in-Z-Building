@@ -29,17 +29,26 @@ public class _2 extends JPanel {
     Runnable gameRun = new Runnable() {
         public void run() {
             try {
+                byte frame_count = 0;
+                long frame_end = System.currentTimeMillis() + 1000;
                 long start, end;
                 while ( true ) {
                     start = System.currentTimeMillis();
+                    frame_count++;
 
-                    self.repaint();
                     Logic.update();
+                    self.repaint();
 
+                    if (frame_end <= System.currentTimeMillis()) {
+                        System.out.println("FPS: " + frame_count);
+                        frame_count = 0;
+                        frame_end = System.currentTimeMillis() + 1000;
+                    }
                     end = System.currentTimeMillis();
 
-                   if (end - start < 16)
-                        Thread.sleep(16 - (end - start));
+
+                   if (end - start < 15)
+                        Thread.sleep(15 - (end - start));
                 }    
             } catch (Exception e) {
                 e.printStackTrace();

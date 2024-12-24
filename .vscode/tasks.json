@@ -6,7 +6,7 @@
         {
             "label": "Debug Java",
             "type": "shell",
-            "command": ".\\RunAsJar_D",
+            "command": ".\\RunAsJar_JYPH-c",
         }
     ]
 }

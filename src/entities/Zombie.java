@@ -22,7 +22,6 @@ public class Zombie extends _Entity {
 
             position.x += MathF.cos(dir) * movement_speed * time;
             position.y += MathF.sin(dir) * movement_speed * time;
-            System.out.println(dir);
         }
     }
 }
