@@ -29,6 +29,11 @@ public class Artist {
     static int base_w = 640, base_h = 360;
     // 640 x 360 as the DEFAULT, otherwise it stretches
     public static void draw(Graphics g) {
+        
+        g.setColor(Color.black);
+        fillRect(g, 0, 0, base_w, base_h);
+        g.setColor(Color.white);
+
         ArrayList<_Entity> E = Logic.ENEMIES;
 
         disp_w = mainWindow.getWidth() - 14;

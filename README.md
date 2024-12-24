@@ -1,70 +1,34 @@
-<style>
-    tab {
-        margin-left: 20px;
-    }
-    h1 {
-        color: lightblue;
-    }
-</style>
-
 # Zombies in Z Building
 
 Top down Shooter against hordes of all types of zombies.
 
+## Current Goals
+
+Read DevInsights/Current/BigDevLog.md for more information about the TODO list.
+
+- Add weapons (and subsequently gameplay)
+- Game over screen
+- More enemies
+- Add In-Game rounds!
+
 ## Patch History
 
-### 0.0.0.1
+### 0.0.1
 
-Created Window that displays player movement.
+Player
 
-### 0.0.0.2
+- Moves with WASD
+- Sprint with Shift
+- Press Escape to Temporarily Pause
+- Press P to "slow down time!"
+- Mouse affects camera position
 
-Map Changes!
- There is now a circle at (0, 0)
-Player Movement Buff!
- from 150 units to 280 units
-System change!
- Tick/Frame rate increased from 30 > 60
+Zombie!
 
-### 0.0.0.3
+- Basic zombie!
+- Stands still to attack
+- Does damage if in range!
 
-Added projectiles and weapon swapping!
- Players can now use Q and E to swap weapons
-Firing Added
- Weapons now fire projectiles
+Map
 
-### 0.0.0.4
-
-Added Basic Enemy!
- It can move
-Player Change!
- Can slow time by 80% with Space
- Can sprint by holding shift
-
-### 0.0.0.5
-
-Player and Enemy Changes
- Can now take damage
-System Changes
- Easier Keybind Modifications
- Window formatting
-
-### 0.0.0.6
-
-Added Lasers and Laser Weapons
-
-### 0.0.0.7
-
-Added .weapon format for custom weapons
-
-### 0.0.0.8
-
-Fixed:
- Projectile Weapons,
- Laser Weapons,
-Added:
- Area Weapons,
- Vending Machines,
- Walls
-Removed:
- .weapon file type
+- Absolutely nothing!
