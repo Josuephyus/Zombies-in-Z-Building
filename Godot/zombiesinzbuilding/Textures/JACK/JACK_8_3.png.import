@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcd517iktykum"
-path="res://.godot/imported/JACK_6_3.png-5b0850a968ea1cdf12a66e0229a4c716.ctex"
+uid="uid://c0doujoh7dw31"
+path="res://.godot/imported/JACK_8_3.png-8e7e9f102232220675238dd28d2ac762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JACK/JACK_6_3.png"
-dest_files=["res://.godot/imported/JACK_6_3.png-5b0850a968ea1cdf12a66e0229a4c716.ctex"]
+source_file="res://Textures/JACK/JACK_8_3.png"
+dest_files=["res://.godot/imported/JACK_8_3.png-8e7e9f102232220675238dd28d2ac762.ctex"]
 
 [params]
 

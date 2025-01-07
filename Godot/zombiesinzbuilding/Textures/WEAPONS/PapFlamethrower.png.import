@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mpurkuu5het8"
-path="res://.godot/imported/JACK_8_2.png-b5926cd6d8a08cf3c5602b7b8b9cf8f3.ctex"
+uid="uid://ccv0x22wnq5xb"
+path="res://.godot/imported/PapFlamethrower.png-ce72a997188c5a4a2a1dedb75d096ced.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JACK/JACK_8_2.png"
-dest_files=["res://.godot/imported/JACK_8_2.png-b5926cd6d8a08cf3c5602b7b8b9cf8f3.ctex"]
+source_file="res://Textures/WEAPONS/PapFlamethrower.png"
+dest_files=["res://.godot/imported/PapFlamethrower.png-ce72a997188c5a4a2a1dedb75d096ced.ctex"]
 
 [params]
 

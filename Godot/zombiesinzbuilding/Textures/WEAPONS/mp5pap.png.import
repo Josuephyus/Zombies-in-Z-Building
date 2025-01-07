@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8k8vhs082mn1"
-path="res://.godot/imported/JACK_2_2.png-2c6c334697450a511efb54ec84e04214.ctex"
+uid="uid://bvwokmc6iedmg"
+path="res://.godot/imported/mp5pap.png-34e9cf51ca00e73b6879884d294497be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://JACK/JACK_2_2.png"
-dest_files=["res://.godot/imported/JACK_2_2.png-2c6c334697450a511efb54ec84e04214.ctex"]
+source_file="res://Textures/WEAPONS/mp5pap.png"
+dest_files=["res://.godot/imported/mp5pap.png-34e9cf51ca00e73b6879884d294497be.ctex"]
 
 [params]
 
